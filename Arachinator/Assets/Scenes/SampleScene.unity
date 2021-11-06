@@ -1835,7 +1835,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1505892970}
   smoothTime: 0.15
-  offset: {x: 0, y: 15, z: -10}
+  offset: {x: 0, y: 12, z: -10}
   enableBoundary: 0
   maxHorizontal: 100
   minHorizontal: -100
@@ -2873,7 +2873,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4883acf57d96a40bdbb54f15a2c376ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 4
 --- !u!1 &1586093898
 GameObject:
   m_ObjectHideFlags: 0
