@@ -3351,6 +3351,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shotPoint: {fileID: 514287183}
   maxDistance: 10
+  coodownTime: 1
+  rigidybody: {fileID: 1505892974}
+  movement: {fileID: 1505892971}
+  impulseForce: 1000
 --- !u!114 &1790134579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3364,23 +3368,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   quality: 500
-  damper: 14
+  damper: 11
   strength: 800
-  velocity: 15
+  velocity: 30
   waveCount: 3
-  waveHeight: 1
+  waveHeight: 5
   affectCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 4.5754714
-      outSlope: 4.5754714
+      inSlope: 2.2665677
+      outSlope: 2.2665677
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.05
+      outWeight: 0.045833334
     - serializedVersion: 3
       time: 1
       value: 0

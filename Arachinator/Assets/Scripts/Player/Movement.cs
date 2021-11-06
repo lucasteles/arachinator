@@ -9,10 +9,15 @@ public class Movement : MonoBehaviour
 
     Vector3 velocity = Vector3.zero;
 
+    bool isLocked = false;
+
 	void Start () => rb = GetComponent<Rigidbody>();
 
-	void FixedUpdate () =>
-        rb.MovePosition(transform.position + velocity * Time.fixedDeltaTime);
+	void FixedUpdate ()
+    {
+        if(!isLocked)
+            rb.MovePosition(transform.position + velocity * Time.fixedDeltaTime);
+    }
 
 	public void Move(Vector3 velocity) => this.velocity = velocity;
 
@@ -21,4 +26,15 @@ public class Movement : MonoBehaviour
         var target = new Vector3(point.x, transform.position.y, point.z);
         transform.LookAt(target);
     }
+
+
+    public void Lock() => isLocked = true;
+    public void Unlock() => isLocked = false;
+
+    public void Lock(float seconds)
+    {
+        Lock();
+        Invoke(nameof(Unlock), seconds);
+    }
+
 }
