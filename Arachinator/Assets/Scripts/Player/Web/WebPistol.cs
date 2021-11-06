@@ -9,15 +9,19 @@ public class WebPistol : MonoBehaviour
     [SerializeField]Transform shotPoint;
     [SerializeField]float maxDistance;
     [SerializeField]int quality;
+    [SerializeField]int dumper;
+    [SerializeField]int velocity;
+    [SerializeField]int strength;
+    [SerializeField]int waveCount;
+    [SerializeField]int waveHeight;
+    [SerializeField]AnimationCurve curve;
+
 
     Spring spring;
     LineRenderer lineRenderer;
 
     Vector3? hitPosition = null;
-
-    SpringJoint springJoint;
-
-
+    Vector3 currentGraplingPosition;
     void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -27,11 +31,13 @@ public class WebPistol : MonoBehaviour
     {
         lineRenderer.SetPositions(Array.Empty<Vector3>());
         spring = new Spring();
+        spring.Value = 0;
     }
 
     void Hide()
     {
         lineRenderer.positionCount = 0;
+        spring.Reset();
         hitPosition = null;
     }
 
@@ -51,7 +57,7 @@ public class WebPistol : MonoBehaviour
         if (Physics.Raycast(shotPoint.position, -shotPoint.forward, out var hit, maxDistance))
         {
             hitPosition = hit.point;
-            //Invoke(nameof(Hide), .5f);
+            //Invoke(nameof(Hide), 1f);
         }
 
     }
@@ -61,9 +67,24 @@ public class WebPistol : MonoBehaviour
         if (!hitPosition.HasValue)
             return;
 
-        var to = Vector3.Lerp(shotPoint.position, hitPosition.Value, 1);
-        lineRenderer.positionCount = 2;
-        lineRenderer.SetPosition(0, shotPoint.position);
-        lineRenderer.SetPosition(1, to);
+        print("hope");
+        spring.Damper = dumper;
+        spring.Strength = strength;
+        spring.Velocity = velocity;
+        spring.Update(Time.deltaTime);
+
+        var shotPointPos = shotPoint.position;
+        var up = Quaternion.LookRotation((hitPosition.Value - shotPointPos).normalized) * Vector3.up;
+        currentGraplingPosition = Vector3.Lerp(shotPoint.position, hitPosition.Value, 12 * Time.deltaTime);
+
+        lineRenderer.positionCount = quality + 1;
+        for (var i = 0; i <= quality; i++)
+        {
+            var delta = 1 / (float)quality;
+            var offset = up * waveHeight *
+                         Mathf.Sin(delta * waveCount * Mathf.PI)
+                         * spring.Value * curve.Evaluate(delta);
+            lineRenderer.SetPosition(i, Vector3.Lerp(shotPointPos,  currentGraplingPosition, delta) + offset);
+        }
     }
 }
