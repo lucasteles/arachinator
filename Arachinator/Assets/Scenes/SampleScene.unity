@@ -3216,6 +3216,7 @@ GameObject:
   - component: {fileID: 1790134583}
   - component: {fileID: 1790134577}
   - component: {fileID: 1790134578}
+  - component: {fileID: 1790134579}
   m_Layer: 9
   m_Name: bumbum
   m_TagString: Untagged
@@ -3350,38 +3351,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shotPoint: {fileID: 514287183}
   maxDistance: 10
+--- !u!114 &1790134579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1790134575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e5ef9ab926564f4892f5466f83e49cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   quality: 500
-  dumper: 14
-  velocity: 14
+  damper: 14
   strength: 800
+  velocity: 15
   waveCount: 3
   waveHeight: 1
-  curve:
+  affectCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0.09511125
-      outSlope: 0.09511125
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.11666539
-      value: 0.011096192
-      inSlope: 0.08960263
-      outSlope: 0.08960263
+      inSlope: 4.5754714
+      outSlope: 4.5754714
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.8571413
-      outWeight: 0.13656504
+      inWeight: 0
+      outWeight: 0.05
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -0.012561708
-      outSlope: -0.012561708
+      inSlope: 0
+      outSlope: 0
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
