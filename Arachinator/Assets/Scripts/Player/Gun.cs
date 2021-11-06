@@ -16,6 +16,10 @@ public class Gun : MonoBehaviour
     [SerializeField] Transform gunBody;
     [SerializeField] float step;
     [SerializeField] float recoil;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip shotAudioClip;
+
+
 
     Vector3 gunbodyPos;
     Cooldown cooldown;
@@ -59,6 +63,7 @@ public class Gun : MonoBehaviour
     void Shot()
     {
         Destroy(Instantiate(muzzle, muzzlePoint.position, transform.rotation), .1f);
+        audioSource.PlayOneShot(shotAudioClip);
         Instantiate(this.projectile, shotPoint.transform.position, transform.rotation);
     }
 }

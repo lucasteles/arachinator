@@ -8,6 +8,8 @@ public class Bullet : MonoBehaviour
     [SerializeField] float speed = 50f;
     Rigidbody bulletRigidbody;
 
+    [SerializeField]AudioClip impact;
+
     private void Awake() => bulletRigidbody = GetComponent<Rigidbody>();
 
     private void Start() {
@@ -17,5 +19,6 @@ public class Bullet : MonoBehaviour
     void OnTriggerEnter(Collider other) {
         Instantiate(vfxHit, transform.position, Quaternion.identity);
         Destroy(gameObject);
+        Camera.main.GetComponent<AudioSource>().PlayOneShot(impact);
     }
 }

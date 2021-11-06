@@ -77,6 +77,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfxHit: {fileID: 613433886817584985, guid: fe2b035b883004fb794e8f64945b371b, type: 3}
   speed: 50
+  impact: {fileID: 8300000, guid: fa66fc96712da41ef9dac6ce9edfa666, type: 3}
 --- !u!1 &6863857337905034704
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,6 +227,15 @@ TrailRenderer:
         value: 0.03463173
         inSlope: 0
         outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.20993751
+        value: 0.117735915
+        inSlope: -0.0336629
+        outSlope: -0.0336629
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
