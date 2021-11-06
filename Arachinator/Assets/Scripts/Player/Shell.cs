@@ -7,12 +7,13 @@ using Random = UnityEngine.Random;
 public class Shell : MonoBehaviour
 {
 
-    [SerializeField] Rigidbody rb;
+
     public float forceMin;
     public float forceMax;
 
-    float lifeTime = 4;
-    float fadeTime = 2;
+    Rigidbody rb;
+   [SerializeField] float lifeTime = 4;
+   [SerializeField] float fadeTime = 2;
 
     private void Awake()
     {
