@@ -65,7 +65,9 @@ public class WebPistol : MonoBehaviour
         muzzle.transform.SetParent(shotPoint);
         muzzle.transform.Rotate(Vector3.up,180f);
         Destroy(muzzle, -.2f);
-        Destroy(Instantiate(webPrefab,  hit.point, Quaternion.LookRotation(hit.normal)), 1f);
+        var web = Instantiate(webPrefab, hit.point, Quaternion.LookRotation(hit.normal));
+        web.transform.SetParent(hit.collider.gameObject.transform);
+        Destroy(web, 1f);
         audioSource.PlayOneShot(hitClip);
     }
     void Hide()
