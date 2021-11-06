@@ -39,6 +39,7 @@ public class WebPistol : MonoBehaviour
 
     void ThrowWeb()
     {
+        audioSource.PlayOneShot(shotClip);
         if (Physics.Raycast(shotPoint.position, -shotPoint.forward, out var hit, maxDistance))
         {
             hitPosition = hit.point;
@@ -48,8 +49,7 @@ public class WebPistol : MonoBehaviour
         }
         else
         {
-            audioSource.PlayOneShot(shotClip);
-            hitPosition = -shotPoint.forward * maxDistance;
+            hitPosition = -transform.forward * maxDistance + transform.position;
             Invoke(nameof(Hide), .3f);
         }
 
