@@ -2,11 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class Gun : MonoBehaviour
 {
-    [SerializeField] Transform shell;
+    [SerializeField] GameObject projectile;
+    [SerializeField] Transform shotPoint;
+    [SerializeField] GameObject shell;
     [SerializeField] Transform shellEjectionPoint;
+    [SerializeField] GameObject muzzle;
+    [SerializeField] Transform muzzlePoint;
     [SerializeField] float CooldownTime;
     [SerializeField] Transform gunBody;
     [SerializeField] float step;
@@ -25,6 +30,7 @@ public class Gun : MonoBehaviour
     {
         if (Input.GetButton("Fire1") && cooldown)
         {
+            Shot();
             EjectShell();
             ShotFeedback();
             cooldown.Reset();
@@ -49,4 +55,10 @@ public class Gun : MonoBehaviour
     }
 
     void EjectShell() => Instantiate(shell, shellEjectionPoint.position, shellEjectionPoint.rotation);
+
+    void Shot()
+    {
+        Destroy(Instantiate(muzzle, muzzlePoint.position, transform.rotation), .1f);
+        Instantiate(this.projectile, shotPoint.transform.position, transform.rotation);
+    }
 }
