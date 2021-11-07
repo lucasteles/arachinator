@@ -30,6 +30,6 @@ public class Bullet : MonoBehaviour
     {
         ObjectPooling.Get(Pools.HitParticle, transform.position, Quaternion.identity);
         Vanish();
-        Camera.main.GetComponent<AudioSource>().PlayOneShot(impact);
+        CameraAudioSource.Instance.AudioSource.PlayOneShot(impact);
     }
 }
