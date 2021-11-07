@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour, IDamageble
 {
     [SerializeField]AudioClip deathAudio;
+    [SerializeField]AudioClip hitSound;
     NavMeshAgent navMeshAgent;
     GameObject target;
     Rigidbody rb;
@@ -65,6 +66,7 @@ public class Enemy : MonoBehaviour, IDamageble
             Invoke(nameof(Walk), .1f);
         }
         TakeDamage(amount);
+        CameraAudioSource.Instance.AudioSource.PlayOneShot(hitSound);
         rb.velocity = Vector3.zero;
         var direction = (transform.position - @from).normalized;
         rb.AddForce(direction * force * rb.mass);

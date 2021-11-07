@@ -4429,6 +4429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathAudio: {fileID: 8300000, guid: 8e27de054fdd647fd84677d3bedf2d55, type: 3}
+  hitSound: {fileID: 8300000, guid: d9632003f385842128003cef610bd723, type: 3}
 --- !u!195 &1935910024
 NavMeshAgent:
   m_ObjectHideFlags: 0
