@@ -6,15 +6,13 @@ using Random = UnityEngine.Random;
 
 public class Shell : MonoBehaviour
 {
-
-
-    public float forceMin;
-    public float forceMax;
-
-    Rigidbody rb;
+   [SerializeField] float forceMin;
+   [SerializeField] float forceMax;
    [SerializeField] float lifeTime = 4;
    [SerializeField] float fadeTime = 2;
    [SerializeField] AudioClip dropAudioClip;
+
+   Rigidbody rb;
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -58,6 +56,7 @@ public class Shell : MonoBehaviour
             yield return null;
         }
 
-        Destroy(gameObject);
+        rb.velocity = Vector3.zero;
+        ShellPooling.Instance.GiveBack(this);
     }
 }

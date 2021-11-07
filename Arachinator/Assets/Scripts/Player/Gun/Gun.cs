@@ -8,23 +8,21 @@ public class Gun : MonoBehaviour
 {
     [SerializeField] GameObject projectile;
     [SerializeField] Transform shotPoint;
-    [SerializeField] GameObject shell;
     [SerializeField] Transform shellEjectionPoint;
     [SerializeField] GameObject muzzle;
     [SerializeField] Transform muzzlePoint;
-    [SerializeField] float CooldownTime;
     [SerializeField] Transform gunBody;
     [SerializeField] float step;
     [SerializeField] float recoil;
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip shotAudioClip;
+    [SerializeField] float cooldownTime;
 
     Vector3 gunbodyPos;
     Cooldown cooldown;
-
     void Start()
     {
-        cooldown = new Cooldown(CooldownTime);
+        cooldown = new Cooldown(cooldownTime);
         gunbodyPos = gunBody.transform.localPosition;
     }
 
@@ -56,7 +54,7 @@ public class Gun : MonoBehaviour
         StartCoroutine(routine());
     }
 
-    void EjectShell() => Instantiate(shell, shellEjectionPoint.position, shellEjectionPoint.rotation);
+    void EjectShell() => ShellPooling.Instance.Get(shellEjectionPoint.position, shellEjectionPoint.rotation);
 
     void Shot()
     {
@@ -64,6 +62,6 @@ public class Gun : MonoBehaviour
         flash.transform.SetParent(gunBody);
         Destroy(flash, .1f);
         audioSource.PlayOneShot(shotAudioClip);
-        Instantiate(this.projectile, shotPoint.transform.position, transform.rotation);
+        BulletPooling.Instance.Get(shotPoint.transform.position, transform.rotation);
     }
 }

@@ -11,6 +11,7 @@ public abstract class ObjectPooling<T> : MonoBehaviour where T : MonoBehaviour
     [SerializeField] int numberOfObjects;
     [SerializeField] T theObject;
 
+
     Queue<T> queue = new Queue<T>();
 
     void Awake() => Instance ??= this;
@@ -21,20 +22,22 @@ public abstract class ObjectPooling<T> : MonoBehaviour where T : MonoBehaviour
         {
             var obj = Instantiate(theObject, Vector3.zero, Quaternion.identity);
             obj.gameObject.SetActive(false);
+            obj.transform.SetParent(transform);
             queue.Enqueue(obj);
         }
     }
 
-    public T GetObject()
+    public T Get()
     {
         var obj = queue.Dequeue();
         obj.gameObject.SetActive(true);
+        obj.transform.SetParent(null);
         return obj;
     }
 
     public T Get(Vector3 position, Quaternion rotation)
     {
-        var obj = GetObject();
+        var obj = Get();
         obj.transform.position = position;
         obj.transform.rotation = rotation;
 
@@ -44,6 +47,7 @@ public abstract class ObjectPooling<T> : MonoBehaviour where T : MonoBehaviour
     public void GiveBack(T obj)
     {
         obj.gameObject.SetActive(false);
+        obj.transform.SetParent(transform);
         queue.Enqueue(obj);
     }
 
