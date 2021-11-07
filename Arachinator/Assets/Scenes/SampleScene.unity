@@ -2066,6 +2066,7 @@ GameObject:
   - component: {fileID: 963194229}
   - component: {fileID: 963194230}
   - component: {fileID: 963194231}
+  - component: {fileID: 963194232}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2286,6 +2287,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &963194232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b38b4c4791dd944b4b15cad354d7b815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1025922681
 GameObject:
   m_ObjectHideFlags: 0
@@ -2394,7 +2407,7 @@ MonoBehaviour:
     numberOfObjects: 100
     theObject: {fileID: 1282248143301524, guid: 06f98f5948d854f9dbd1b2338378e576, type: 3}
   - name: 1
-    numberOfObjects: 4
+    numberOfObjects: 100
     theObject: {fileID: 6863857337172796869, guid: 83d12f9a7b03a4bd6a9d79540d7dd741, type: 3}
   - name: 2
     numberOfObjects: 20
@@ -3572,7 +3585,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1667842198}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.3249999, z: 0.579}
+  m_LocalPosition: {x: 0, y: 1.3249999, z: 1.62}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1885546217}
@@ -3821,7 +3834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shotPoint: {fileID: 514287183}
-  maxDistance: 10
+  maxDistance: 20
   coodownTime: 1
   rigidybody: {fileID: 1505892974}
   audioSource: {fileID: 1790134580}
@@ -4313,6 +4326,8 @@ GameObject:
   - component: {fileID: 1935910019}
   - component: {fileID: 1935910024}
   - component: {fileID: 1935910023}
+  - component: {fileID: 1935910025}
+  - component: {fileID: 1935910026}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -4413,6 +4428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44bd4a51dd57e44c1b3de543202bd527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathAudio: {fileID: 8300000, guid: 8e27de054fdd647fd84677d3bedf2d55, type: 3}
 --- !u!195 &1935910024
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4423,7 +4439,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5000001
-  m_Speed: 1
+  m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -4435,6 +4451,35 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1935910025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935910018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddf1186f3e18f4edbb4e921bcdbd2add, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLife: 4
+--- !u!54 &1935910026
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935910018}
+  serializedVersion: 2
+  m_Mass: 10
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &1939098261
 GameObject:
   m_ObjectHideFlags: 0

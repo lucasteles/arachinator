@@ -79,6 +79,8 @@ MonoBehaviour:
   lifespan: 1
   impact: {fileID: 8300000, guid: fa66fc96712da41ef9dac6ce9edfa666, type: 3}
   trailRenderer: {fileID: 8568803767858017378}
+  damage: 1
+  force: 1000
 --- !u!1 &6863857337905034704
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,8 +92,8 @@ GameObject:
   - component: {fileID: 6863857337905034705}
   - component: {fileID: 6863857337905034732}
   - component: {fileID: 6863857337905034707}
-  - component: {fileID: 6050120816508447850}
   - component: {fileID: 8568803767858017378}
+  - component: {fileID: 8713501152977455379}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -162,19 +164,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6050120816508447850
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6863857337905034704}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!96 &8568803767858017378
 TrailRenderer:
   serializedVersion: 2
@@ -291,3 +280,16 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!65 &8713501152977455379
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6863857337905034704}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
