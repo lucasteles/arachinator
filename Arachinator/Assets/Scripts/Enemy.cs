@@ -47,7 +47,8 @@ public class Enemy : MonoBehaviour, IDamageble
         while (!life.IsDead)
         {
             yield return new WaitForSeconds(.25f);
-            navMeshAgent.SetDestination(target.transform.position);
+            if (!navMeshAgent.isStopped)
+                navMeshAgent.SetDestination(target.transform.position);
         }
     }
 
