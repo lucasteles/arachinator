@@ -12,8 +12,6 @@ public class Cooldown
         timer = Time.time;
     }
 
-    public void FixedUpdate() => timer += Time.fixedDeltaTime;
-
     public bool CanDo() => Time.time >= timer;
 
     public void Reset() => timer = Time.time + cooldown;

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 public class Shell : MonoBehaviour
@@ -28,7 +29,7 @@ public class Shell : MonoBehaviour
         }
     }
 
-    void Start ()
+    void OnEnable()
     {
         var force = Random.Range(forceMin, forceMax);
 
@@ -57,6 +58,6 @@ public class Shell : MonoBehaviour
         }
 
         rb.velocity = Vector3.zero;
-        ShellPooling.Instance.GiveBack(this);
+        ObjectPooling.GiveBack(Pools.Shell, gameObject);
     }
 }

@@ -54,14 +54,14 @@ public class Gun : MonoBehaviour
         StartCoroutine(routine());
     }
 
-    void EjectShell() => ShellPooling.Instance.Get(shellEjectionPoint.position, shellEjectionPoint.rotation);
+    void EjectShell() => ObjectPooling.Get(Pools.Shell, shellEjectionPoint.position, shellEjectionPoint.rotation);
 
     void Shot()
     {
-        var flash = Instantiate(muzzle, muzzlePoint.position, transform.rotation);
+        var flash = ObjectPooling.Get(Pools.MuzzleFlash, muzzlePoint.position, transform.rotation);
         flash.transform.SetParent(gunBody);
-        Destroy(flash, .1f);
+        ObjectPooling.GiveBack(Pools.MuzzleFlash, flash, .1f);
         audioSource.PlayOneShot(shotAudioClip);
-        BulletPooling.Instance.Get(shotPoint.transform.position, transform.rotation);
+        ObjectPooling.Get(Pools.Bullet, shotPoint.transform.position, transform.rotation);
     }
 }

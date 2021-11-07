@@ -75,9 +75,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361b3af5fdad44b50a72c075f25c525c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vfxHit: {fileID: 613433886817584985, guid: fe2b035b883004fb794e8f64945b371b, type: 3}
   speed: 50
+  lifespan: 1
   impact: {fileID: 8300000, guid: fa66fc96712da41ef9dac6ce9edfa666, type: 3}
+  trailRenderer: {fileID: 8568803767858017378}
 --- !u!1 &6863857337905034704
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,5 +289,5 @@ TrailRenderer:
     shadowBias: 0
     generateLightingData: 0
   m_MinVertexDistance: 0.1
-  m_Autodestruct: 1
+  m_Autodestruct: 0
   m_Emitting: 1
