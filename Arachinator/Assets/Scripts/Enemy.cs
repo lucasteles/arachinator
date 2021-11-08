@@ -1,13 +1,15 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour, IDamageble
 {
     [SerializeField]AudioClip deathAudio;
+    [SerializeField]AudioClip deathAudio2;
     [SerializeField]AudioClip hitSound;
+    [SerializeField]GameObject[] bloodEffects;
+    [SerializeField]GameObject dieEffect;
     NavMeshAgent navMeshAgent;
     GameObject target;
     Rigidbody rb;
@@ -18,11 +20,11 @@ public class Enemy : MonoBehaviour, IDamageble
         life = GetComponent<Life>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
+        target = FindObjectOfType<Player>().gameObject;
     }
 
     void Start()
     {
-        target = FindObjectOfType<Player>().gameObject;
         StartCoroutine(SetDestination());
         life.onDeath += LifeOnDeath;
     }
@@ -32,7 +34,14 @@ public class Enemy : MonoBehaviour, IDamageble
     void LifeOnDeath()
     {
         navMeshAgent.isStopped = true;
-        CameraAudioSource.Instance.AudioSource.PlayOneShot(deathAudio);
+        if (Random.Range(0,2) == 1)
+            CameraAudioSource.Instance.AudioSource.PlayOneShot(deathAudio);
+        CameraAudioSource.Instance.AudioSource.PlayOneShot(deathAudio2);
+        var pos = transform.position;
+        var blood = Instantiate(dieEffect, new Vector3(pos.x, 0,pos.z), transform.rotation);
+        blood.transform.localScale *= Random.Range(1.5f, 2.5f);
+        blood.transform.Rotate(Vector3.up,Random.Range(0f, 90f));
+        Destroy(blood, 12);
         Destroy(gameObject);
     }
 
@@ -47,8 +56,7 @@ public class Enemy : MonoBehaviour, IDamageble
         while (!life.IsDead)
         {
             yield return new WaitForSeconds(.25f);
-            if (!navMeshAgent.isStopped)
-                navMeshAgent.SetDestination(target.transform.position);
+            navMeshAgent.SetDestination(target.transform.position);
         }
     }
 
@@ -69,8 +77,16 @@ public class Enemy : MonoBehaviour, IDamageble
         TakeDamage(amount);
         CameraAudioSource.Instance.AudioSource.PlayOneShot(hitSound);
         rb.velocity = Vector3.zero;
-        var direction = (transform.position - @from).normalized;
+        var direction = (transform.position - target.transform.position).normalized;
         rb.AddForce(direction * force * rb.mass);
+        var i = Random.Range(0, bloodEffects.Length );
+        var blood = Instantiate(bloodEffects[i], new Vector3(@from.x, 0, @from.z), transform.rotation);
+        blood.transform.Rotate(Vector3.up,-90f);
+        blood.transform.localScale *= 1.5f;
+        blood.transform.SetParent(transform);
+        Destroy(blood, 8);
+
     }
 
 }
+

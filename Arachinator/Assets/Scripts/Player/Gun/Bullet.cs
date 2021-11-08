@@ -18,7 +18,6 @@ public class Bullet : MonoBehaviour
 
     void OnEnable()
     {
-        trailRenderer.Clear();
         bulletRigidbody.velocity = transform.forward * speed;
         Invoke(nameof(Vanish), lifespan);
     }
