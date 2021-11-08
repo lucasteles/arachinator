@@ -608,7 +608,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3280339242994409303, guid: c6d6b804e79c64bd482fee0c4153e411, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3280339242994409303, guid: c6d6b804e79c64bd482fee0c4153e411, type: 3}
       propertyPath: m_LocalPosition.x
@@ -931,7 +931,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3280339242994409303, guid: c6d6b804e79c64bd482fee0c4153e411, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3280339242994409303, guid: c6d6b804e79c64bd482fee0c4153e411, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1553,7 +1553,7 @@ Transform:
   - {fileID: 1637122283}
   - {fileID: 1592326552}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &720754643
 AudioSource:
@@ -2349,7 +2349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1505892970}
-  smoothTime: 0.15
+  smoothTime: 0.5
   offset: {x: 0, y: 12, z: -5}
   enableBoundary: 0
   maxHorizontal: 100
@@ -3440,7 +3440,7 @@ Transform:
   - {fileID: 845254711}
   - {fileID: 1790134576}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1505892971
 MonoBehaviour:
@@ -3454,7 +3454,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9fb6bb0d9858462f8f98573549c3a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxVelocity: {x: 10, y: 10}
 --- !u!114 &1505892972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3592,7 +3591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4883acf57d96a40bdbb54f15a2c376ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 8
 --- !u!1 &1586093898
 GameObject:
   m_ObjectHideFlags: 0
