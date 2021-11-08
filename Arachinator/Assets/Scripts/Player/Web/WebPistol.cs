@@ -61,7 +61,7 @@ public class WebPistol : MonoBehaviour
         movement.Lock(.2f);
         yield return new WaitForSeconds(.2f);
         rigidybody.velocity = Vector3.zero;
-        rigidybody.AddForce(impulseForce * -transform.forward + upForce * transform.up);
+        rigidybody.AddForce(impulseForce * -transform.forward + upForce * transform.up, ForceMode.Acceleration);
         var muzzle= Instantiate(muzzlePrefab, transform.position, transform.rotation);
         muzzle.transform.SetParent(shotPoint);
         muzzle.transform.Rotate(Vector3.up,180f);
