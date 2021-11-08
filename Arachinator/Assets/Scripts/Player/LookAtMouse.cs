@@ -19,12 +19,9 @@ public class LookAtMouse : MonoBehaviour
         var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         var plan = new Plane(Vector3.up, Vector3.up * gunPoint.position.y);
 
-        if (plan.Raycast(ray, out var dist))
-        {
-            var point = ray.GetPoint(dist);
-
-            movement.LookAt(point);
-            Debug.DrawLine(ray.origin, point, Color.red);
-        }
+        if (!plan.Raycast(ray, out var dist)) return;
+        var point = ray.GetPoint(dist);
+        movement.LookAt(point);
+        Debug.DrawLine(ray.origin, point, Color.red);
     }
 }

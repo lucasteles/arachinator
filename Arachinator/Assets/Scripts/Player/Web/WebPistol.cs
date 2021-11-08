@@ -15,6 +15,7 @@ public class WebPistol : MonoBehaviour
     [SerializeField]AudioClip hitClip;
     [SerializeField]Movement movement;
     [SerializeField]float impulseForce;
+    [SerializeField]float upForce;
     [SerializeField] GameObject muzzlePrefab;
     [SerializeField] GameObject webPrefab;
     Cooldown cooldown;
@@ -60,7 +61,7 @@ public class WebPistol : MonoBehaviour
         movement.Lock(.2f);
         yield return new WaitForSeconds(.2f);
         rigidybody.velocity = Vector3.zero;
-        rigidybody.AddForce(impulseForce * -transform.forward);
+        rigidybody.AddForce(impulseForce * -transform.forward + upForce * transform.up);
         var muzzle= Instantiate(muzzlePrefab, transform.position, transform.rotation);
         muzzle.transform.SetParent(shotPoint);
         muzzle.transform.Rotate(Vector3.up,180f);

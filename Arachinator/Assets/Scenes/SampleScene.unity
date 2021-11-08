@@ -2231,6 +2231,7 @@ GameObject:
   - component: {fileID: 963194230}
   - component: {fileID: 963194231}
   - component: {fileID: 963194232}
+  - component: {fileID: 963194233}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2461,6 +2462,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b38b4c4791dd944b4b15cad354d7b815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &963194233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bae1de9ef5b128449a39ee9c92da9b00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1025922681
@@ -3356,7 +3369,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1505892966}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: ee0beb316abb44b8cbb804ab1f745352, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
@@ -3560,12 +3573,12 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 100
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &1505892975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4032,7 +4045,8 @@ MonoBehaviour:
   shotClip: {fileID: 8300000, guid: 810a5021f1a424e2baf35558b8c32a70, type: 3}
   hitClip: {fileID: 8300000, guid: e4809f1744f7341bd8aac8964be4c8a3, type: 3}
   movement: {fileID: 1505892971}
-  impulseForce: 100000
+  impulseForce: 90000
+  upForce: 30000
   muzzlePrefab: {fileID: 718690339124133421, guid: a59ff2fc409098444b3787562ec26b66, type: 3}
   webPrefab: {fileID: 980374205479737414, guid: cad7b33e933a54ee9a6eafeb617ef7de, type: 3}
 --- !u!114 &1790134579

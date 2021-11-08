@@ -15,8 +15,8 @@ public class Movement : MonoBehaviour
 
 	void FixedUpdate ()
     {
-        if(!isLocked)
-            rb.MovePosition(transform.position + velocity * Time.fixedDeltaTime);
+        if (isLocked) return;
+        rb.MovePosition(transform.position + velocity * Time.fixedDeltaTime);
     }
 
 	public void Move(Vector3 velocity) => this.velocity = velocity;
