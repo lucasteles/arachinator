@@ -4045,8 +4045,8 @@ MonoBehaviour:
   shotClip: {fileID: 8300000, guid: 810a5021f1a424e2baf35558b8c32a70, type: 3}
   hitClip: {fileID: 8300000, guid: e4809f1744f7341bd8aac8964be4c8a3, type: 3}
   movement: {fileID: 1505892971}
-  impulseForce: 90000
-  upForce: 30000
+  impulseForce: 500
+  upForce: 400
   muzzlePrefab: {fileID: 718690339124133421, guid: a59ff2fc409098444b3787562ec26b66, type: 3}
   webPrefab: {fileID: 980374205479737414, guid: cad7b33e933a54ee9a6eafeb617ef7de, type: 3}
 --- !u!114 &1790134579

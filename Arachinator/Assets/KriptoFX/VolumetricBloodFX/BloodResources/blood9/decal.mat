@@ -115,5 +115,5 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SunPos: {r: 0.56, g: 1.07, b: -0.09, a: 0}
-    - _TintColor: {r: 0, g: 1.7207954, b: 0.0810846, a: 1}
+    - _TintColor: {r: 0, g: 0.98833734, b: 0.04657087, a: 1}
   m_BuildTextureStacks: []
