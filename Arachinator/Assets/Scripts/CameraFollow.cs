@@ -16,7 +16,7 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] float minVertical = -100f;
 
     Vector3 velocity = Vector3.zero;
-    void Update()
+    void FixedUpdate()
     {
        var desiredPosition = target.position + offset;
 
