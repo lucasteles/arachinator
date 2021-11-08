@@ -709,7 +709,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3280339242994409303, guid: c6d6b804e79c64bd482fee0c4153e411, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3280339242994409303, guid: c6d6b804e79c64bd482fee0c4153e411, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1220,7 +1220,7 @@ Transform:
   - {fileID: 1637122283}
   - {fileID: 1592326552}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &720754643
 AudioSource:
@@ -2378,22 +2378,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1214997422}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1221404987 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2138518954, guid: b733dac208893864fbb3112fa5556366, type: 3}
-  m_PrefabInstance: {fileID: 6480152880582159202}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9fb6bb0d9858462f8f98573549c3a15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!54 &1221404990 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 2138518953, guid: b733dac208893864fbb3112fa5556366, type: 3}
-  m_PrefabInstance: {fileID: 6480152880582159202}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1224872553
 GameObject:
   m_ObjectHideFlags: 0
@@ -3374,31 +3358,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1790134578, guid: b733dac208893864fbb3112fa5556366, type: 3}
       propertyPath: upForce
-      value: 400
+      value: 350
       objectReference: {fileID: 0}
     - target: {fileID: 1790134578, guid: b733dac208893864fbb3112fa5556366, type: 3}
-      propertyPath: movement
+      propertyPath: muzzlePrefab
       value: 
-      objectReference: {fileID: 1221404987}
-    - target: {fileID: 1790134578, guid: b733dac208893864fbb3112fa5556366, type: 3}
-      propertyPath: upForce.y
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 1790134578, guid: b733dac208893864fbb3112fa5556366, type: 3}
-      propertyPath: rigidybody
-      value: 
-      objectReference: {fileID: 1221404990}
-    - target: {fileID: 1790134578, guid: b733dac208893864fbb3112fa5556366, type: 3}
-      propertyPath: impulseForce
-      value: 600
-      objectReference: {fileID: 0}
-    - target: {fileID: 1790134578, guid: b733dac208893864fbb3112fa5556366, type: 3}
-      propertyPath: simpleBackdash
-      value: 800
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 718690339124133421, guid: a59ff2fc409098444b3787562ec26b66, type: 3}
     - target: {fileID: 1790134578, guid: b733dac208893864fbb3112fa5556366, type: 3}
       propertyPath: upBackDashForce
-      value: 200
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 2138518956, guid: b733dac208893864fbb3112fa5556366, type: 3}
+      propertyPath: speed
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6138205526568544279, guid: b733dac208893864fbb3112fa5556366, type: 3}
       propertyPath: m_Name

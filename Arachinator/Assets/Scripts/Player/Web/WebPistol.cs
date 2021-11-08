@@ -42,6 +42,9 @@ public class WebPistol : MonoBehaviour
     void ThrowWeb()
     {
         audioSource.PlayOneShot(shotClip);
+        var muzzle= Instantiate(muzzlePrefab, shotPoint.position, shotPoint.rotation);
+        muzzle.transform.Rotate(Vector3.up,180f);
+        Destroy(muzzle, .3f);
         if (Physics.Raycast(shotPoint.position, -shotPoint.forward, out var hit, maxDistance))
         {
             hitPosition = hit.point;
@@ -59,17 +62,14 @@ public class WebPistol : MonoBehaviour
 
     IEnumerator Hit(RaycastHit hit)
     {
-        movement.Lock(.3f);
-        yield return new WaitForSeconds(.2f);
+        yield return new WaitForSeconds(.3f);
+        var isPressing = Input.GetButton("Fire2");
+        movement.Lock(isPressing ? 1f : .3f);
         rigidybody.velocity = Vector3.zero;
-        var newForce = Input.GetButton("Fire2")
+        var newForce = isPressing
             ? upForce * transform.up + upBackDashForce * -transform.forward
             : simpleBackdash * -transform.forward;
         rigidybody.AddForce(newForce, ForceMode.Acceleration);
-        var muzzle= Instantiate(muzzlePrefab, transform.position, transform.rotation);
-        muzzle.transform.SetParent(shotPoint);
-        muzzle.transform.Rotate(Vector3.up,180f);
-        Destroy(muzzle, -.2f);
         var web = Instantiate(webPrefab, hit.point, Quaternion.LookRotation(hit.normal));
         web.transform.SetParent(hit.collider.gameObject.transform);
         Destroy(web, 1f);
