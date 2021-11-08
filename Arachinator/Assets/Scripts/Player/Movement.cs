@@ -14,12 +14,6 @@ public class Movement : MonoBehaviour
 	void FixedUpdate ()
     {
         if (isLocked) return;
-        // rb.AddForce(velocity, ForceMode.VelocityChange);
-        // rb.velocity = new Vector3(
-        //     Mathf.Clamp(rb.velocity.x, -maxVelocity.x, maxVelocity.x),
-        //     rb.velocity.y,
-        //     Mathf.Clamp(rb.velocity.z, -maxVelocity.y, maxVelocity.y)
-        // );
         rb.MovePosition(transform.position + velocity * Time.fixedDeltaTime);
     }
 
