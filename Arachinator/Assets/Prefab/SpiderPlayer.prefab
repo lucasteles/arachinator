@@ -513,13 +513,14 @@ MonoBehaviour:
   shotPoint: {fileID: 514287183}
   maxDistance: 20
   coodownTime: 1
-  rigidybody: {fileID: 0}
+  rigidybody: {fileID: 2138518953}
   audioSource: {fileID: 1790134580}
   shotClip: {fileID: 8300000, guid: 810a5021f1a424e2baf35558b8c32a70, type: 3}
   hitClip: {fileID: 8300000, guid: e4809f1744f7341bd8aac8964be4c8a3, type: 3}
-  movement: {fileID: 0}
-  impulseForce: 500
+  movement: {fileID: 2138518954}
+  simpleBackdash: 800
   upForce: 400
+  upBackDashForce: 200
   muzzlePrefab: {fileID: 718690339124133421, guid: a59ff2fc409098444b3787562ec26b66, type: 3}
   webPrefab: {fileID: 980374205479737414, guid: cad7b33e933a54ee9a6eafeb617ef7de, type: 3}
 --- !u!114 &1790134579
@@ -966,7 +967,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 04cbc77d1af1b78479b9e6005ba66ed4, type: 3}
       propertyPath: m_Name
-      value: Spider
+      value: PlayerSpider
       objectReference: {fileID: 0}
     - target: {fileID: 1474636172606209216, guid: 04cbc77d1af1b78479b9e6005ba66ed4, type: 3}
       propertyPath: m_RootOrder

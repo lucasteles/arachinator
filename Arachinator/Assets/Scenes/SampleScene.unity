@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0.99999946, b: 0.99999946, a: 1}
+  m_IndirectSpecularColor: {r: 0.31294006, g: 0.29360333, b: 0.5140226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -136,7 +136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3280339242994409303, guid: c6d6b804e79c64bd482fee0c4153e411, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3280339242994409303, guid: c6d6b804e79c64bd482fee0c4153e411, type: 3}
       propertyPath: m_LocalPosition.x
@@ -527,7 +527,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3280339242994409303, guid: c6d6b804e79c64bd482fee0c4153e411, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 3280339242994409303, guid: c6d6b804e79c64bd482fee0c4153e411, type: 3}
       propertyPath: m_LocalPosition.x
@@ -709,7 +709,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3280339242994409303, guid: c6d6b804e79c64bd482fee0c4153e411, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3280339242994409303, guid: c6d6b804e79c64bd482fee0c4153e411, type: 3}
       propertyPath: m_LocalPosition.x
@@ -862,7 +862,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3280339242994409303, guid: c6d6b804e79c64bd482fee0c4153e411, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3280339242994409303, guid: c6d6b804e79c64bd482fee0c4153e411, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1220,7 +1220,7 @@ Transform:
   - {fileID: 1637122283}
   - {fileID: 1592326552}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &720754643
 AudioSource:
@@ -1514,7 +1514,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3280339242994409303, guid: c6d6b804e79c64bd482fee0c4153e411, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3280339242994409303, guid: c6d6b804e79c64bd482fee0c4153e411, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1991,7 +1991,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3280339242994409303, guid: c6d6b804e79c64bd482fee0c4153e411, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 3280339242994409303, guid: c6d6b804e79c64bd482fee0c4153e411, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2234,7 +2234,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3280339242994409303, guid: c6d6b804e79c64bd482fee0c4153e411, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3280339242994409303, guid: c6d6b804e79c64bd482fee0c4153e411, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3373,13 +3373,33 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1790134578, guid: b733dac208893864fbb3112fa5556366, type: 3}
+      propertyPath: upForce
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 1790134578, guid: b733dac208893864fbb3112fa5556366, type: 3}
       propertyPath: movement
       value: 
       objectReference: {fileID: 1221404987}
     - target: {fileID: 1790134578, guid: b733dac208893864fbb3112fa5556366, type: 3}
+      propertyPath: upForce.y
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 1790134578, guid: b733dac208893864fbb3112fa5556366, type: 3}
       propertyPath: rigidybody
       value: 
       objectReference: {fileID: 1221404990}
+    - target: {fileID: 1790134578, guid: b733dac208893864fbb3112fa5556366, type: 3}
+      propertyPath: impulseForce
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 1790134578, guid: b733dac208893864fbb3112fa5556366, type: 3}
+      propertyPath: simpleBackdash
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 1790134578, guid: b733dac208893864fbb3112fa5556366, type: 3}
+      propertyPath: upBackDashForce
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 6138205526568544279, guid: b733dac208893864fbb3112fa5556366, type: 3}
       propertyPath: m_Name
       value: PlayerSpider
