@@ -58,7 +58,7 @@ public class WebPistol : MonoBehaviour
 
     IEnumerator Hit(RaycastHit hit)
     {
-        movement.Lock(.2f);
+        movement.Lock(.3f);
         yield return new WaitForSeconds(.2f);
         rigidybody.velocity = Vector3.zero;
         rigidybody.AddForce(impulseForce * -transform.forward + upForce * transform.up, ForceMode.Acceleration);

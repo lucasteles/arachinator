@@ -3454,6 +3454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9fb6bb0d9858462f8f98573549c3a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxVelocity: {x: 10, y: 10}
 --- !u!114 &1505892972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3578,7 +3579,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 112
-  m_CollisionDetection: 3
+  m_CollisionDetection: 1
 --- !u!114 &1505892975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3591,7 +3592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4883acf57d96a40bdbb54f15a2c376ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  speed: 1
 --- !u!1 &1586093898
 GameObject:
   m_ObjectHideFlags: 0
