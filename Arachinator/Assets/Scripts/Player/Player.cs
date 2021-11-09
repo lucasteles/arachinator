@@ -15,11 +15,16 @@ public class Player : MonoBehaviour, IDamageble
     [SerializeField]Material damageMaterial;
     [SerializeField]Material dissolveMaterial;
 
+    [SerializeField]AudioClip hit;
+    [SerializeField]AudioClip dieSound;
+    [SerializeField]AudioClip fallSound;
+
     Movement movement;
     Rigidbody rb;
     Life life;
-    Renderer[] renderer;
+    Renderer[] renderers;
     Dictionary<Renderer, Material> originalMaterials;
+    AudioSource audioSource;
 
     Coroutine currentDamageCoroutine = null;
     static readonly int FresnelLevel = Shader.PropertyToID("_FresnelLevel");
@@ -32,7 +37,8 @@ public class Player : MonoBehaviour, IDamageble
         movement = GetComponent<Movement>();
         rb = GetComponent<Rigidbody>();
         life = GetComponent<Life>();
-        renderer = GetComponentsInChildren<Renderer>().ToArray();
+        audioSource = GetComponent<AudioSource>();
+        renderers = GetComponentsInChildren<Renderer>().ToArray();
         life.onDeath += OnDeath;
     }
     void OnDestroy() => life.onDeath -= OnDeath;
@@ -43,7 +49,7 @@ public class Player : MonoBehaviour, IDamageble
     {
         ui.SetMaxHealth(life.MaxLife);
         originalMaterials =
-            renderer.Select(r => (r, r.sharedMaterial))
+            renderers.Select(r => (r, r.sharedMaterial))
                 .ToDictionary(x => x.r, x => x.sharedMaterial);
     }
 
@@ -75,23 +81,25 @@ public class Player : MonoBehaviour, IDamageble
 
         if (currentDamageCoroutine is {}) StopCoroutine(currentDamageCoroutine);
         currentDamageCoroutine = StartCoroutine(DamageFlash());
+
+        audioSource.PlayOneShot(hit);
         TakeDamage(amount);
     }
 
     void SetMaterials(Material material)
     {
-        for (var i = 0; i < renderer.Length; i++)
+        for (var i = 0; i < renderers.Length; i++)
         {
-            var color = renderer[i].sharedMaterial.color;
-            renderer[i].sharedMaterial = material;
-            renderer[i].sharedMaterial.color = color;
+            var color = renderers[i].sharedMaterial.color;
+            renderers[i].sharedMaterial = material;
+            renderers[i].sharedMaterial.color = color;
         }
     }
 
     void RestoreMaterials()
     {
-        for (var i = 0; i < renderer.Length; i++)
-            renderer[i].sharedMaterial = originalMaterials[renderer[i]];
+        for (var i = 0; i < renderers.Length; i++)
+            renderers[i].sharedMaterial = originalMaterials[renderers[i]];
     }
 
     IEnumerator DieAnimation()
@@ -109,14 +117,16 @@ public class Player : MonoBehaviour, IDamageble
         rb.constraints = RigidbodyConstraints.FreezePositionX
                          | RigidbodyConstraints.FreezePositionZ;
         var lockKey = movement.Lock();
-        rb.AddForce(Vector3.up * 12,ForceMode.VelocityChange);
+        rb.AddForce(Vector3.up * 13,ForceMode.VelocityChange);
 
-        var rotationTarget = transform.rotation * Quaternion.Euler(0,40, 180);
+        audioSource.PlayOneShot(dieSound);
+        var rotationTarget = transform.rotation * Quaternion.Euler(0,40, 120);
         for (var i = 0f; i <= 1; i+=0.02f)
         {
             transform.rotation = Quaternion.Lerp(transform.rotation,  rotationTarget,i);
             yield return null;
         }
+        audioSource.PlayOneShot(fallSound);
         yield return new WaitForSeconds(.5f);
 
         var dissolveStep = 0.005f;
