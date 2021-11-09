@@ -17,7 +17,6 @@ public class WebPistol : MonoBehaviour
     [SerializeField]float simpleBackdash;
     [SerializeField]float upForce;
     [SerializeField]float upBackDashForce;
-    [SerializeField]GameObject muzzlePrefab;
     [SerializeField]GameObject webPrefab;
     Cooldown cooldown;
     Vector3? hitPosition = null;
@@ -42,15 +41,11 @@ public class WebPistol : MonoBehaviour
     void ThrowWeb()
     {
         audioSource.PlayOneShot(shotClip);
-        var muzzle= Instantiate(muzzlePrefab, shotPoint.position, shotPoint.rotation);
-        muzzle.transform.Rotate(Vector3.up,180f);
-        Destroy(muzzle, .3f);
         if (Physics.Raycast(shotPoint.position, -shotPoint.forward, out var hit, maxDistance))
         {
             hitPosition = hit.point;
             StartCoroutine(Hit(hit));
             Invoke(nameof(Hide), .5f);
-
         }
         else
         {
@@ -75,10 +70,8 @@ public class WebPistol : MonoBehaviour
         Destroy(web, 1f);
         audioSource.PlayOneShot(hitClip);
     }
-    void Hide()
-    {
-        hitPosition = null;
-    }
+
+    void Hide() => hitPosition = null;
 
     public bool TargetDefined() => hitPosition.HasValue;
 }

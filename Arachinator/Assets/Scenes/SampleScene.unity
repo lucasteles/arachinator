@@ -11135,10 +11135,9 @@ MonoBehaviour:
   shotClip: {fileID: 8300000, guid: 810a5021f1a424e2baf35558b8c32a70, type: 3}
   hitClip: {fileID: 8300000, guid: e4809f1744f7341bd8aac8964be4c8a3, type: 3}
   movement: {fileID: 6480152881334181576}
-  simpleBackdash: 800
+  simpleBackdash: 900
   upForce: 600
-  upBackDashForce: 400
-  muzzlePrefab: {fileID: 718690339124133421, guid: a59ff2fc409098444b3787562ec26b66, type: 3}
+  upBackDashForce: 450
   webPrefab: {fileID: 980374205479737414, guid: cad7b33e933a54ee9a6eafeb617ef7de, type: 3}
 --- !u!114 &6480152881027719761
 MonoBehaviour:
@@ -11604,6 +11603,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 6
   ui: {fileID: 1409153847}
+  damageTime: 0.5
+  damageFlashTime: 1
+  damageMaterial: {fileID: 2100000, guid: ccb80f98308f643dca574f038fcfa73a, type: 2}
+  dissolveMaterial: {fileID: 2100000, guid: 158c5fd7931224182984ffd749dcaf92, type: 2}
 --- !u!114 &6480152881385295240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11629,7 +11632,7 @@ MonoBehaviour:
   cooldownTime: 0.2
   shakeData:
     timeToShake: 0.1
-    magnitude: 0.05
+    magnitude: 0.03
 --- !u!1 &6480152881385295242
 GameObject:
   m_ObjectHideFlags: 0
@@ -13439,17 +13442,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 914454924, guid: c6d6b804e79c64bd482fee0c4153e411, type: 3}
-      propertyPath: force
-      value: 900
-      objectReference: {fileID: 0}
     - target: {fileID: 3280339242994409299, guid: c6d6b804e79c64bd482fee0c4153e411, type: 3}
       propertyPath: m_Name
       value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 3280339242994409299, guid: c6d6b804e79c64bd482fee0c4153e411, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3280339242994409303, guid: c6d6b804e79c64bd482fee0c4153e411, type: 3}
       propertyPath: m_RootOrder
@@ -13494,10 +13489,6 @@ PrefabInstance:
     - target: {fileID: 3280339242994409303, guid: c6d6b804e79c64bd482fee0c4153e411, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3280339242994409305, guid: c6d6b804e79c64bd482fee0c4153e411, type: 3}
-      propertyPath: m_Speed
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6d6b804e79c64bd482fee0c4153e411, type: 3}
