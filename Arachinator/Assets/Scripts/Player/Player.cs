@@ -18,8 +18,8 @@ public class Player : MonoBehaviour, IDamageble
     Movement movement;
     Rigidbody rb;
     Life life;
-    SkinnedMeshRenderer[] renderer;
-    Dictionary<SkinnedMeshRenderer, Material> originalMaterials;
+    Renderer[] renderer;
+    Dictionary<Renderer, Material> originalMaterials;
 
     Coroutine currentDamageCoroutine = null;
     static readonly int FresnelLevel = Shader.PropertyToID("_FresnelLevel");
@@ -31,7 +31,7 @@ public class Player : MonoBehaviour, IDamageble
         movement = GetComponent<Movement>();
         rb = GetComponent<Rigidbody>();
         life = GetComponent<Life>();
-        renderer = GetComponentsInChildren<SkinnedMeshRenderer>().ToArray();
+        renderer = GetComponentsInChildren<Renderer>().ToArray();
     }
 
     void Start()
@@ -46,10 +46,6 @@ public class Player : MonoBehaviour, IDamageble
     {
         var input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         movement.Move(input.normalized * speed);
-
-        if (Input.GetKeyDown(KeyCode.Space))
-            StartCoroutine(DamageFlash());
-
     }
     public void TakeDamage(float amount) => ui.RemoveHealth(amount);
 
