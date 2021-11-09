@@ -85,8 +85,6 @@ public class Enemy : MonoBehaviour, IDamageble
         blood.transform.localScale *= 1.5f;
         blood.transform.SetParent(transform);
         Destroy(blood, 8);
-
     }
-
 }
 

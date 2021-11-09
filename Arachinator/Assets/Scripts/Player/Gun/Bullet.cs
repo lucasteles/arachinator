@@ -38,6 +38,5 @@ public class Bullet : MonoBehaviour
         {
             damageble.TakeHit(damage, other.ClosestPoint(transform.position), force);
         }
-
     }
 }
