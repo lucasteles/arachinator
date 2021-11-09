@@ -5064,7 +5064,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddf1186f3e18f4edbb4e921bcdbd2add, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLife: 10
+  maxLife: 15
 --- !u!4 &979065028557998527
 Transform:
   m_ObjectHideFlags: 0
@@ -11451,7 +11451,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.918
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -11607,6 +11607,9 @@ MonoBehaviour:
   damageFlashTime: 0.6
   damageMaterial: {fileID: 2100000, guid: ccb80f98308f643dca574f038fcfa73a, type: 2}
   dissolveMaterial: {fileID: 2100000, guid: 158c5fd7931224182984ffd749dcaf92, type: 2}
+  hit: {fileID: 8300000, guid: bd76b96ab3faf405f8e8cae19a735907, type: 3}
+  dieSound: {fileID: 8300000, guid: 550884eabcc274753a39988f766a6942, type: 3}
+  fallSound: {fileID: 8300000, guid: bbbe7c91f79ad41a2b97a8f5edd87874, type: 3}
 --- !u!114 &6480152881385295240
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -106,7 +106,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
-    - _FresnelLevel: 0.5003129
+    - _FresnelLevel: 1.8589908
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
