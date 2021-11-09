@@ -106,7 +106,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
-    - _FresnelLevel: 1
+    - _FresnelLevel: 0.5159271
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -127,7 +127,7 @@ Material:
     - Color_302e89a0c63940cfad3e29b0a05a9064: {r: 0.3764706, g: 0.21960784, b: 0.21960784, a: 0}
     - Color_cb1baf9162bf4da0b89008f72809950d: {r: 1.1486983, g: 0, b: 0.022523498, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.122641504, g: 0.054957278, b: 0.054957278, a: 1}
+    - _Color: {r: 0.04999997, g: 0.041318495, b: 0.03805671, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []

@@ -11604,7 +11604,7 @@ MonoBehaviour:
   speed: 6
   ui: {fileID: 1409153847}
   damageTime: 0.5
-  damageFlashTime: 1
+  damageFlashTime: 0.6
   damageMaterial: {fileID: 2100000, guid: ccb80f98308f643dca574f038fcfa73a, type: 2}
   dissolveMaterial: {fileID: 2100000, guid: 158c5fd7931224182984ffd749dcaf92, type: 2}
 --- !u!114 &6480152881385295240
