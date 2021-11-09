@@ -15,11 +15,7 @@ public class Life : MonoBehaviour
 
     public event Action onDeath;
 
-    void Start()
-    {
-        currentLife = maxLife;
-        dead = false;
-    }
+    void Start() => Reset();
 
     void Update()
     {
@@ -34,4 +30,9 @@ public class Life : MonoBehaviour
     public void Subtract(float amount) => currentLife -= amount;
     public void Add(float amount) => currentLife += amount;
 
+    public void Reset()
+    {
+        currentLife = maxLife;
+        dead = false;
+    }
 }

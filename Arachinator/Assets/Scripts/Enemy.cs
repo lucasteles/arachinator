@@ -11,20 +11,16 @@ public class Enemy : MonoBehaviour, IDamageble
     [SerializeField]GameObject[] bloodEffects;
     [SerializeField]GameObject dieEffect;
     NavMeshAgent navMeshAgent;
-    GameObject target;
+    Life target;
     Rigidbody rb;
     Life life;
-    BoxCollider targetCollider;
-    CapsuleCollider myCollider;
 
     void Awake()
     {
         life = GetComponent<Life>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
-        target = FindObjectOfType<Player>().gameObject;
-        targetCollider = target.GetComponent<BoxCollider>();
-        myCollider = GetComponent<CapsuleCollider>();
+        target = FindObjectOfType<Player>().GetComponent<Life>();
     }
 
     void Start()
@@ -54,10 +50,18 @@ public class Enemy : MonoBehaviour, IDamageble
         while (!life.IsDead)
         {
             yield return new WaitForSeconds(.25f);
-            // var radios = myCollider.radius / 2;
-            // var targetOffset = targetCollider.size / 2;
-            navMeshAgent.SetDestination(target.transform.position);
+            if (!target.IsDead)
+            {
+                if (navMeshAgent.isStopped)
+                    navMeshAgent.isStopped = false;
+                navMeshAgent.SetDestination(target.transform.position);
+            }
+            else
+            {
+                navMeshAgent.isStopped = true;
+            }
         }
+
     }
 
     void Walk()

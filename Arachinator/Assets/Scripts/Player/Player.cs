@@ -23,6 +23,7 @@ public class Player : MonoBehaviour, IDamageble
 
     Coroutine currentDamageCoroutine = null;
     static readonly int FresnelLevel = Shader.PropertyToID("_FresnelLevel");
+    static readonly int DissolveLevel = Shader.PropertyToID("_Dissolve");
 
     public bool IsInvincible { get; private set; }
 
@@ -32,7 +33,11 @@ public class Player : MonoBehaviour, IDamageble
         rb = GetComponent<Rigidbody>();
         life = GetComponent<Life>();
         renderer = GetComponentsInChildren<Renderer>().ToArray();
+        life.onDeath += OnDeath;
     }
+    void OnDestroy() => life.onDeath -= OnDeath;
+
+    void OnDeath() => StartCoroutine(DieAnimation());
 
     void Start()
     {
@@ -44,17 +49,22 @@ public class Player : MonoBehaviour, IDamageble
 
     void Update ()
     {
+        if (life.IsDead) return;
         var input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         movement.Move(input.normalized * speed);
     }
-    public void TakeDamage(float amount) => ui.RemoveHealth(amount);
 
     public void DisableInvicible() => IsInvincible = false;
     public void EnableInvicible() => IsInvincible = true;
 
+    public void TakeDamage(float amount)
+    {
+        ui.RemoveHealth(amount);
+        life.Subtract(amount);
+    }
     public void TakeHit(float amount, Vector3 from, float force)
     {
-        if (IsInvincible) return;
+        if (IsInvincible || life.IsDead) return;
 
         EnableInvicible();
         rb.velocity = Vector3.zero;
@@ -83,6 +93,68 @@ public class Player : MonoBehaviour, IDamageble
         for (var i = 0; i < renderer.Length; i++)
             renderer[i].sharedMaterial = originalMaterials[renderer[i]];
     }
+
+    IEnumerator DieAnimation()
+    {
+        EnableInvicible();
+        rb.velocity = rb.angularVelocity = Vector3.zero;
+        var constraints = rb.constraints;
+        var originalRotation = transform.rotation;
+
+        var gun = GetComponentInChildren<Gun>();
+        var webPistol = GetComponentInChildren<WebPistol>();
+
+        gun.enabled = webPistol.enabled = false;
+
+        rb.constraints = RigidbodyConstraints.FreezePositionX
+                         | RigidbodyConstraints.FreezePositionZ;
+        var lockKey = movement.Lock();
+        rb.AddForce(Vector3.up * 12,ForceMode.VelocityChange);
+
+        var rotationTarget = transform.rotation * Quaternion.Euler(0,40, 180);
+        for (var i = 0f; i <= 1; i+=0.02f)
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation,  rotationTarget,i);
+            yield return null;
+        }
+        yield return new WaitForSeconds(.5f);
+
+        var dissolveStep = 0.005f;
+        yield return DissolveEffect(dissolveStep);
+
+        rb.MovePosition(Vector3.zero);
+        transform.rotation = originalRotation;
+        yield return RestoreEffect(dissolveStep);
+
+        gun.enabled = webPistol.enabled = true;
+        rb.constraints = constraints;
+        life.Reset();
+        ui.SetMaxHealth(life.MaxLife);
+        DisableInvicible();
+        movement.Unlock(lockKey);
+    }
+
+    IEnumerator DissolveEffect(float step)
+    {
+        SetMaterials(dissolveMaterial);
+        for (var i = 0f; i <= 1; i+=step)
+        {
+            dissolveMaterial.SetFloat(DissolveLevel, i);
+            yield return null;
+        }
+    }
+
+    IEnumerator RestoreEffect(float step)
+    {
+        for (var i = 1f; i >= 0; i-=step)
+        {
+            dissolveMaterial.SetFloat(DissolveLevel, i);
+            yield return null;
+        }
+
+        RestoreMaterials();
+    }
+
     IEnumerator DamageFlash()
     {
         const float initialFresnel = 2.5f;

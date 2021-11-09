@@ -102,7 +102,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_331d4bb467ec4865aeeb63bcb9911628: 0.02
-    - Vector1_8c0284b5d86840198ec7a998a0372966: 50
+    - Vector1_8c0284b5d86840198ec7a998a0372966: 30
     - Vector1_d34fd4fc349f4ac1a31b635b2d35be83: 0
     - Vector1_e2755d5041f142edbe96fd6b0768b279: -13.3
     - Vector1_f8a6a14c25b048d28cdf8ab9550cf9d8: 0.395
@@ -115,6 +115,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
+    - _Dissolve: 0.0000003874302
     - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
@@ -134,9 +135,9 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - Color_302e89a0c63940cfad3e29b0a05a9064: {r: 0.3764706, g: 0.21960784, b: 0.21960784, a: 0}
-    - Color_b86274fecbc84264b39a2c817de4b3a6: {r: 1.622642, g: 0, b: 0.6302581, a: 0}
+    - Color_b86274fecbc84264b39a2c817de4b3a6: {r: 2.1280527, g: 0, b: 3.732132, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.04999997, g: 0.041318495, b: 0.03805671, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []

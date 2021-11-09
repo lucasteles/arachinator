@@ -7,15 +7,18 @@ public class LookAtMouse : MonoBehaviour
     Camera mainCamera;
     [SerializeField]Transform gunPoint;
     Movement movement;
+    Life life;
 
     void Awake()
     {
         mainCamera = Camera.main;
         movement = GetComponent<Movement>();
+        life = GetComponent<Life>();
     }
 
     void Update()
     {
+        if (life is { } l && l.IsDead) return;
         var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         var plan = new Plane(Vector3.up, Vector3.up * gunPoint.position.y);
 

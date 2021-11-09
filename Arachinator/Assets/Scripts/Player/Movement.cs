@@ -1,19 +1,28 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 public class Movement : MonoBehaviour
 {
     Rigidbody rb;
     Vector3 velocity = Vector3.zero;
-    bool isLocked;
 
+    HashSet<object> locks = new HashSet<object>();
 	void Start () => rb = GetComponent<Rigidbody>();
+
+    public bool IsLocked()
+    {
+        if (locks.Count > 0)
+            return true;
+
+        return false;
+    }
 
 	void FixedUpdate ()
     {
-        if (isLocked) return;
+        if (IsLocked()) return;
+
         rb.MovePosition(transform.position + velocity * Time.fixedDeltaTime);
     }
 
@@ -25,14 +34,35 @@ public class Movement : MonoBehaviour
         transform.LookAt(target);
     }
 
+    public void LockWith(object owner)
+    {
+        if (!locks.Contains(owner))
+            locks.Add(owner);
+    }
 
-    public void Lock() => isLocked = true;
-    public void Unlock() => isLocked = false;
+    public object Lock()
+    {
+        var key = Guid.NewGuid();
+        LockWith(key);
+        return key;
+    }
+
+    public void Unlock(object owner)
+    {
+        if (locks.Contains(owner))
+            locks.Remove(owner);
+    }
 
     public void Lock(float seconds)
     {
-        Lock();
-        Invoke(nameof(Unlock), seconds);
+        var key = Lock();
+        StartCoroutine(LockForSeconds(key, seconds));
+    }
+
+    IEnumerator LockForSeconds(object key, float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        Unlock(key);
     }
 
 }
