@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Cameras.Effects
 {
@@ -6,39 +8,39 @@ namespace Assets.Scripts.Cameras.Effects
     {
         public static CameraShaker Instance;
 
-        private Vector3 originalPosition;
-        private float timeShaking;
-        private CameraShakeData data;
+        Vector3 originalPosition;
+        float timeShaking;
+        Camera mainCamera;
+        CameraShakeData data;
 
-        private void Awake()
+        void Awake()
         {
             if (Instance != null)
-            {
                 Destroy(gameObject);
-            }
 
             Instance = this;
-            originalPosition = transform.position;
+            mainCamera = Camera.main;
+            originalPosition = mainCamera.transform.localPosition;
         }
 
-        private void Update()
+        void Update()
         {
-            if (timeShaking < data.timeToShake)
+            if (timeShaking >= data.timeToShake) return;
+
+            timeShaking += Time.unscaledDeltaTime;
+
+            var x = Random.Range(-1, 2) * data.magnitude ;
+            var y = Random.Range(-1, 2) * data.magnitude ;
+
+            var newPos = originalPosition + new Vector3(x, y);
+            mainCamera.transform.localPosition = newPos;
+            data.DecreaseMagnitude();
+
+            if (timeShaking >= data.timeToShake)
             {
-                timeShaking += Time.unscaledDeltaTime;
-
-                float x = Random.Range(-1, 2) * data.magnitude;
-                float y = Random.Range(-1, 2) * data.magnitude;
-
-                transform.localPosition = originalPosition + new Vector3(x, y);
-                data.DecreaseMagnitude();
-
-                if (timeShaking >= data.timeToShake)
-                {
-                    transform.localPosition = originalPosition;
-                    timeShaking = 0;
-                    data.timeToShake = 0;
-                }
+                mainCamera.transform.localPosition = originalPosition;
+                timeShaking = 0;
+                data.timeToShake = 0;
             }
         }
 
@@ -49,7 +51,7 @@ namespace Assets.Scripts.Cameras.Effects
         }
     }
 
-    [System.Serializable]
+    [Serializable]
     public struct CameraShakeData
     {
         private float declineRate;
