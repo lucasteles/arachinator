@@ -31,11 +31,9 @@ namespace Assets.Scripts.Ui.HealthPoints
 
         void Update()
         {
-            if (this.slider.value != currentHealth)
-            {
-                timeChangingSlider += Time.deltaTime;
-                this.slider.value = Mathf.Lerp(this.slider.value, this.currentHealth, timeChangingSlider / timeToChangeSlider);
-            }
+            if (this.slider.value == currentHealth) return;
+            timeChangingSlider += Time.deltaTime;
+            this.slider.value = Mathf.Lerp(this.slider.value, this.currentHealth, timeChangingSlider / timeToChangeSlider);
         }
     }
 }

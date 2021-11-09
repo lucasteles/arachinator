@@ -11,6 +11,8 @@ public class Life : MonoBehaviour
 
     public float CurrentLife => currentLife;
     public bool IsDead => dead;
+    public float MaxLife => maxLife;
+
     public event Action onDeath;
 
     void Start()

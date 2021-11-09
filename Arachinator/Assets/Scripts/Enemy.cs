@@ -14,6 +14,8 @@ public class Enemy : MonoBehaviour, IDamageble
     GameObject target;
     Rigidbody rb;
     Life life;
+    BoxCollider targetCollider;
+    CapsuleCollider myCollider;
 
     void Awake()
     {
@@ -21,6 +23,8 @@ public class Enemy : MonoBehaviour, IDamageble
         navMeshAgent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
         target = FindObjectOfType<Player>().gameObject;
+        targetCollider = target.GetComponent<BoxCollider>();
+        myCollider = GetComponent<CapsuleCollider>();
     }
 
     void Start()
@@ -45,17 +49,13 @@ public class Enemy : MonoBehaviour, IDamageble
         Destroy(gameObject);
     }
 
-    void Update()
-    {
-
-    }
-
-
     IEnumerator SetDestination()
     {
         while (!life.IsDead)
         {
             yield return new WaitForSeconds(.25f);
+            // var radios = myCollider.radius / 2;
+            // var targetOffset = targetCollider.size / 2;
             navMeshAgent.SetDestination(target.transform.position);
         }
     }
