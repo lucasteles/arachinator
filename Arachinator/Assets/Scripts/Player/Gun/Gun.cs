@@ -1,3 +1,4 @@
+using Assets.Scripts.Cameras.Effects;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ public class Gun : MonoBehaviour
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip shotAudioClip;
     [SerializeField] float cooldownTime;
+    [SerializeField] CameraShakeData shakeData;
 
     Vector3 gunbodyPos;
     Cooldown cooldown;
@@ -42,6 +44,7 @@ public class Gun : MonoBehaviour
         var guntransform = gunBody.transform;
         var pos = guntransform.localPosition;
         guntransform.Translate(new Vector3(pos.x, pos.y, pos.z - recoil));
+        CameraShaker.Instance.Shake(shakeData);
 
         IEnumerator routine()
         {
