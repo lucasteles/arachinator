@@ -17,7 +17,6 @@ public class Player : MonoBehaviour, IDamageble
 
     [SerializeField]AudioClip hit;
     [SerializeField]AudioClip dieSound;
-    [SerializeField]AudioClip fallSound;
 
     Movement movement;
     Rigidbody rb;
@@ -108,7 +107,6 @@ public class Player : MonoBehaviour, IDamageble
         rb.velocity = rb.angularVelocity = Vector3.zero;
         var constraints = rb.constraints;
         var originalRotation = transform.rotation;
-        var originalPosition = transform.position;
 
         var gun = GetComponentInChildren<Gun>();
         var webPistol = GetComponentInChildren<WebPistol>();
@@ -118,21 +116,13 @@ public class Player : MonoBehaviour, IDamageble
         rb.constraints = RigidbodyConstraints.FreezePositionX
                          | RigidbodyConstraints.FreezePositionZ;
         var lockKey = movement.Lock();
-        rb.AddForce(Vector3.up * 13,ForceMode.VelocityChange);
+        rb.AddForce(Vector3.up * 12,ForceMode.VelocityChange);
 
         audioSource.PlayOneShot(dieSound);
         var rotationTarget = transform.rotation * Quaternion.Euler(0,40, 180);
-        var playerdFallSound = false;
         for (var i = 0f; i <= 1; i+=0.02f)
         {
             transform.rotation = Quaternion.Lerp(transform.rotation,  rotationTarget,i);
-
-            if (!playerdFallSound && transform.position.y <= originalPosition.y && rb.velocity.y < 0)
-            {
-                audioSource.PlayOneShot(fallSound);
-                playerdFallSound = true;
-            }
-
             yield return null;
         }
         yield return new WaitForSeconds(.5f);
