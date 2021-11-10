@@ -624,7 +624,6 @@ GameObject:
   - component: {fileID: 823750363804634118}
   - component: {fileID: 8855744853442678379}
   - component: {fileID: 4396912462356946828}
-  - component: {fileID: 7358416971145167105}
   - component: {fileID: 7220248354729840576}
   m_Layer: 9
   m_Name: Leg Aim (3)
@@ -641,7 +640,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 428604411295144097}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.7612655, y: -0.707, z: 1.3839401}
+  m_LocalPosition: {x: 2.574, y: -0.707, z: 1.3839401}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 3094547020581814332}
@@ -696,19 +695,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7358416971145167105
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 428604411295144097}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
-  m_Center: {x: 0, y: 0.00000005960465, z: 0}
 --- !u!114 &7220248354729840576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1412,6 +1398,7 @@ MonoBehaviour:
   legMoveSpeed: 7
   moveDistance: 0.7
   moveStoppingDistance: 0.4
+  upPosition: 0.05
   oppsiteLeg: {fileID: 7335047703207677284}
 --- !u!1 &862848354177198423
 GameObject:
@@ -2944,9 +2931,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveCube: {fileID: 3915611290914110382}
-  legMoveSpeed: 7
-  moveDistance: 0.7
+  legMoveSpeed: 9
+  moveDistance: 0.85
   moveStoppingDistance: 0.4
+  upPosition: 0.05
   oppsiteLeg: {fileID: 4802858137349431895}
 --- !u!1 &2290129607294278632
 GameObject:
@@ -3825,7 +3813,6 @@ GameObject:
   - component: {fileID: 4206640544178939234}
   - component: {fileID: 8005258271027927825}
   - component: {fileID: 7410602344416978844}
-  - component: {fileID: 1913199745877816667}
   - component: {fileID: 1432081004350240590}
   m_Layer: 9
   m_Name: Leg Aim (7)
@@ -3842,7 +3829,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3028703761020561696}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.7689245, y: -0.707, z: 1.3706113}
+  m_LocalPosition: {x: -2.669, y: -0.707, z: 1.336}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 3094547020581814332}
@@ -3897,19 +3884,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1913199745877816667
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3028703761020561696}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
-  m_Center: {x: 0, y: 0.00000005960465, z: 0}
 --- !u!114 &1432081004350240590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4221,7 +4195,6 @@ GameObject:
   - component: {fileID: 7400792265326699442}
   - component: {fileID: 2397462152149273709}
   - component: {fileID: 4941196097925988536}
-  - component: {fileID: 7807587169267701928}
   - component: {fileID: 7275092314224196189}
   m_Layer: 9
   m_Name: Leg Aim (4)
@@ -4238,7 +4211,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3915611290914110382}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.7034879, y: -0.707, z: 2.7106974}
+  m_LocalPosition: {x: 1.595, y: -0.707, z: 2.578}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 3094547020581814332}
@@ -4293,19 +4266,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7807587169267701928
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3915611290914110382}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
-  m_Center: {x: 0, y: 0.00000005960465, z: 0}
 --- !u!114 &7275092314224196189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4780,6 +4740,7 @@ MonoBehaviour:
   legMoveSpeed: 7
   moveDistance: 0.7
   moveStoppingDistance: 0.4
+  upPosition: 0.05
   oppsiteLeg: {fileID: 3536969711861709223}
 --- !u!1 &4356302063587080761
 GameObject:
@@ -4853,7 +4814,6 @@ GameObject:
   - component: {fileID: 6700887880581880912}
   - component: {fileID: 6867486689253394540}
   - component: {fileID: 778037075978360460}
-  - component: {fileID: 112816012352248486}
   - component: {fileID: 1168161312716565796}
   m_Layer: 9
   m_Name: Leg Aim (2)
@@ -4870,7 +4830,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4388016891331535995}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.3930926, y: -0.707, z: -2.105209}
+  m_LocalPosition: {x: 2.201, y: -0.707, z: -2.059}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 3094547020581814332}
@@ -4925,19 +4885,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &112816012352248486
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4388016891331535995}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
-  m_Center: {x: 0, y: 0.00000005960465, z: 0}
 --- !u!114 &1168161312716565796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5285,9 +5232,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveCube: {fileID: 6417507178839685822}
-  legMoveSpeed: 7
-  moveDistance: 0.7
+  legMoveSpeed: 9
+  moveDistance: 0.85
   moveStoppingDistance: 0.4
+  upPosition: 0.05
   oppsiteLeg: {fileID: 668603791385371130}
 --- !u!1 &4663083411646298169
 GameObject:
@@ -5331,7 +5279,6 @@ GameObject:
   - component: {fileID: 7264479283184337393}
   - component: {fileID: 4967258764799327403}
   - component: {fileID: 510260172135869302}
-  - component: {fileID: 8259098212953679500}
   - component: {fileID: 6233405691148988204}
   m_Layer: 9
   m_Name: Leg Aim (5)
@@ -5348,7 +5295,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4682226658227671209}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.2075665, y: -0.707, z: -0.84434074}
+  m_LocalPosition: {x: -3.027, y: -0.707, z: -0.81}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 3094547020581814332}
@@ -5403,19 +5350,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8259098212953679500
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4682226658227671209}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
-  m_Center: {x: 0, y: 0.00000005960465, z: 0}
 --- !u!114 &6233405691148988204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7142,6 +7076,7 @@ MonoBehaviour:
   legMoveSpeed: 7
   moveDistance: 0.7
   moveStoppingDistance: 0.4
+  upPosition: 0.05
   oppsiteLeg: {fileID: 4904418785875726642}
 --- !u!1 &5938988397094938353
 GameObject:
@@ -7955,6 +7890,7 @@ MonoBehaviour:
   legMoveSpeed: 7
   moveDistance: 0.7
   moveStoppingDistance: 0.4
+  upPosition: 0.05
   oppsiteLeg: {fileID: 1893794526445105236}
 --- !u!1 &6346986912451247175
 GameObject:
@@ -8097,7 +8033,6 @@ GameObject:
   - component: {fileID: 413052951783530020}
   - component: {fileID: 385034970702001818}
   - component: {fileID: 5802064096810593348}
-  - component: {fileID: 1497076365511009377}
   - component: {fileID: 4477689049825262794}
   m_Layer: 9
   m_Name: Leg Aim (8)
@@ -8114,7 +8049,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6417507178839685822}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.6903198, y: -0.707, z: 2.733505}
+  m_LocalPosition: {x: -1.601, y: -0.707, z: 2.575}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 3094547020581814332}
@@ -8169,19 +8104,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1497076365511009377
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6417507178839685822}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
-  m_Center: {x: 0, y: 0.00000005960465, z: 0}
 --- !u!114 &4477689049825262794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8915,6 +8837,7 @@ MonoBehaviour:
   legMoveSpeed: 7
   moveDistance: 0.7
   moveStoppingDistance: 0.4
+  upPosition: 0.05
   oppsiteLeg: {fileID: 678520940080624928}
 --- !u!1 &6863900489570421706
 GameObject:
@@ -8990,6 +8913,7 @@ MonoBehaviour:
   legMoveSpeed: 7
   moveDistance: 0.7
   moveStoppingDistance: 0.4
+  upPosition: 0.05
   oppsiteLeg: {fileID: 4105378450244080947}
 --- !u!1 &6913069182937877796
 GameObject:
@@ -9293,7 +9217,6 @@ GameObject:
   - component: {fileID: 2016953812391967455}
   - component: {fileID: 6134230226099493977}
   - component: {fileID: 3121738827418323867}
-  - component: {fileID: 6764974486497064578}
   - component: {fileID: 8068780362434567245}
   m_Layer: 9
   m_Name: Leg Aim (6)
@@ -9310,7 +9233,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7069975809892348247}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.3799932, y: -0.707, z: -2.1227102}
+  m_LocalPosition: {x: -2.209, y: -0.707, z: -2.105}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 3094547020581814332}
@@ -9365,19 +9288,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6764974486497064578
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7069975809892348247}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
-  m_Center: {x: 0, y: 0.00000005960465, z: 0}
 --- !u!114 &8068780362434567245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12077,7 +11987,6 @@ GameObject:
   - component: {fileID: 7363462505905491265}
   - component: {fileID: 8698753709053731326}
   - component: {fileID: 8405745033551262402}
-  - component: {fileID: 3756299400686556300}
   - component: {fileID: 2262485621303594420}
   m_Layer: 9
   m_Name: Leg Aim (1)
@@ -12094,7 +12003,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9000498132110590674}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.2023933, y: -0.707, z: -0.8641895}
+  m_LocalPosition: {x: 3.008, y: -0.707, z: -0.8641895}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 3094547020581814332}
@@ -12149,19 +12058,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3756299400686556300
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9000498132110590674}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
-  m_Center: {x: 0, y: 0.00000005960465, z: 0}
 --- !u!114 &2262485621303594420
 MonoBehaviour:
   m_ObjectHideFlags: 0

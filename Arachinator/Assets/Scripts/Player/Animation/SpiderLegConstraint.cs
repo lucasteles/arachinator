@@ -8,6 +8,7 @@ public class SpiderLegConstraint : MonoBehaviour
     [SerializeField] float legMoveSpeed = 7f; // the speed of the leg
     [SerializeField] float moveDistance = 0.7f; // how far does the cube have to go before the leg has to move to it
     [SerializeField] float moveStoppingDistance = 0.4f; // how close the leg should get to the cube before stopping
+    [SerializeField] float upPosition = .3f;
     [SerializeField] SpiderLegConstraint oppsiteLeg; //the oppsite leg of this one
 
     Vector3 originalPosition; // the original position of this leg to keep the leg fixed to the ground
@@ -19,10 +20,10 @@ public class SpiderLegConstraint : MonoBehaviour
     void Update()
     {
         var distanceToMoveCube = Vector3.Distance(transform.position, moveCube.transform.position);// calculate the distance from the leg to the cube
-        if(distanceToMoveCube >= moveDistance && !oppsiteLeg.isItMoving() || moving) //to check if the distance is far away from the cube or not and if it is move the leg to the cube
+        if(distanceToMoveCube >= moveDistance && !oppsiteLeg.isMoving || moving) //to check if the distance is far away from the cube or not and if it is move the leg to the cube
         {
             moving = true; // to tell this leg that it didnt get close enough to stop moving
-            transform.position = Vector3.Lerp(transform.position, moveCube.transform.position + new Vector3(0f, 0.3f, 0f), Time.deltaTime * legMoveSpeed); // to move the leg to the cube
+            transform.position = Vector3.Lerp(transform.position, moveCube.transform.position +  upPosition * Vector3.up, Time.deltaTime * legMoveSpeed); // to move the leg to the cube
             originalPosition = transform.position; // to change the original position and fix the leg to the ground when not moving
             isMoving = true; // to tell oppsite legs that this one is moving
 
@@ -35,7 +36,4 @@ public class SpiderLegConstraint : MonoBehaviour
             isMoving = false; //to tell the oppiste leg that this leg is not moving
         }
     }
-
-    public bool isItMoving() //to be called by the oppiste leg to check if the leg is moving or not
-        => isMoving;
 }

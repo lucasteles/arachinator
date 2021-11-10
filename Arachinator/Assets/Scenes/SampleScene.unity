@@ -3792,42 +3792,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 112816012352248486, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 668603791385371130, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: legMoveSpeed
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 668603791385371130, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: moveDistance
-      value: 0.85
-      objectReference: {fileID: 0}
-    - target: {fileID: 1048413615541081984, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: ui
-      value: 
-      objectReference: {fileID: 1409153847}
-    - target: {fileID: 1497076365511009377, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1913199745877816667, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3756299400686556300, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4802858137349431895, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: legMoveSpeed
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4802858137349431895, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: moveDistance
-      value: 0.85
-      objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -3875,22 +3839,6 @@ PrefabInstance:
     - target: {fileID: 6603402709657733691, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_Name
       value: PlayerSpider
-      objectReference: {fileID: 0}
-    - target: {fileID: 6764974486497064578, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7358416971145167105, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7807587169267701928, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8259098212953679500, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
