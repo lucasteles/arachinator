@@ -23,7 +23,8 @@ public class Player : MonoBehaviour, IDamageble
     Life life;
     Renderer[] renderers;
     Dictionary<Renderer, Material> originalMaterials;
-    Dictionary<Renderer, Material> newMaterials;
+    Dictionary<Renderer, Material> damageMaterialsCache;
+    Dictionary<Renderer, Material> dissolveMaterialsCache;
     AudioSource audioSource;
 
     Coroutine currentDamageCoroutine = null;
@@ -48,7 +49,9 @@ public class Player : MonoBehaviour, IDamageble
     void Start()
     {
         ui.SetMaxHealth(life.MaxLife);
-        newMaterials = new Dictionary<Renderer, Material>();
+        damageMaterialsCache = InstantiateMaterials(damageMaterial);
+        dissolveMaterialsCache = InstantiateMaterials(dissolveMaterial);
+
         originalMaterials =
             renderers.Select(r => (r, r.sharedMaterial))
                 .ToDictionary(x => x.r, x => x.sharedMaterial);
@@ -87,35 +90,27 @@ public class Player : MonoBehaviour, IDamageble
         TakeDamage(amount);
     }
 
-    void SetMaterials(Material material)
+    Dictionary<Renderer, Material> InstantiateMaterials(Material material)
     {
+        var cache = new Dictionary<Renderer, Material>();
         for (var i = 0; i < renderers.Length; i++)
         {
             var renderer = renderers[i];
             var color = renderer.sharedMaterial.color;
             var tex = renderer.sharedMaterial.mainTexture;
             var newMaterial = new Material(material);
-            if (newMaterials.ContainsKey(renderers[i]))
-            {
-                Destroy(newMaterials[renderer]);
-                newMaterials[renderer] = newMaterial;
-            }
-            else
-                newMaterials.Add(renderer, newMaterial);
-
+            cache.Add(renderer, newMaterial);
             renderer.sharedMaterial = newMaterial;
             renderer.sharedMaterial.color = color;
             renderer.sharedMaterial.mainTexture = tex;
         }
+        return cache;
     }
 
     void RestoreMaterials()
     {
         for (var i = 0; i < renderers.Length; i++)
-        {
             renderers[i].sharedMaterial = originalMaterials[renderers[i]];
-            Destroy(newMaterials[renderers[i]]);
-        }
     }
 
     IEnumerator DieAnimation()
@@ -142,9 +137,9 @@ public class Player : MonoBehaviour, IDamageble
             transform.rotation = Quaternion.Lerp(transform.rotation,  rotationTarget,i);
             yield return null;
         }
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.3f);
 
-        var dissolveStep = 0.005f;
+        var dissolveStep = 0.0065f;
         yield return DissolveEffect(dissolveStep);
 
         rb.MovePosition(Vector3.zero);
@@ -159,20 +154,32 @@ public class Player : MonoBehaviour, IDamageble
         movement.Unlock(lockKey);
     }
 
-    void SetDissolveOnAllMaterials(float dissolve)
+    public void SetMaterialFromCache(Dictionary<Renderer, Material> cache)
     {
-        foreach (var mat in newMaterials.Values)
+        for (var i = 0; i < renderers.Length; i++)
+        {
+            var renderer = renderers[i];
+            var newMaterial = cache[renderer];
+            renderer.sharedMaterial = newMaterial;
+        }
+    }
+
+    public void UseFresnelShader() => SetMaterialFromCache(damageMaterialsCache);
+    public void UseDissolveShader() => SetMaterialFromCache(dissolveMaterialsCache);
+    public void SetDissolveOnAllMaterials(float dissolve)
+    {
+        foreach (var mat in dissolveMaterialsCache.Values)
             mat.SetFloat(DissolveLevel, dissolve);
     }
-    void SetFresnelOnAllMaterials(float dissolve)
+    public void SetFresnelOnAllMaterials(float dissolve)
     {
-        foreach (var mat in newMaterials.Values)
+        foreach (var mat in damageMaterialsCache.Values)
             mat.SetFloat(FresnelLevel, dissolve);
     }
 
-    IEnumerator DissolveEffect(float step)
+    public IEnumerator DissolveEffect(float step)
     {
-        SetMaterials(dissolveMaterial);
+        UseDissolveShader();
         for (var i = 0f; i <= 1; i+=step)
         {
             SetDissolveOnAllMaterials(i);
@@ -180,7 +187,7 @@ public class Player : MonoBehaviour, IDamageble
         }
     }
 
-    IEnumerator RestoreEffect(float step)
+    public IEnumerator RestoreEffect(float step)
     {
         for (var i = 1f; i >= 0; i-=step)
         {
@@ -196,7 +203,7 @@ public class Player : MonoBehaviour, IDamageble
         const float initialFresnel = 2.5f;
         const float lastFresnel = 0.5f;
         var time = 0f;
-        SetMaterials(damageMaterial);
+        UseFresnelShader();
         SetFresnelOnAllMaterials(1f);
 
         while (time <= damageFlashTime)
