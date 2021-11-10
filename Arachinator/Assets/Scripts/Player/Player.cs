@@ -23,6 +23,7 @@ public class Player : MonoBehaviour, IDamageble
     Life life;
     Renderer[] renderers;
     Dictionary<Renderer, Material> originalMaterials;
+    Dictionary<Renderer, Material> newMaterials;
     AudioSource audioSource;
 
     Coroutine currentDamageCoroutine = null;
@@ -47,6 +48,7 @@ public class Player : MonoBehaviour, IDamageble
     void Start()
     {
         ui.SetMaxHealth(life.MaxLife);
+        newMaterials = new Dictionary<Renderer, Material>();
         originalMaterials =
             renderers.Select(r => (r, r.sharedMaterial))
                 .ToDictionary(x => x.r, x => x.sharedMaterial);
@@ -89,16 +91,31 @@ public class Player : MonoBehaviour, IDamageble
     {
         for (var i = 0; i < renderers.Length; i++)
         {
-            var color = renderers[i].sharedMaterial.color;
-            renderers[i].sharedMaterial = material;
-            renderers[i].sharedMaterial.color = color;
+            var renderer = renderers[i];
+            var color = renderer.sharedMaterial.color;
+            var tex = renderer.sharedMaterial.mainTexture;
+            var newMaterial = new Material(material);
+            if (newMaterials.ContainsKey(renderers[i]))
+            {
+                Destroy(newMaterials[renderer]);
+                newMaterials[renderer] = newMaterial;
+            }
+            else
+                newMaterials.Add(renderer, newMaterial);
+
+            renderer.sharedMaterial = newMaterial;
+            renderer.sharedMaterial.color = color;
+            renderer.sharedMaterial.mainTexture = tex;
         }
     }
 
     void RestoreMaterials()
     {
         for (var i = 0; i < renderers.Length; i++)
+        {
             renderers[i].sharedMaterial = originalMaterials[renderers[i]];
+            Destroy(newMaterials[renderers[i]]);
+        }
     }
 
     IEnumerator DieAnimation()
@@ -142,12 +159,23 @@ public class Player : MonoBehaviour, IDamageble
         movement.Unlock(lockKey);
     }
 
+    void SetDissolveOnAllMaterials(float dissolve)
+    {
+        foreach (var mat in newMaterials.Values)
+            mat.SetFloat(DissolveLevel, dissolve);
+    }
+    void SetFresnelOnAllMaterials(float dissolve)
+    {
+        foreach (var mat in newMaterials.Values)
+            mat.SetFloat(FresnelLevel, dissolve);
+    }
+
     IEnumerator DissolveEffect(float step)
     {
         SetMaterials(dissolveMaterial);
         for (var i = 0f; i <= 1; i+=step)
         {
-            dissolveMaterial.SetFloat(DissolveLevel, i);
+            SetDissolveOnAllMaterials(i);
             yield return null;
         }
     }
@@ -156,7 +184,7 @@ public class Player : MonoBehaviour, IDamageble
     {
         for (var i = 1f; i >= 0; i-=step)
         {
-            dissolveMaterial.SetFloat(DissolveLevel, i);
+            SetDissolveOnAllMaterials(i);
             yield return null;
         }
 
@@ -169,13 +197,13 @@ public class Player : MonoBehaviour, IDamageble
         const float lastFresnel = 0.5f;
         var time = 0f;
         SetMaterials(damageMaterial);
-        damageMaterial.SetFloat(FresnelLevel, 1f);
+        SetFresnelOnAllMaterials(1f);
 
         while (time <= damageFlashTime)
         {
             var tstep = Mathf.InverseLerp(0f, damageFlashTime, time);
             var level = Mathf.Lerp(initialFresnel, lastFresnel, tstep);
-            damageMaterial.SetFloat(FresnelLevel, level);
+            SetFresnelOnAllMaterials(level);
 
             time += Time.deltaTime;
             yield return null;
