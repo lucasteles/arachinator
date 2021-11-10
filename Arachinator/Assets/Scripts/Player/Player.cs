@@ -7,37 +7,37 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IDamageble
 {
+    [Header("Params")]
     [SerializeField]float speed = 5;
-    [SerializeField]PlayerHealthPointsUi ui;
-
     [SerializeField]float damageTime = .5f;
     [SerializeField]float damageFlashTime = 1f;
-    [SerializeField]Material damageMaterial;
-    [SerializeField]Material dissolveMaterial;
+    [SerializeField]bool invincible;
 
+    [Header("Audio")]
     [SerializeField]AudioClip hit;
     [SerializeField]AudioClip dieSound;
+
+    [Header("Refs")]
+    [SerializeField]PlayerHealthPointsUi ui;
 
     Movement movement;
     Rigidbody rb;
     Life life;
-    Renderer[] renderers;
-    Dictionary<Renderer, Material> originalMaterials;
     AudioSource audioSource;
+    PlayerEffects playerEffects;
+    Coroutine currentDamageCoroutine;
 
-    Coroutine currentDamageCoroutine = null;
-    static readonly int FresnelLevel = Shader.PropertyToID("_FresnelLevel");
-    static readonly int DissolveLevel = Shader.PropertyToID("_Dissolve");
-
-    public bool IsInvincible { get; private set; }
+    public bool IsInvincible {
+        get => invincible;
+        private set => invincible = value; }
 
     void Awake()
     {
         movement = GetComponent<Movement>();
         rb = GetComponent<Rigidbody>();
         life = GetComponent<Life>();
+        playerEffects = GetComponent<PlayerEffects>();
         audioSource = GetComponent<AudioSource>();
-        renderers = GetComponentsInChildren<Renderer>().ToArray();
         life.onDeath += OnDeath;
     }
     void OnDestroy() => life.onDeath -= OnDeath;
@@ -47,9 +47,6 @@ public class Player : MonoBehaviour, IDamageble
     void Start()
     {
         ui.SetMaxHealth(life.MaxLife);
-        originalMaterials =
-            renderers.Select(r => (r, r.sharedMaterial))
-                .ToDictionary(x => x.r, x => x.sharedMaterial);
     }
 
     void Update ()
@@ -85,22 +82,6 @@ public class Player : MonoBehaviour, IDamageble
         TakeDamage(amount);
     }
 
-    void SetMaterials(Material material)
-    {
-        for (var i = 0; i < renderers.Length; i++)
-        {
-            var color = renderers[i].sharedMaterial.color;
-            renderers[i].sharedMaterial = material;
-            renderers[i].sharedMaterial.color = color;
-        }
-    }
-
-    void RestoreMaterials()
-    {
-        for (var i = 0; i < renderers.Length; i++)
-            renderers[i].sharedMaterial = originalMaterials[renderers[i]];
-    }
-
     IEnumerator DieAnimation()
     {
         EnableInvicible();
@@ -125,14 +106,14 @@ public class Player : MonoBehaviour, IDamageble
             transform.rotation = Quaternion.Lerp(transform.rotation,  rotationTarget,i);
             yield return null;
         }
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.3f);
 
-        var dissolveStep = 0.005f;
-        yield return DissolveEffect(dissolveStep);
+        var dissolveStep = 0.0065f;
+        yield return playerEffects.DissolveEffect(dissolveStep);
 
         rb.MovePosition(Vector3.zero);
         transform.rotation = originalRotation;
-        yield return RestoreEffect(dissolveStep);
+        yield return playerEffects.DissolveRestoreEffect(dissolveStep);
 
         gun.enabled = webPistol.enabled = true;
         rb.constraints = constraints;
@@ -142,45 +123,24 @@ public class Player : MonoBehaviour, IDamageble
         movement.Unlock(lockKey);
     }
 
-    IEnumerator DissolveEffect(float step)
-    {
-        SetMaterials(dissolveMaterial);
-        for (var i = 0f; i <= 1; i+=step)
-        {
-            dissolveMaterial.SetFloat(DissolveLevel, i);
-            yield return null;
-        }
-    }
-
-    IEnumerator RestoreEffect(float step)
-    {
-        for (var i = 1f; i >= 0; i-=step)
-        {
-            dissolveMaterial.SetFloat(DissolveLevel, i);
-            yield return null;
-        }
-
-        RestoreMaterials();
-    }
-
     IEnumerator DamageFlash()
     {
         const float initialFresnel = 2.5f;
         const float lastFresnel = 0.5f;
         var time = 0f;
-        SetMaterials(damageMaterial);
-        damageMaterial.SetFloat(FresnelLevel, 1f);
+        playerEffects.UseFresnelShader();
+        playerEffects.SetFresnelOnAllMaterials(1f);
 
         while (time <= damageFlashTime)
         {
             var tstep = Mathf.InverseLerp(0f, damageFlashTime, time);
             var level = Mathf.Lerp(initialFresnel, lastFresnel, tstep);
-            damageMaterial.SetFloat(FresnelLevel, level);
+            playerEffects.SetFresnelOnAllMaterials(level);
 
             time += Time.deltaTime;
             yield return null;
         }
-        RestoreMaterials();
+        playerEffects.RestoreMaterials();
         currentDamageCoroutine = null;
     }
 

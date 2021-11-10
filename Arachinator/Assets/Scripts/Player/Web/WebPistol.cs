@@ -13,7 +13,6 @@ public class WebPistol : MonoBehaviour
     [SerializeField]AudioSource audioSource;
     [SerializeField]AudioClip shotClip;
     [SerializeField]AudioClip hitClip;
-    [SerializeField]Movement movement;
     [SerializeField]float simpleBackdash;
     [SerializeField]float upForce;
     [SerializeField]float upBackDashForce;
@@ -23,6 +22,14 @@ public class WebPistol : MonoBehaviour
     public Vector3 ShotPoint => shotPoint.position;
     public Vector3? Target => hitPosition;
 
+    Movement movement;
+    Player player;
+
+    void Awake()
+    {
+        movement = GetComponentInParent<Movement>();
+        player = GetComponentInParent<Player>();
+    }
 
     void Start()
     {
@@ -38,11 +45,15 @@ public class WebPistol : MonoBehaviour
         }
     }
 
+    void DisableInvincible() => player.DisableInvicible();
+
     void ThrowWeb()
     {
         audioSource.PlayOneShot(shotClip);
         if (Physics.Raycast(shotPoint.position, -shotPoint.forward, out var hit, maxDistance))
         {
+            player.EnableInvicible();
+            Invoke(nameof(DisableInvincible), .3f);
             hitPosition = hit.point;
             StartCoroutine(Hit(hit));
             Invoke(nameof(Hide), .5f);

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -15,6 +16,10 @@ public class Enemy : MonoBehaviour, IDamageble
     Rigidbody rb;
     Life life;
 
+    CapsuleCollider myCollider;
+    BoxCollider targetCollider;
+
+
     void Awake()
     {
         life = GetComponent<Life>();
@@ -25,6 +30,8 @@ public class Enemy : MonoBehaviour, IDamageble
 
     void Start()
     {
+        myCollider = GetComponent<CapsuleCollider>();
+        targetCollider = target.GetComponent<BoxCollider>();
         StartCoroutine(SetDestination());
         life.onDeath += LifeOnDeath;
     }
@@ -47,19 +54,31 @@ public class Enemy : MonoBehaviour, IDamageble
 
     IEnumerator SetDestination()
     {
+
         while (!life.IsDead)
         {
             yield return new WaitForSeconds(.25f);
-            if (!target.IsDead)
+
+            try
             {
-                if (navMeshAgent.isStopped)
-                    navMeshAgent.isStopped = false;
-                navMeshAgent.SetDestination(target.transform.position);
+                if (!target.IsDead)
+                {
+                    if (navMeshAgent.isStopped)
+                        navMeshAgent.isStopped = false;
+
+                    var targetDirection = (transform.position - target.transform.position).normalized;
+                    var targetPosition = target.transform.position -
+                                         targetDirection * (myCollider.radius + targetCollider.size.x/2);
+
+                    navMeshAgent.SetDestination(targetPosition);
+                }
+                else
+                {
+                    navMeshAgent.isStopped = true;
+                }
+
             }
-            else
-            {
-                navMeshAgent.isStopped = true;
-            }
+            catch { }
         }
 
     }

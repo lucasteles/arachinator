@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7796623584624560070}
   - component: {fileID: 2212783523023311449}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Eyes.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +140,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3399874265999738738}
   - component: {fileID: 8259221190781668693}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Femur.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,7 +270,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6261151281851047287}
   - component: {fileID: 5828773969472211470}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tibia.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -400,7 +400,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6728226035435304697}
   - component: {fileID: 7495542042808810575}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Metatarsus.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -529,7 +529,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4466717712830614087}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Coxa.005 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -560,7 +560,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5740864436402217097}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Metatarsus.008 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -591,7 +591,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6263257659676954443}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Patella.003 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -622,7 +622,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2183883809622281941}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Chelicera.R 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -653,7 +653,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4491317922029509987}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Metatarsus.001 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -685,7 +685,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2837061687893046525}
   - component: {fileID: 2736849019067600485}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tibia.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -815,7 +815,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3565131832909165968}
   - component: {fileID: 4414440231896658609}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tarsus.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -945,7 +945,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5933456132446495637}
   - component: {fileID: 5733323998824063325}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tarsus.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1075,7 +1075,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5599551106100135556}
   - component: {fileID: 6112421226425241058}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tibia.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1204,7 +1204,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1059183846203071119}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Abdomen 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1236,7 +1236,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6636673169080673962}
   - component: {fileID: 4630138967739476922}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Femur.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1366,7 +1366,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8562488477719270383}
   - component: {fileID: 5680155177037346340}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tarsus.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1901,7 +1901,6 @@ MonoBehaviour:
   audioSource: {fileID: 1048413615772019480}
   shotClip: {fileID: 8300000, guid: 810a5021f1a424e2baf35558b8c32a70, type: 3}
   hitClip: {fileID: 8300000, guid: e4809f1744f7341bd8aac8964be4c8a3, type: 3}
-  movement: {fileID: 1048413615541081990}
   simpleBackdash: 900
   upForce: 600
   upBackDashForce: 450
@@ -2053,7 +2052,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1794769385153660053}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tarsus.008_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2084,7 +2083,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1597581324911696111}
   - component: {fileID: 2410920623432728954}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Coxa.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2213,7 +2212,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2532521281253681438}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Patella.005 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2245,7 +2244,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3539929342076475549}
   - component: {fileID: 5040904131980589731}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tarsus.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2374,7 +2373,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2264620159454871332}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Metatarsus.007 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2405,7 +2404,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1014444003829427973}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Patella.001 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2436,7 +2435,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1915958668741613040}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Spinnerets 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2467,7 +2466,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4138707187091869177}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tarsus.004_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2498,7 +2497,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5917507319467792171}
   - component: {fileID: 7409907015933047071}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Femur.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2627,7 +2626,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3119646559338734474}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Femur.002 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2659,7 +2658,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2189361052416472267}
   - component: {fileID: 8309369560242642430}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Patella.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2788,7 +2787,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4315815773847333753}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tarsus.003_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2818,7 +2817,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4984213674788784976}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Femur.001 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2849,7 +2848,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1044161185337211724}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Coxa.008 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2881,7 +2880,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4473508605531253859}
   - component: {fileID: 2886340133329385004}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Patella.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3011,7 +3010,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8300854764591370730}
   - component: {fileID: 84542614844688624}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Patella.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3140,7 +3139,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2508496164407507994}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Femur.003 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3171,7 +3170,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5748117866249174284}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tarsus.002 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3202,7 +3201,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1680120114692126462}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tarsus.008 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3233,7 +3232,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2525968370427813340}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Chelicera.L 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3265,7 +3264,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2234237909217956440}
   - component: {fileID: 6461297787068752904}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tibia.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3395,7 +3394,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7269715970283823780}
   - component: {fileID: 7717409972104721055}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Metatarsus.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3524,7 +3523,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4226637358184187720}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Abdomen.Rear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3555,7 +3554,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1573946018416890082}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Chelicera.R_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3585,7 +3584,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6722143052505932794}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tarsus.001 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3617,7 +3616,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7086231356765512641}
   - component: {fileID: 6753196858797224698}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Femur.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3746,7 +3745,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5520227625793315348}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Femur.008 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3777,7 +3776,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8652664212387894798}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tarsus.006 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3808,7 +3807,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6804222627125352844}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Coxa.004 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3839,7 +3838,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3195579059918323743}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Armature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3871,7 +3870,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3820607417502234876}
   - component: {fileID: 8821845076052937828}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Femur.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4001,7 +4000,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3334060957428341444}
   - component: {fileID: 5662479162261864553}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Eyes.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4130,7 +4129,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5594026507431915536}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Coxa.007 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4161,7 +4160,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7581785688142885243}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tarsus.007 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4192,7 +4191,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6586765257741168885}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Spinnerets_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4222,7 +4221,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2431954542057195057}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Patella.008 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4254,7 +4253,7 @@ GameObject:
   m_Component:
   - component: {fileID: 619975831121470360}
   - component: {fileID: 2617321964491551114}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tarsus.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4384,7 +4383,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2441121741619949955}
   - component: {fileID: 1045997892791484403}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tarsus.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4513,7 +4512,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1751294686938098487}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Coxa.001 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4544,7 +4543,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8557398427279759279}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Metatarsus.002 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4576,7 +4575,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5319378248201970487}
   - component: {fileID: 4995943875508975174}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Metatarsus.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4706,7 +4705,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7697401388502518870}
   - component: {fileID: 2095137329556866149}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Chelicera.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4835,7 +4834,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6554074886968606961}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tarsus.003 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4867,7 +4866,7 @@ GameObject:
   m_Component:
   - component: {fileID: 347585491994997272}
   - component: {fileID: 3902443810587417117}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Eyes.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4997,7 +4996,7 @@ GameObject:
   m_Component:
   - component: {fileID: 683018633709234352}
   - component: {fileID: 7503362890020984296}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tibia.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5127,7 +5126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 276722726910942774}
   - component: {fileID: 864036567996714911}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tibia.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5257,7 +5256,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2923694801748028425}
   - component: {fileID: 9090831929329579932}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Femur.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5386,7 +5385,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8632184323419588126}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tarsus.005 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5417,7 +5416,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8646633042549452506}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Coxa.003 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5449,7 +5448,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6909339722520444014}
   - component: {fileID: 4621069352248697780}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Eyes.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5579,7 +5578,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5029650149370618242}
   - component: {fileID: 8877058722719168759}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tibia.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5708,7 +5707,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4060379288263626592}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tarsus.007_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5738,7 +5737,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4567482451987490346}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Metatarsus.006 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5770,7 +5769,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9188079334956996826}
   - component: {fileID: 4273134015138765183}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Patella.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5899,7 +5898,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1470588864071461418}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tarsus.001_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5930,7 +5929,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2683038403834349356}
   - component: {fileID: 4128507331622669670}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Coxa.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6059,7 +6058,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3700570303941829880}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Femur.006 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6090,7 +6089,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1893365373059876960}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tarsus.004 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6122,7 +6121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7728402298541759615}
   - component: {fileID: 7832891946407012610}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Coxa.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6251,7 +6250,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1357379528103198114}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Coxa.002 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6283,7 +6282,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2677822721382739518}
   - component: {fileID: 1005044834413937805}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Patella.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6413,7 +6412,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4996078684756260963}
   - component: {fileID: 5842786282205136215}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tibia.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6542,7 +6541,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4044844169966998484}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Femur.007 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6573,7 +6572,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1774422004952080456}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Patella.007 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6604,7 +6603,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2472266599337294743}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tarsus.002_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6635,7 +6634,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1023267838158749988}
   - component: {fileID: 6981108510705279404}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Femur.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6764,7 +6763,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4955678636393288246}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Patella.004 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6795,7 +6794,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6296760254452950274}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6888,7 +6887,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1446937557548202588}
   - component: {fileID: 6176053263809666618}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Patella.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7018,7 +7017,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7018378179829163486}
   - component: {fileID: 5734388707295389304}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Coxa.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7148,7 +7147,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8955704624924827169}
   - component: {fileID: 1928345883816120711}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Metatarsus.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7282,9 +7281,10 @@ GameObject:
   - component: {fileID: 1048413615541081995}
   - component: {fileID: 1048413615541081990}
   - component: {fileID: 1048413615541081991}
+  - component: {fileID: 6746438088332293326}
   - component: {fileID: 1048413615541081984}
   - component: {fileID: 6603402709657733688}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PlayerSpider
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -7458,6 +7458,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunPoint: {fileID: 1048413615354357946}
+--- !u!114 &6746438088332293326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6603402709657733691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a14ee1e27208041d58bd2b75ba15ba6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageMaterial: {fileID: 2100000, guid: ccb80f98308f643dca574f038fcfa73a, type: 2}
+  dissolveMaterial: {fileID: 2100000, guid: 158c5fd7931224182984ffd749dcaf92, type: 2}
 --- !u!114 &1048413615541081984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7471,13 +7485,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
-  ui: {fileID: 0}
   damageTime: 0.5
   damageFlashTime: 0.6
-  damageMaterial: {fileID: 2100000, guid: ccb80f98308f643dca574f038fcfa73a, type: 2}
-  dissolveMaterial: {fileID: 2100000, guid: 158c5fd7931224182984ffd749dcaf92, type: 2}
+  invincible: 0
   hit: {fileID: 8300000, guid: bd76b96ab3faf405f8e8cae19a735907, type: 3}
   dieSound: {fileID: 8300000, guid: 550884eabcc274753a39988f766a6942, type: 3}
+  ui: {fileID: 0}
 --- !u!114 &6603402709657733688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7500,7 +7513,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1894977136243281420}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7531,7 +7544,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8165197611244608786}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Metatarsus.003 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7562,7 +7575,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8163670028851063775}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Chelicera.L_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7593,7 +7606,7 @@ GameObject:
   m_Component:
   - component: {fileID: 679372514833436781}
   - component: {fileID: 3509438275955787649}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cephalotorax
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7722,7 +7735,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 633651146653220864}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Patella.006 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7754,7 +7767,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9199471939286754819}
   - component: {fileID: 5749248958855692598}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Abdomen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7884,7 +7897,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4642149694762497654}
   - component: {fileID: 7865159656185301797}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Metatarsus.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8014,7 +8027,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5565208573094136100}
   - component: {fileID: 9008804938365091916}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Metatarsus.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8144,7 +8157,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2724109276060295346}
   - component: {fileID: 4817649306948986209}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Coxa.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8274,7 +8287,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5815335016534903166}
   - component: {fileID: 2749308882922979762}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Eyes.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8404,7 +8417,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1853436901423618734}
   - component: {fileID: 4998747192526551927}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Patella.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8534,7 +8547,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8269170226155503187}
   - component: {fileID: 3862848746813393768}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Coxa.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8663,7 +8676,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4326742886967120147}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tarsus.006_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8693,7 +8706,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7806408272865377804}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tarsus.005_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8724,7 +8737,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5749867084844558398}
   - component: {fileID: 2336899350884414021}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Chelicera.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8854,7 +8867,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3131164019687736298}
   - component: {fileID: 1712170216667512381}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Femur.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8984,7 +8997,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6246113154017448265}
   - component: {fileID: 8602573109426446288}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Eyes.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9113,7 +9126,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7948740799326224303}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Femur.004 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9145,7 +9158,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6395491542467525061}
   - component: {fileID: 6171023398399324524}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Metatarsus.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9275,7 +9288,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4833598113517079466}
   - component: {fileID: 1392448797384284954}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Spinnerets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9405,7 +9418,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6080905535764155483}
   - component: {fileID: 7421824612420324247}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Eyes.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9535,7 +9548,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1037845370623797753}
   - component: {fileID: 6110846451463265862}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Patella.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9664,7 +9677,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 570762237574357440}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Metatarsus.005 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9696,7 +9709,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1172881728553716677}
   - component: {fileID: 3240921577246608319}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Coxa.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9826,7 +9839,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4718852899201594814}
   - component: {fileID: 7297410325794170028}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Coxa.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9955,7 +9968,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7407475559889915710}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Femur.005 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9986,7 +9999,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2162033960928189705}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Patella.002 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10018,7 +10031,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1639947929272523913}
   - component: {fileID: 3916086583705211190}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tarsus.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10148,7 +10161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 883814990820404594}
   - component: {fileID: 1321544576755451607}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Eyes.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10278,7 +10291,7 @@ GameObject:
   m_Component:
   - component: {fileID: 388355345214175165}
   - component: {fileID: 4415918068991349306}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Metatarsus.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10407,7 +10420,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1682517720962278877}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Coxa.006 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10438,7 +10451,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4407175103713721286}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Metatarsus.004 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10469,7 +10482,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6990659356972225098}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cephalotorax 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10511,7 +10524,7 @@ GameObject:
   m_Component:
   - component: {fileID: 270948919183890633}
   - component: {fileID: 3893165208033649734}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tarsus.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10697,6 +10710,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f5eff2841848a4e25ad658b2ef1866e4, type: 3}
       propertyPath: m_Name
       value: Pistola_Pintada
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f5eff2841848a4e25ad658b2ef1866e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5eff2841848a4e25ad658b2ef1866e4, type: 3}
