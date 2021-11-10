@@ -41,10 +41,9 @@ public class PlayerEffects : MonoBehaviour
             var color = renderer.sharedMaterial.color;
             var tex = renderer.sharedMaterial.mainTexture;
             var newMaterial = new Material(material);
+            newMaterial.color = color;
+            newMaterial.mainTexture = tex;
             cache.Add(renderer, newMaterial);
-            renderer.sharedMaterial = newMaterial;
-            renderer.sharedMaterial.color = color;
-            renderer.sharedMaterial.mainTexture = tex;
         }
         return cache;
     }

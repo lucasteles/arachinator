@@ -9,7 +9,12 @@ ModelImporter:
   - first:
       74: -3238782097143332313
     second: Armature|ButtWiggle
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eyes
+    second: {fileID: 2100000, guid: b0ada243ecb2b4e68a81315f8472b4e3, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
