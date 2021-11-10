@@ -16,6 +16,10 @@ public class Enemy : MonoBehaviour, IDamageble
     Rigidbody rb;
     Life life;
 
+    CapsuleCollider myCollider;
+    BoxCollider targetCollider;
+
+
     void Awake()
     {
         life = GetComponent<Life>();
@@ -26,6 +30,8 @@ public class Enemy : MonoBehaviour, IDamageble
 
     void Start()
     {
+        myCollider = GetComponent<CapsuleCollider>();
+        targetCollider = target.GetComponent<BoxCollider>();
         StartCoroutine(SetDestination());
         life.onDeath += LifeOnDeath;
     }
@@ -59,7 +65,12 @@ public class Enemy : MonoBehaviour, IDamageble
                 {
                     if (navMeshAgent.isStopped)
                         navMeshAgent.isStopped = false;
-                    navMeshAgent.SetDestination(target.transform.position);
+
+                    var targetDirection = (transform.position - target.transform.position).normalized;
+                    var targetPosition = target.transform.position -
+                                         targetDirection * (myCollider.radius + targetCollider.size.x/2);
+
+                    navMeshAgent.SetDestination(targetPosition);
                 }
                 else
                 {

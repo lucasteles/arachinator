@@ -11,6 +11,7 @@ public class Player : MonoBehaviour, IDamageble
     [SerializeField]float speed = 5;
     [SerializeField]float damageTime = .5f;
     [SerializeField]float damageFlashTime = 1f;
+    [SerializeField]bool invincible;
 
     [Header("Audio")]
     [SerializeField]AudioClip hit;
@@ -26,7 +27,9 @@ public class Player : MonoBehaviour, IDamageble
     PlayerEffects playerEffects;
     Coroutine currentDamageCoroutine;
 
-    public bool IsInvincible { get; private set; }
+    public bool IsInvincible {
+        get => invincible;
+        private set => invincible = value; }
 
     void Awake()
     {
