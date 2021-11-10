@@ -17,8 +17,7 @@ public class Player : MonoBehaviour, IDamageble
     [SerializeField]AudioClip hit;
     [SerializeField]AudioClip dieSound;
 
-    [Header("Refs")]
-    [SerializeField]PlayerHealthPointsUi ui;
+    PlayerHealthPointsUi ui;
 
     Movement movement;
     Rigidbody rb;
@@ -39,6 +38,7 @@ public class Player : MonoBehaviour, IDamageble
         playerEffects = GetComponent<PlayerEffects>();
         audioSource = GetComponent<AudioSource>();
         life.onDeath += OnDeath;
+        ui = FindObjectOfType<PlayerHealthPointsUi>();
     }
     void OnDestroy() => life.onDeath -= OnDeath;
 
@@ -46,7 +46,7 @@ public class Player : MonoBehaviour, IDamageble
 
     void Start()
     {
-        ui.SetMaxHealth(life.MaxLife);
+        if (ui) ui.SetMaxHealth(life.MaxLife);
     }
 
     void Update ()
@@ -61,7 +61,7 @@ public class Player : MonoBehaviour, IDamageble
 
     public void TakeDamage(float amount)
     {
-        ui.RemoveHealth(amount);
+        if (ui) ui.RemoveHealth(amount);
         life.Subtract(amount);
     }
     public void TakeHit(float amount, Vector3 from, float force)
@@ -118,7 +118,7 @@ public class Player : MonoBehaviour, IDamageble
         gun.enabled = webPistol.enabled = true;
         rb.constraints = constraints;
         life.Reset();
-        ui.SetMaxHealth(life.MaxLife);
+        if (ui) ui.SetMaxHealth(life.MaxLife);
         DisableInvicible();
         movement.Unlock(lockKey);
     }
