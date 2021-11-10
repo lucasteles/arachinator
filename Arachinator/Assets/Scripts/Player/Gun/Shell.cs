@@ -33,8 +33,8 @@ public class Shell : MonoBehaviour
     {
         var force = Random.Range(forceMin, forceMax);
 
-        rb.AddForce(transform.right * force);
-        rb.AddTorque(Random.insideUnitSphere * force);
+        rb.AddForce(transform.right * force, ForceMode.VelocityChange);
+        rb.AddTorque(Random.insideUnitSphere * force, ForceMode.VelocityChange);
 
         StartCoroutine(Fade());
     }

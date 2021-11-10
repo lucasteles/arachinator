@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 54628042291537658}
   - component: {fileID: 120681378719467542}
   - component: {fileID: 8077090924676332548}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: Shell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,8 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f0fb6bb4a89244329857f9b7d62e443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceMin: 1000
-  forceMax: 2000
+  forceMin: 10
+  forceMax: 20
   lifeTime: 2
   fadeTime: 3
   dropAudioClip: {fileID: 8300000, guid: 229328cdaff81403892dff486d73ecb3, type: 3}

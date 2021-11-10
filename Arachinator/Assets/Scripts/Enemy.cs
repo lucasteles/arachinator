@@ -68,7 +68,7 @@ public class Enemy : MonoBehaviour, IDamageble
 
                     var targetDirection = (transform.position - target.transform.position).normalized;
                     var targetPosition = target.transform.position -
-                                         targetDirection * (myCollider.radius + targetCollider.size.x/2);
+                                         targetDirection * (myCollider.radius + targetCollider.size.x/2 - .5f);
 
                     navMeshAgent.SetDestination(targetPosition);
                 }

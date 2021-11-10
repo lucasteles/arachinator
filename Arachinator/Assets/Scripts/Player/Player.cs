@@ -111,7 +111,7 @@ public class Player : MonoBehaviour, IDamageble
         var dissolveStep = 0.0065f;
         yield return playerEffects.DissolveEffect(dissolveStep);
 
-        rb.MovePosition(Vector3.zero);
+        rb.MovePosition(Vector3.zero + Vector3.up * 2);
         transform.rotation = originalRotation;
         yield return playerEffects.DissolveRestoreEffect(dissolveStep);
 
