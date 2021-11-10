@@ -17,8 +17,9 @@ public class AimLegGrounder : MonoBehaviour
 
     void Update()
     {
-        if(!isKinnematic && Physics.Raycast(origin.transform.position, -transform.up, out var hit, 2f, mask))
-            transform.position = hit.point + new Vector3(0f, 0.2f, 0f);
+        if (isKinnematic) return;
+        if(Physics.Raycast(transform.position, -transform.up, out var hit, 2f, mask))
+            transform.position =  new Vector3(transform.position.x, hit.point.y + 0.2f, transform.position.z);
     }
 
     public void EnableKinematic()
