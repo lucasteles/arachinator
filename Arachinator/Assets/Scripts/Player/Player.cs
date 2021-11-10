@@ -85,6 +85,8 @@ public class Player : MonoBehaviour, IDamageble
     IEnumerator DieAnimation()
     {
         EnableInvicible();
+        var aimLegCubes = GetComponentsInChildren<AimLegGrounder>();
+        aimLegCubes.ToList().ForEach(x => x.EnableKinematic());
         rb.velocity = rb.angularVelocity = Vector3.zero;
         var constraints = rb.constraints;
         var originalRotation = transform.rotation;
@@ -104,6 +106,9 @@ public class Player : MonoBehaviour, IDamageble
         for (var i = 0f; i <= 1; i+=0.02f)
         {
             transform.rotation = Quaternion.Lerp(transform.rotation,  rotationTarget,i);
+
+            foreach (var aim in aimLegCubes)
+                aim.transform.localPosition = Vector3.Lerp(aim.transform.localPosition, Vector3.down * 2f,  i/15);
             yield return null;
         }
         yield return new WaitForSeconds(.3f);
@@ -113,6 +118,7 @@ public class Player : MonoBehaviour, IDamageble
 
         rb.MovePosition(Vector3.zero + Vector3.up * 2);
         transform.rotation = originalRotation;
+        aimLegCubes.ToList().ForEach(x => x.DisableKinematic());
         yield return playerEffects.DissolveRestoreEffect(dissolveStep);
 
         gun.enabled = webPistol.enabled = true;
