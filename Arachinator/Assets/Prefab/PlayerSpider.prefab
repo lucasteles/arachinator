@@ -7282,6 +7282,7 @@ GameObject:
   - component: {fileID: 1048413615541081995}
   - component: {fileID: 1048413615541081990}
   - component: {fileID: 1048413615541081991}
+  - component: {fileID: 6746438088332293326}
   - component: {fileID: 1048413615541081984}
   - component: {fileID: 6603402709657733688}
   m_Layer: 0
@@ -7458,6 +7459,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunPoint: {fileID: 1048413615354357946}
+--- !u!114 &6746438088332293326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6603402709657733691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a14ee1e27208041d58bd2b75ba15ba6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageMaterial: {fileID: 2100000, guid: ccb80f98308f643dca574f038fcfa73a, type: 2}
+  dissolveMaterial: {fileID: 2100000, guid: 158c5fd7931224182984ffd749dcaf92, type: 2}
 --- !u!114 &1048413615541081984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7471,13 +7486,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
-  ui: {fileID: 0}
   damageTime: 0.5
   damageFlashTime: 0.6
-  damageMaterial: {fileID: 2100000, guid: ccb80f98308f643dca574f038fcfa73a, type: 2}
-  dissolveMaterial: {fileID: 2100000, guid: 158c5fd7931224182984ffd749dcaf92, type: 2}
   hit: {fileID: 8300000, guid: bd76b96ab3faf405f8e8cae19a735907, type: 3}
   dieSound: {fileID: 8300000, guid: 550884eabcc274753a39988f766a6942, type: 3}
+  ui: {fileID: 0}
 --- !u!114 &6603402709657733688
 MonoBehaviour:
   m_ObjectHideFlags: 0
