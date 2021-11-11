@@ -3796,6 +3796,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 510260172135869302, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 668603791385371130, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: moveDistance
       value: 1
@@ -3812,6 +3816,10 @@ PrefabInstance:
       propertyPath: moveStoppingDistance
       value: 0.35
       objectReference: {fileID: 0}
+    - target: {fileID: 778037075978360460, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1893794526445105236, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: moveDistance
       value: 1
@@ -3819,6 +3827,10 @@ PrefabInstance:
     - target: {fileID: 1893794526445105236, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: moveStoppingDistance
       value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 3121738827418323867, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3536969711861709223, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: moveDistance
@@ -3836,6 +3848,10 @@ PrefabInstance:
       propertyPath: moveStoppingDistance
       value: 0.35
       objectReference: {fileID: 0}
+    - target: {fileID: 4396912462356946828, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4802858137349431895, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: moveDistance
       value: 1
@@ -3851,6 +3867,14 @@ PrefabInstance:
     - target: {fileID: 4904418785875726642, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: moveStoppingDistance
       value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4941196097925988536, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5802064096810593348, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_RootOrder
@@ -3907,6 +3931,14 @@ PrefabInstance:
     - target: {fileID: 7335047703207677284, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: moveStoppingDistance
       value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 7410602344416978844, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8405745033551262402, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
