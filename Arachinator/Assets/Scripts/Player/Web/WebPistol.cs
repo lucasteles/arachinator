@@ -17,11 +17,13 @@ public class WebPistol : MonoBehaviour
     [SerializeField]float upForce;
     [SerializeField]float upBackDashForce;
     [SerializeField]GameObject webPrefab;
+    [SerializeField] Transform butTransform;
     Cooldown cooldown;
     Vector3? hitPosition = null;
     public Vector3 ShotPoint => shotPoint.position;
     public Vector3? Target => hitPosition;
 
+    Vector3 butPos;
     Movement movement;
     Player player;
 
@@ -34,6 +36,7 @@ public class WebPistol : MonoBehaviour
     void Start()
     {
         cooldown = new Cooldown(coodownTime);
+        butPos = butTransform.transform.localPosition;
     }
 
     void Update()
@@ -50,6 +53,7 @@ public class WebPistol : MonoBehaviour
     void ThrowWeb()
     {
         audioSource.PlayOneShot(shotClip);
+        ButShotFeedback();
         if (Physics.Raycast(shotPoint.position, -shotPoint.forward, out var hit, maxDistance))
         {
             player.EnableInvicible();
@@ -85,4 +89,23 @@ public class WebPistol : MonoBehaviour
     void Hide() => hitPosition = null;
 
     public bool TargetDefined() => hitPosition.HasValue;
+
+
+    void ButShotFeedback()
+    {
+        movement.Lock(.3f);
+        butTransform.Translate(.3f * -butTransform.forward);
+        IEnumerator routine()
+        {
+            while (butTransform.localPosition != butPos)
+            {
+                butTransform.localPosition = Vector3.Lerp(butTransform.localPosition, butPos, .2f);
+                yield return null;
+            }
+        }
+        StartCoroutine(routine());
+    }
+
+
+
 }

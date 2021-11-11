@@ -59,8 +59,6 @@ public class Enemy : MonoBehaviour, IDamageble
         {
             yield return new WaitForSeconds(.25f);
 
-            try
-            {
                 if (!target.IsDead)
                 {
                     if (navMeshAgent.isStopped)
@@ -70,15 +68,13 @@ public class Enemy : MonoBehaviour, IDamageble
                     var targetPosition = target.transform.position +
                                          targetDirection * (targetCollider.size.x/2 - .5f);
 
-                    navMeshAgent.SetDestination(targetPosition);
+                    if (!life.IsDead)
+                        navMeshAgent.SetDestination(targetPosition);
                 }
                 else
                 {
                     navMeshAgent.isStopped = true;
                 }
-
-            }
-            catch { }
         }
 
     }

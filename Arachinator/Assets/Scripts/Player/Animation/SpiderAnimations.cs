@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,6 +10,7 @@ public class SpiderAnimations : MonoBehaviour
     [SerializeField] AnimationCurve idleAnimationCurve;
 
     Movement movement;
+    Gun gun;
     Dictionary<Transform, Vector3> originalPositions;
 
     float idleIndex;
@@ -18,6 +18,7 @@ public class SpiderAnimations : MonoBehaviour
     {
         originalPositions = idleTranforms.ToDictionary(x => x, x => x.transform.localPosition);
         movement = GetComponent<Movement>();
+        gun = GetComponentInChildren<Gun>();
     }
 
     void ResetIdle()
@@ -26,9 +27,9 @@ public class SpiderAnimations : MonoBehaviour
         for (var i = 0; i < idleTranforms.Length; i++)
             idleTranforms[i].localPosition = originalPositions[idleTranforms[i]];
     }
-
     void Update()
     {
+        if (gun.IsShooting || movement.IsLocked()) return;
 
         if (movement.Direction == Vector3.zero)
         {

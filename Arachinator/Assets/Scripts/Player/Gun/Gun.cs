@@ -7,10 +7,8 @@ using UnityEngine.VFX;
 
 public class Gun : MonoBehaviour
 {
-    [SerializeField] GameObject projectile;
     [SerializeField] Transform shotPoint;
     [SerializeField] Transform shellEjectionPoint;
-    [SerializeField] GameObject muzzle;
     [SerializeField] Transform muzzlePoint;
     [SerializeField] Transform gunBody;
     [SerializeField] float step;
@@ -22,6 +20,8 @@ public class Gun : MonoBehaviour
 
     Vector3 gunbodyPos;
     Cooldown cooldown;
+    public bool IsShooting { get; private set; }
+
     void Start()
     {
         cooldown = new Cooldown(cooldownTime);
@@ -41,9 +41,9 @@ public class Gun : MonoBehaviour
 
     void ShotFeedback()
     {
+        IsShooting = true;
         var guntransform = gunBody.transform;
-        var pos = guntransform.localPosition;
-        guntransform.Translate(new Vector3(pos.x, pos.y, pos.z - recoil));
+        guntransform.Translate(recoil * -guntransform.forward);
         CameraShaker.Instance.Shake(shakeData);
 
         IEnumerator routine()
@@ -53,6 +53,7 @@ public class Gun : MonoBehaviour
                 guntransform.localPosition = Vector3.Lerp(guntransform.localPosition, gunbodyPos, step);
                 yield return null;
             }
+            IsShooting = false;
         }
         StartCoroutine(routine());
     }
