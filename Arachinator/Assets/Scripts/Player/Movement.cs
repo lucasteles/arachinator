@@ -11,6 +11,7 @@ public class Movement : MonoBehaviour
     HashSet<object> locks = new HashSet<object>();
 	void Start () => rb = GetComponent<Rigidbody>();
 
+    public Vector3 Direction => velocity.normalized;
     public bool IsLocked()
     {
         if (locks.Count > 0)
