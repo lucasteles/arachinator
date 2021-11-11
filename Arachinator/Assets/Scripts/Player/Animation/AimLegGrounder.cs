@@ -18,15 +18,12 @@ public class AimLegGrounder : MonoBehaviour
     void Update()
     {
         if (isKinnematic) return;
-        var rayOrigin = transform.position - Vector3.up;
-        if(Physics.Raycast(rayOrigin, -transform.up, out var hit, 2f, mask))
+        var rayOrigin = transform.position + transform.up * 5;
+        if(Physics.Raycast(rayOrigin, -transform.up, out var hit, float.MaxValue, mask))
         {
             transform.position = new Vector3(transform.position.x, hit.point.y + .2f, transform.position.z);
-            Debug.DrawLine(rayOrigin, hit.point);
+            Debug.DrawLine(rayOrigin, hit.point, Color.magenta);
         }
-
-        if (transform.position.y < 0)
-            transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
     }
 
     public void EnableKinematic()
