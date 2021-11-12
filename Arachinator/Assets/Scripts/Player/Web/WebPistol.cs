@@ -36,6 +36,8 @@ public class WebPistol : MonoBehaviour
     void Start()
     {
         cooldown = new Cooldown(coodownTime);
+        butScale = butTransform.transform.localScale;
+        butPos = butTransform.localPosition;
     }
 
     void Update()
@@ -91,15 +93,20 @@ public class WebPistol : MonoBehaviour
 
 
     Coroutine butScaleCoroutine;
+    Coroutine butTranslateCoroutine;
+    Vector3 butScale;
+    Vector3 butPos;
+
     void ButShotFeedback()
     {
-        if (butScaleCoroutine!=null)
-            StopCoroutine(butScaleCoroutine);
+        if (butScaleCoroutine!=null) StopCoroutine(butScaleCoroutine);
+        if (butTranslateCoroutine!=null) StopCoroutine(butTranslateCoroutine);
         movement.Lock(.3f);
+        butTransform.localPosition = butPos;
+        butTransform.localScale = butScale;
 
         IEnumerator routineScale()
         {
-            var butScale = butTransform.transform.localScale;
             var targetScale = new Vector3(butTransform.localScale.x * .6f, butTransform.localScale.y, butTransform.localScale.z);
             yield return null;
             for (var i = 0f; i <= 1; i+=.065f)
@@ -112,18 +119,18 @@ public class WebPistol : MonoBehaviour
 
         IEnumerator routineTranslate()
         {
-            var butPos = butTransform.position;
+            var cuurrentButPos = transform.position;
             var targetPos = butTransform.position + (.2f * transform.forward);
             for (var i = 0f; i <= 1; i+=.1f)
             {
-                butTransform.position = Vector3.Lerp(butPos, targetPos, butScaleCurve.Evaluate(i));
+                butTransform.position = Vector3.Lerp(cuurrentButPos, targetPos, butScaleCurve.Evaluate(i));
                 yield return null;
             }
             yield return null;
-            butTransform.position = butPos;
+            butTransform.localPosition = butPos;
         }
 
-        StartCoroutine(routineTranslate());
+        butTranslateCoroutine = StartCoroutine(routineTranslate());
         butScaleCoroutine = StartCoroutine(routineScale());
     }
 
