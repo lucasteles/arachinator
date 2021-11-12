@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Assets.Scripts.Cameras.Effects;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -54,7 +55,6 @@ public class Enemy : MonoBehaviour, IDamageble
 
     IEnumerator SetDestination()
     {
-
         while (!life.IsDead)
         {
             yield return new WaitForSeconds(.25f);
@@ -68,7 +68,7 @@ public class Enemy : MonoBehaviour, IDamageble
                     var targetPosition = target.transform.position +
                                          targetDirection * (targetCollider.size.x/2 - .5f);
 
-                    if (!life.IsDead)
+                    if (!life.IsDead && !target.IsDead)
                         navMeshAgent.SetDestination(targetPosition);
                 }
                 else

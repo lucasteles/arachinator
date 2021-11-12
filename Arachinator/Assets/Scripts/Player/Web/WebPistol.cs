@@ -17,13 +17,13 @@ public class WebPistol : MonoBehaviour
     [SerializeField]float upForce;
     [SerializeField]float upBackDashForce;
     [SerializeField]GameObject webPrefab;
-    [SerializeField] Transform butTransform;
+    [SerializeField]Transform butTransform;
+    [SerializeField]AnimationCurve butScaleCurve;
     Cooldown cooldown;
     Vector3? hitPosition = null;
     public Vector3 ShotPoint => shotPoint.position;
     public Vector3? Target => hitPosition;
 
-    Vector3 butPos;
     Movement movement;
     Player player;
 
@@ -36,7 +36,6 @@ public class WebPistol : MonoBehaviour
     void Start()
     {
         cooldown = new Cooldown(coodownTime);
-        butPos = butTransform.transform.localPosition;
     }
 
     void Update()
@@ -91,19 +90,41 @@ public class WebPistol : MonoBehaviour
     public bool TargetDefined() => hitPosition.HasValue;
 
 
+    Coroutine butScaleCoroutine;
     void ButShotFeedback()
     {
+        if (butScaleCoroutine!=null)
+            StopCoroutine(butScaleCoroutine);
         movement.Lock(.3f);
-        butTransform.Translate(.3f * -butTransform.forward);
-        IEnumerator routine()
+
+        IEnumerator routineScale()
         {
-            while (butTransform.localPosition != butPos)
+            var butScale = butTransform.transform.localScale;
+            var targetScale = new Vector3(butTransform.localScale.x * .6f, butTransform.localScale.y, butTransform.localScale.z);
+            yield return null;
+            for (var i = 0f; i <= 1; i+=.065f)
             {
-                butTransform.localPosition = Vector3.Lerp(butTransform.localPosition, butPos, .2f);
+                butTransform.localScale = Vector3.Lerp(butScale, targetScale, butScaleCurve.Evaluate(i));
                 yield return null;
             }
+            butTransform.localScale = butScale;
         }
-        StartCoroutine(routine());
+
+        IEnumerator routineTranslate()
+        {
+            var butPos = butTransform.position;
+            var targetPos = butTransform.position + (.2f * transform.forward);
+            for (var i = 0f; i <= 1; i+=.1f)
+            {
+                butTransform.position = Vector3.Lerp(butPos, targetPos, butScaleCurve.Evaluate(i));
+                yield return null;
+            }
+            yield return null;
+            butTransform.position = butPos;
+        }
+
+        StartCoroutine(routineTranslate());
+        butScaleCoroutine = StartCoroutine(routineScale());
     }
 
 
