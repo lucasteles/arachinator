@@ -119,11 +119,10 @@ public class WebPistol : MonoBehaviour
 
         IEnumerator routineTranslate()
         {
-            var cuurrentButPos = transform.position;
-            var targetPos = butTransform.position + (.2f * transform.forward);
+            var targetPos = butTransform.localPosition - (.008f * butTransform.forward);
             for (var i = 0f; i <= 1; i+=.1f)
             {
-                butTransform.position = Vector3.Lerp(cuurrentButPos, targetPos, butScaleCurve.Evaluate(i));
+                butTransform.localPosition = Vector3.Lerp(butPos, targetPos, butScaleCurve.Evaluate(i));
                 yield return null;
             }
             yield return null;
