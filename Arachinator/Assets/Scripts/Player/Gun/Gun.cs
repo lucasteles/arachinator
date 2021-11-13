@@ -2,6 +2,7 @@ using Assets.Scripts.Cameras.Effects;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Playables;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -43,14 +44,14 @@ public class Gun : MonoBehaviour
     {
         IsShooting = true;
         var guntransform = gunBody.transform;
-        guntransform.Translate(recoil * -guntransform.forward);
+        guntransform.Translate(recoil * Vector3.back);
         CameraShaker.Instance.Shake(shakeData);
 
         IEnumerator routine()
         {
-            while (guntransform.localPosition != gunbodyPos)
+            for (var i = 0f; i < 1f; i+=step)
             {
-                guntransform.localPosition = Vector3.Lerp(guntransform.localPosition, gunbodyPos, step);
+                guntransform.localPosition = Vector3.Lerp(guntransform.localPosition, gunbodyPos, i);
                 yield return null;
             }
             IsShooting = false;
