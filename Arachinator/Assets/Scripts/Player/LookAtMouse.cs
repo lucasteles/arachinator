@@ -4,6 +4,7 @@ public class LookAtMouse : MonoBehaviour
 {
     Camera mainCamera;
     [SerializeField]Transform gunPoint;
+    [SerializeField] GameObject aim;
     Movement movement;
     Life life;
 
@@ -27,6 +28,7 @@ public class LookAtMouse : MonoBehaviour
         CurrentMousePosition = point;
         movement.LookAt(point);
         Debug.DrawLine(ray.origin, point, Color.red);
+        aim.transform.position = point;
     }
 
 }
