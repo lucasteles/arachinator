@@ -1795,7 +1795,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1048413613960856674}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.025, y: -0.12, z: -1.08}
+  m_LocalPosition: {x: -0.05, y: -1.21, z: -1.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1048413615772019484}
@@ -1943,14 +1943,13 @@ MonoBehaviour:
   shellEjectionPoint: {fileID: 1048413614208459312}
   muzzlePoint: {fileID: 1048413613846364007}
   gunBody: {fileID: 1048413615143385604}
-  step: 0.3
-  recoil: 1
   audioSource: {fileID: 1048413615541081995}
   shotAudioClip: {fileID: 8300000, guid: 129beb00580c84c0ca9c4c00ab6969f0, type: 3}
   cooldownTime: 0.2
   shakeData:
     timeToShake: 0.1
-    magnitude: 0.03
+    magnitude: 0.04
+  gunAnimator: {fileID: 1723239970}
 --- !u!1 &1048413615772019459
 GameObject:
   m_ObjectHideFlags: 0
@@ -1979,7 +1978,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1048413615772019459}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0073537542, y: -0.22668311, z: -0.9603137}
+  m_LocalPosition: {x: 0.0073537542, y: 0.37, z: -0.9603137}
   m_LocalScale: {x: 0.9377997, y: 0.47572148, z: 1.4906247}
   m_Children:
   - {fileID: 1048413613960856675}
@@ -12465,3 +12464,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fc59a670bd634ca4f982d1e3afc7db93, type: 3}
   m_PrefabInstance: {fileID: 2120024547441773383}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1273039602657867286 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: fc59a670bd634ca4f982d1e3afc7db93, type: 3}
+  m_PrefabInstance: {fileID: 2120024547441773383}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1723239970
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273039602657867286}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4f1e0f38b13f0a34a99d9358006a41f8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
