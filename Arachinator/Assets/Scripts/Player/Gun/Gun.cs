@@ -12,15 +12,16 @@ public class Gun : MonoBehaviour
     [SerializeField] Transform shellEjectionPoint;
     [SerializeField] Transform muzzlePoint;
     [SerializeField] Transform gunBody;
-    [SerializeField] float step;
-    [SerializeField] float recoil;
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip shotAudioClip;
     [SerializeField] float cooldownTime;
     [SerializeField] CameraShakeData shakeData;
+    [SerializeField] Animator gunAnimator;
 
     Vector3 gunbodyPos;
     Cooldown cooldown;
+    private Coroutine stopShooting;
+
     public bool IsShooting { get; private set; }
 
     void Start()
@@ -42,21 +43,19 @@ public class Gun : MonoBehaviour
 
     void ShotFeedback()
     {
-        IsShooting = true;
-        var guntransform = gunBody.transform;
-        guntransform.Translate(recoil * Vector3.back);
+        gunAnimator.SetFloat("RateOfFire", 1 / cooldownTime);
+        gunAnimator.SetBool("Shooting", true);
+
         CameraShaker.Instance.Shake(shakeData);
 
-        IEnumerator routine()
-        {
-            for (var i = 0f; i < 1f; i+=step)
-            {
-                guntransform.localPosition = Vector3.Lerp(guntransform.localPosition, gunbodyPos, i);
-                yield return null;
-            }
-            IsShooting = false;
-        }
-        StartCoroutine(routine());
+        if (stopShooting != null) StopCoroutine(stopShooting);
+        stopShooting = StartCoroutine(StopShooting());
+    }
+
+    private IEnumerator StopShooting()
+    {
+        yield return new WaitForSeconds(cooldownTime);
+        gunAnimator.SetBool("Shooting", false);
     }
 
     void EjectShell() => ObjectPooling.Get(Pools.Shell, shellEjectionPoint.position, shellEjectionPoint.rotation);
