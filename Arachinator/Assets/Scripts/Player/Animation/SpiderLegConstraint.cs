@@ -24,7 +24,6 @@ public class SpiderLegConstraint : MonoBehaviour
         if(distanceToMoveCube >= moveDistance && !oppsiteLeg.isMoving || moving) //to check if the distance is far away from the cube or not and if it is move the leg to the cube
         {
             moving = true; // to tell this leg that it didnt get close enough to stop moving
-            print(Vector3.Distance(transform.position, moveCube.transform.position));
             if (Vector3.Distance(transform.position, moveCube.transform.position) < distanceToClamp)
                 transform.position = Vector3.Lerp(transform.position,
                     moveCube.transform.position + upPosition * Vector3.up,
