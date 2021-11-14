@@ -18,7 +18,6 @@ public class Gun : MonoBehaviour
     [SerializeField] CameraShakeData shakeData;
     [SerializeField] Animator gunAnimator;
 
-    Vector3 gunbodyPos;
     Cooldown cooldown;
     private Coroutine stopShooting;
 
@@ -27,7 +26,6 @@ public class Gun : MonoBehaviour
     void Start()
     {
         cooldown = new Cooldown(cooldownTime);
-        gunbodyPos = gunBody.transform.localPosition;
     }
 
     void Update()
@@ -52,7 +50,7 @@ public class Gun : MonoBehaviour
         stopShooting = StartCoroutine(StopShooting());
     }
 
-    private IEnumerator StopShooting()
+    IEnumerator StopShooting()
     {
         yield return new WaitForSeconds(cooldownTime);
         gunAnimator.SetBool("Shooting", false);

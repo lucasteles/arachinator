@@ -10,7 +10,6 @@ public class Bullet : MonoBehaviour
     [SerializeField] float speed = 50f;
     [SerializeField] float lifespan = 3f;
     [SerializeField] AudioClip impact;
-    [SerializeField] TrailRenderer trailRenderer;
     [SerializeField] float damage = 1f;
     [SerializeField] float force = 10f;
     Rigidbody bulletRigidbody;
