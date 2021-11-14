@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LookAtMouse : MonoBehaviour
@@ -8,6 +6,8 @@ public class LookAtMouse : MonoBehaviour
     [SerializeField]Transform gunPoint;
     Movement movement;
     Life life;
+
+    public Vector3 CurrentMousePosition { get; private set; }
 
     void Awake()
     {
@@ -24,7 +24,9 @@ public class LookAtMouse : MonoBehaviour
 
         if (!plan.Raycast(ray, out var dist)) return;
         var point = ray.GetPoint(dist);
+        CurrentMousePosition = point;
         movement.LookAt(point);
         Debug.DrawLine(ray.origin, point, Color.red);
     }
+
 }

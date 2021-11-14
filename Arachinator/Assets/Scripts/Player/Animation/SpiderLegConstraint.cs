@@ -10,6 +10,7 @@ public class SpiderLegConstraint : MonoBehaviour
     [SerializeField] float moveStoppingDistance = 0.4f; // how close the leg should get to the cube before stopping
     [SerializeField] float upPosition = .3f;
     [SerializeField] SpiderLegConstraint oppsiteLeg; //the oppsite leg of this one
+    [SerializeField] float distanceToClamp;
 
     Vector3 originalPosition; // the original position of this leg to keep the leg fixed to the ground
     bool isMoving; // to tell the oppsite leg if this one is moving or not
@@ -23,7 +24,13 @@ public class SpiderLegConstraint : MonoBehaviour
         if(distanceToMoveCube >= moveDistance && !oppsiteLeg.isMoving || moving) //to check if the distance is far away from the cube or not and if it is move the leg to the cube
         {
             moving = true; // to tell this leg that it didnt get close enough to stop moving
-            transform.position = Vector3.Lerp(transform.position, moveCube.transform.position +  upPosition * Vector3.up, Time.deltaTime * legMoveSpeed); // to move the leg to the cube
+            print(Vector3.Distance(transform.position, moveCube.transform.position));
+            if (Vector3.Distance(transform.position, moveCube.transform.position) < distanceToClamp)
+                transform.position = Vector3.Lerp(transform.position,
+                    moveCube.transform.position + upPosition * Vector3.up,
+                    Time.deltaTime * legMoveSpeed); // to move the leg to the cube
+            else
+                transform.position = moveCube.transform.position;
             originalPosition = transform.position; // to change the original position and fix the leg to the ground when not moving
             isMoving = true; // to tell oppsite legs that this one is moving
 

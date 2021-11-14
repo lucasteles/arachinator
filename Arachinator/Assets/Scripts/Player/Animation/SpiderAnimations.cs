@@ -8,7 +8,6 @@ public class SpiderAnimations : MonoBehaviour
     [SerializeField] float idleBreathOffset;
     [SerializeField] float idleSpped;
     [SerializeField] AnimationCurve idleAnimationCurve;
-
     Movement movement;
     Gun gun;
     Dictionary<Transform, Vector3> originalPositions;
@@ -33,7 +32,6 @@ public class SpiderAnimations : MonoBehaviour
 
         if (movement.Direction == Vector3.zero)
         {
-
             idleIndex += Time.deltaTime * idleSpped;
             if (idleIndex >= 1f) idleIndex = 0;
             var curve = idleAnimationCurve.Evaluate(idleIndex);
