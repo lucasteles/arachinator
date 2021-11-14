@@ -63,10 +63,7 @@ public class Gun : MonoBehaviour
         cooldown.Reset();
     }
 
-    void ShotFeedback()
-    {
-        CameraShaker.Instance.Shake(shakeData);
-    }
+    void ShotFeedback() => CameraShaker.Instance.Shake(shakeData);
 
     void EjectShell() => ObjectPooling.Get(Pools.Shell, shellEjectionPoint.position, shellEjectionPoint.rotation);
 
