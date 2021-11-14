@@ -119,6 +119,7 @@ public class Player : MonoBehaviour, IDamageble
         rb.MovePosition(Vector3.zero + Vector3.up * 2);
         transform.rotation = originalRotation;
         aimLegCubes.ToList().ForEach(x => x.DisableKinematic());
+        aimLegCubes.ToList().ForEach(x => x.RestorePosition());
         yield return playerEffects.DissolveRestoreEffect(dissolveStep);
 
         gun.enabled = webPistol.enabled = true;
