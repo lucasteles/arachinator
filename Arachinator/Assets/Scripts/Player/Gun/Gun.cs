@@ -1,27 +1,37 @@
-using Assets.Scripts.Cameras.Effects;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Playables;
+using Assets.Scripts.Cameras.Effects;
 using UnityEngine;
-using UnityEngine.VFX;
 
 public class Gun : MonoBehaviour
 {
-    [SerializeField] Transform shotPoint;
+    [SerializeField] Transform shotPointLeft;
+    [SerializeField] Transform shotPointRight;
     [SerializeField] Transform shellEjectionPoint;
-    [SerializeField] Transform muzzlePoint;
+    [SerializeField] Transform muzzleLeftPoint;
+    [SerializeField] Transform muzzleRightPoint;
     [SerializeField] Transform gunBody;
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip shotAudioClip;
     [SerializeField] float cooldownTime;
     [SerializeField] CameraShakeData shakeData;
     [SerializeField] Animator gunAnimator;
+    [SerializeField] TurretAnimationEvents turretAnimationEvents;
+
 
     Cooldown cooldown;
-    private Coroutine stopShooting;
-
     public bool IsShooting { get; private set; }
+
+    void Awake()
+    {
+        turretAnimationEvents.ShotLeftEvent += ShotLeftEvent;
+        turretAnimationEvents.ShotRightEvent += ShotRightEvent;
+    }
+
+    void OnDestroy()
+    {
+        turretAnimationEvents.ShotLeftEvent -= ShotLeftEvent;
+        turretAnimationEvents.ShotRightEvent -= ShotRightEvent;
+    }
 
     void Start()
     {
@@ -30,40 +40,42 @@ public class Gun : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButton("Fire1") && cooldown)
+        if (Input.GetButtonDown("Fire1") && !gunAnimator.GetBool("Shooting"))
         {
-            Shot();
-            EjectShell();
-            ShotFeedback();
-            cooldown.Reset();
+            gunAnimator.SetFloat("RateOfFire", 1 / cooldownTime / 2);
+            gunAnimator.SetBool("Shooting", true);
         }
+        else if (Input.GetButtonUp("Fire1"))
+        {
+            gunAnimator.SetBool("Shooting", false);
+        }
+
+    }
+
+    void ShotLeftEvent() => Shot(shotPointLeft, muzzleLeftPoint);
+    void ShotRightEvent() => Shot(shotPointRight, muzzleRightPoint);
+
+    void Shot(Transform shotOrigin, Transform muzzleOrigin)
+    {
+        LaunchProjectile(shotOrigin, muzzleOrigin);
+        EjectShell();
+        ShotFeedback();
+        cooldown.Reset();
     }
 
     void ShotFeedback()
     {
-        gunAnimator.SetFloat("RateOfFire", 1 / cooldownTime);
-        gunAnimator.SetBool("Shooting", true);
-
         CameraShaker.Instance.Shake(shakeData);
-
-        if (stopShooting != null) StopCoroutine(stopShooting);
-        stopShooting = StartCoroutine(StopShooting());
-    }
-
-    IEnumerator StopShooting()
-    {
-        yield return new WaitForSeconds(cooldownTime);
-        gunAnimator.SetBool("Shooting", false);
     }
 
     void EjectShell() => ObjectPooling.Get(Pools.Shell, shellEjectionPoint.position, shellEjectionPoint.rotation);
 
-    void Shot()
+    void LaunchProjectile(Transform shotOrigin, Transform muzzleOrigin)
     {
-        var flash = ObjectPooling.Get(Pools.MuzzleFlash, muzzlePoint.position, transform.rotation);
+        var flash = ObjectPooling.Get(Pools.MuzzleFlash, muzzleOrigin.position, transform.rotation);
         flash.transform.SetParent(gunBody);
         ObjectPooling.GiveBack(Pools.MuzzleFlash, flash, .1f);
         audioSource.PlayOneShot(shotAudioClip);
-        ObjectPooling.Get(Pools.Bullet, shotPoint.transform.position, transform.rotation);
+        ObjectPooling.Get(Pools.Bullet, shotOrigin.position, transform.rotation);
     }
 }
