@@ -18,13 +18,13 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] float zoomSpeed = 1;
     [SerializeField] float currentCameraDistance = 0;
     [SerializeField] float maxLook = 6;
-    Camera camera;
+    Camera myCamera;
     Vector3 velocity = Vector3.zero;
 
     LookAtMouse player;
     void Awake()
     {
-        camera = GetComponentInChildren<Camera>();
+        myCamera = GetComponentInChildren<Camera>();
         player = target.GetComponent<LookAtMouse>();
     }
 
@@ -37,7 +37,7 @@ public class CameraFollow : MonoBehaviour
 
         var targetPosition = target.position + mouseAimOffset;
         var screenCenterOffset= Vector3.zero;
-        var ray = camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        var ray = myCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         if (Physics.Raycast(ray, out var hit, floor))
           screenCenterOffset = targetPosition - new Vector3(hit.point.x, 0, hit.point.z);
 

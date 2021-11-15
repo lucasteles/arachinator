@@ -109,7 +109,7 @@ public class WebPistol : MonoBehaviour
         {
             var targetScale = new Vector3(butTransform.localScale.x * .6f, butTransform.localScale.y, butTransform.localScale.z);
             yield return null;
-            for (var i = 0f; i <= 1; i+=.065f)
+            for (var i = 0f; i <= 1; i+=.045f)
             {
                 butTransform.localScale = Vector3.Lerp(butScale, targetScale, butScaleCurve.Evaluate(i));
                 yield return null;
