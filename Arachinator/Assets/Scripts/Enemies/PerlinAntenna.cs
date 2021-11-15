@@ -32,7 +32,7 @@ public class PerlinAntenna : MonoBehaviour
     {
         var currentRotation = transform.localRotation;
         var perlinFactor =
-            Mathf.PerlinNoise(Time.time, Time.time) * (maxRotation - minRotation)
+            Mathf.PerlinNoise(Time.time * seed, Time.time * seed) * (maxRotation - minRotation)
             + minRotation;
 
         var vectorRot = new Vector3(
@@ -42,7 +42,8 @@ public class PerlinAntenna : MonoBehaviour
 
         var nextRotation = Quaternion.Euler(vectorRot);
 
-        for (var i = 0f; i < 1f; i+=speed)
+        var speed2 = speed / 10;
+        for (var i = 0f; i < 1f; i+=speed2)
         {
             transform.localRotation = Quaternion.Lerp(currentRotation, nextRotation, i);
             yield return null;
