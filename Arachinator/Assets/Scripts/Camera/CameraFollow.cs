@@ -17,22 +17,32 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] float maxCameraDistance = 10;
     [SerializeField] float zoomSpeed = 1;
     [SerializeField] float currentCameraDistance = 0;
+    [SerializeField] float maxLook = 6;
     Camera camera;
     Vector3 velocity = Vector3.zero;
+
+    LookAtMouse player;
     void Awake()
     {
         camera = GetComponentInChildren<Camera>();
+        player = target.GetComponent<LookAtMouse>();
     }
 
     void FixedUpdate()
     {
+        var mouseAimOffset = (player.CurrentMousePosition - target.position) / 2f;
+
+        if (Vector3.SqrMagnitude(mouseAimOffset) >= Math.Pow(maxLook, 2))
+            mouseAimOffset = mouseAimOffset.normalized * maxLook;
+
+        var targetPosition = target.position + mouseAimOffset;
         var screenCenterOffset= Vector3.zero;
         var ray = camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         if (Physics.Raycast(ray, out var hit, floor))
-          screenCenterOffset = target.position - new Vector3(hit.point.x, 0, hit.point.z);
+          screenCenterOffset = targetPosition - new Vector3(hit.point.x, 0, hit.point.z);
 
         var cameraDistance = Vector3.up * currentCameraDistance;
-        var desiredPosition = target.position + screenCenterOffset + offset + cameraDistance;
+        var desiredPosition = targetPosition + screenCenterOffset + offset + cameraDistance;
 
        if(enableBoundary)
        {

@@ -10,9 +10,12 @@ public class AimLegGrounder : MonoBehaviour
 
     Vector3 backupPos;
     bool isKinnematic;
+
+    Vector3 originalPosisition;
     void Start()
     {
         GetComponent<Renderer>().enabled = false;
+        originalPosisition = transform.localPosition;
     }
 
     void Update()
@@ -37,4 +40,5 @@ public class AimLegGrounder : MonoBehaviour
         transform.localPosition = backupPos;
         isKinnematic = false;
     }
+    public void RestorePosition() => transform.localPosition = originalPosisition;
 }
