@@ -1402,17 +1402,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 749989192}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &760563132 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1048413615541081991, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-  m_PrefabInstance: {fileID: 6296760253373974862}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ebe9de2c986d49469b18780bef29689, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &799159386
 GameObject:
   m_ObjectHideFlags: 0
@@ -2679,6 +2668,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1808633099}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1812961420 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6655216728815867338, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
+  m_PrefabInstance: {fileID: 6296760253373974862}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1816949614 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1130926477976616510, guid: 185716b3677ce7648859c98b44509606, type: 3}
@@ -3333,90 +3327,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 668603791385371130, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: lookAtMouse
-      value: 
-      objectReference: {fileID: 760563132}
-    - target: {fileID: 668603791385371130, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: legMoveSpeed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 668603791385371130, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: distanceToClamp
+    - target: {fileID: 568449170, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
+      propertyPath: idleTranforms.Array.size
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 678520940080624928, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: lookAtMouse
+    - target: {fileID: 568449170, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
+      propertyPath: idleTranforms.Array.data[1]
       value: 
-      objectReference: {fileID: 760563132}
-    - target: {fileID: 678520940080624928, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: legMoveSpeed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 678520940080624928, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: distanceToClamp
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1893794526445105236, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: lookAtMouse
-      value: 
-      objectReference: {fileID: 760563132}
-    - target: {fileID: 1893794526445105236, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: legMoveSpeed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1893794526445105236, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: distanceToClamp
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3536969711861709223, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: lookAtMouse
-      value: 
-      objectReference: {fileID: 760563132}
-    - target: {fileID: 3536969711861709223, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: legMoveSpeed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 3536969711861709223, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: distanceToClamp
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4105378450244080947, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: lookAtMouse
-      value: 
-      objectReference: {fileID: 760563132}
-    - target: {fileID: 4105378450244080947, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: legMoveSpeed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 4105378450244080947, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: distanceToClamp
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4802858137349431895, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: lookAtMouse
-      value: 
-      objectReference: {fileID: 760563132}
-    - target: {fileID: 4802858137349431895, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: legMoveSpeed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 4802858137349431895, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: distanceToClamp
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4904418785875726642, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: lookAtMouse
-      value: 
-      objectReference: {fileID: 760563132}
-    - target: {fileID: 4904418785875726642, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: legMoveSpeed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 4904418785875726642, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: distanceToClamp
-      value: 2
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1812961420}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -3464,18 +3382,6 @@ PrefabInstance:
     - target: {fileID: 6603402709657733691, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_Name
       value: PlayerSpider
-      objectReference: {fileID: 0}
-    - target: {fileID: 7335047703207677284, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: lookAtMouse
-      value: 
-      objectReference: {fileID: 760563132}
-    - target: {fileID: 7335047703207677284, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: legMoveSpeed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 7335047703207677284, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: distanceToClamp
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}

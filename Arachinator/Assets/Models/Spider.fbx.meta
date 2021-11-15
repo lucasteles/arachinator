@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 04cbc77d1af1b78479b9e6005ba66ed4
+guid: b79d0a740f59a8a44a43e0e42d5ccb30
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
@@ -13,8 +13,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Chelicerae
+    second: {fileID: 2100000, guid: b121bf5541a16154291e5a513625dcb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Eyes
     second: {fileID: 2100000, guid: b0ada243ecb2b4e68a81315f8472b4e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Spider
+    second: {fileID: 2100000, guid: aeb1b9a6227fce94b9cdb0f1592189ad, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -49,11 +59,11 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
-    sortHierarchyByName: 1
-    importVisibility: 1
-    importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    sortHierarchyByName: 0
+    importVisibility: 0
+    importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
     fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 0
