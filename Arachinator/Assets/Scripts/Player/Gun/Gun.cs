@@ -17,7 +17,6 @@ public class Gun : MonoBehaviour
     [SerializeField] Animator gunAnimator;
     [SerializeField] TurretAnimationEvents turretAnimationEvents;
 
-
     Cooldown cooldown;
     public bool IsShooting { get; private set; }
 
@@ -47,9 +46,14 @@ public class Gun : MonoBehaviour
         }
         else if (Input.GetButtonUp("Fire1"))
         {
-            gunAnimator.SetBool("Shooting", false);
+            StopShot();
         }
 
+    }
+
+    public void StopShot()
+    {
+        gunAnimator.SetBool("Shooting", false);
     }
 
     void ShotLeftEvent() => Shot(shotPointLeft, muzzleLeftPoint);

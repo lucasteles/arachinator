@@ -94,6 +94,7 @@ public class Player : MonoBehaviour, IDamageble
         var gun = GetComponentInChildren<Gun>();
         var webPistol = GetComponentInChildren<WebPistol>();
 
+        gun.StopShot();
         gun.enabled = webPistol.enabled = false;
 
         rb.constraints = RigidbodyConstraints.FreezePositionX
