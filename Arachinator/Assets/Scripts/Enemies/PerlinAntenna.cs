@@ -32,7 +32,7 @@ public class PerlinAntenna : MonoBehaviour
     {
         var currentRotation = transform.localRotation;
         var perlinFactor =
-            Mathf.PerlinNoise(Time.time * seed, Time.time * seed) * (maxRotation - minRotation)
+            Mathf.PerlinNoise(Time.time, Time.time) * (maxRotation - minRotation)
             + minRotation;
 
         var vectorRot = new Vector3(
