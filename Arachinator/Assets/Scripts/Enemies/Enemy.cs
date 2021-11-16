@@ -1,53 +1,137 @@
 using System;
 using System.Collections;
-using Assets.Scripts.Cameras.Effects;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour, IDamageble
 {
-    public enum States
+    public enum State
     {
+        Stop,
+        Searching,
         Seeking,
-        Arming,
         Shooting,
+        Desingage
     }
+
     [SerializeField]AudioClip deathAudio;
     [SerializeField]AudioClip deathAudio2;
     [SerializeField]AudioClip hitSound;
     [SerializeField]GameObject[] bloodEffects;
     [SerializeField]GameObject dieEffect;
+    [SerializeField]State initialState = State.Searching;
     [SerializeField]float view;
+    [SerializeField]float distanceToView = 5;
+    [SerializeField]float searchStep = 2;
+
     NavMeshAgent navMeshAgent;
     Life target;
     Rigidbody rb;
     Life life;
-
     BoxCollider targetCollider;
+    BoxCollider myCollider;
 
-
+    State currentState = State.Stop;
     void Awake()
     {
         life = GetComponent<Life>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
+        myCollider = GetComponent<BoxCollider>();
         target = FindObjectOfType<Player>().GetComponent<Life>();
     }
+    void OnDestroy() => life.onDeath -= LifeOnDeath;
 
     void Start()
     {
         targetCollider = target.GetComponent<BoxCollider>();
-        StartCoroutine(SetDestination());
         life.onDeath += LifeOnDeath;
+        SetState(initialState);
     }
 
     void Update()
     {
-        SeeTarget();
+        if (SeeTarget() && currentState != State.Seeking)
+        {
+            StopAllCoroutines();
+            SetState(State.Seeking);
+        }
+
+        if (!navMeshAgent.isStopped)
+            Debug.DrawLine(navMeshAgent.destination, navMeshAgent.destination + Vector3.up * 5, Color.white);
     }
 
-    public void OnDestroy() => life.onDeath -= LifeOnDeath;
+    void SetState(State newState)
+    {
+        print($"{currentState} -> {newState}");
+        switch (newState)
+        {
+            case State.Searching:
+                HandleSearching();
+                break;
+            case State.Seeking:
+                HandleSeeking();
+                break;
+            case State.Desingage:
+                HandleDesingage();
+                break;
+            case State.Stop:
+                HandleStop();
+                break;
+            case State.Shooting:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    void HandleStop()
+    {
+        if (currentState == State.Stop) return;
+        StopAllCoroutines();
+        navMeshAgent.isStopped = true;
+        currentState = State.Stop;
+    }
+
+    void HandleDesingage()
+    {
+        if (currentState == State.Desingage) return;
+        StopAllCoroutines();
+        navMeshAgent.isStopped = false;
+
+        IEnumerator Desingage()
+        {
+            var location = TargetDirection() * -5;
+            navMeshAgent.SetDestination(location);
+            yield return new WaitForSeconds(3f);
+            SetState(State.Searching);
+        }
+
+        StartCoroutine(Desingage());
+        currentState = State.Desingage;
+    }
+
+    void HandleSeeking()
+    {
+        if (currentState == State.Seeking) return;
+        StopAllCoroutines();
+        navMeshAgent.isStopped = false;
+        StartCoroutine(SeekCoroutine());
+        currentState = State.Seeking;
+    }
+
+    void HandleSearching()
+    {
+        if (currentState == State.Searching) return;
+        StopAllCoroutines();
+        navMeshAgent.isStopped = false;
+        StartCoroutine(SearchCoroutine());
+        currentState = State.Searching;
+    }
+
+
+    Vector3 TargetDirection() => (transform.position - target.transform.position).normalized;
 
     void LifeOnDeath()
     {
@@ -63,28 +147,43 @@ public class Enemy : MonoBehaviour, IDamageble
         Destroy(gameObject);
     }
 
-    IEnumerator SetDestination()
+    IEnumerator SeekCoroutine()
     {
         while (!life.IsDead)
         {
             yield return new WaitForSeconds(.25f);
 
-                if (!target.IsDead)
-                {
-                    if (navMeshAgent.isStopped)
-                        navMeshAgent.isStopped = false;
+            if (!target.IsDead)
+            {
+                if (navMeshAgent.isStopped)
+                    navMeshAgent.isStopped = false;
 
-                    var targetDirection = (transform.position - target.transform.position).normalized;
-                    var targetPosition = target.transform.position +
-                                         targetDirection * (targetCollider.size.x/2 - .5f);
+                var targetDirection = TargetDirection();
+                var targetPosition = target.transform.position +
+                                     targetDirection * (targetCollider.size.x/2 - .5f);
 
-                    if (!life.IsDead && !target.IsDead)
-                        navMeshAgent.SetDestination(targetPosition);
-                }
-                else
-                {
-                    navMeshAgent.isStopped = true;
-                }
+                if (!life.IsDead && !target.IsDead)
+                    navMeshAgent.SetDestination(targetPosition);
+            }
+            else
+               SetState(State.Desingage);
+        }
+
+    }
+
+    IEnumerator SearchCoroutine()
+    {
+        Vector3 nearPoint() => transform.position + Random.rotation * transform.forward * searchStep;
+
+        navMeshAgent.isStopped = false;
+        navMeshAgent.SetDestination(nearPoint());
+        while (!life.IsDead)
+        {
+            yield return new WaitForSeconds(.15f);
+            if (navMeshAgent.remainingDistance <= myCollider.size.z / 2 || !navMeshAgent.isOnNavMesh)
+            {
+                navMeshAgent.SetDestination(nearPoint());
+            }
         }
 
     }
@@ -116,7 +215,7 @@ public class Enemy : MonoBehaviour, IDamageble
         Destroy(blood, 8);
     }
 
-    void SeeTarget()
+    bool SeeTarget()
     {
         var looking = new Vector2(transform.forward.x, transform.forward.z);
         var direction =
@@ -130,10 +229,18 @@ public class Enemy : MonoBehaviour, IDamageble
             (target.transform.position - transform.position).normalized,
             out var hit, float.MaxValue))
         {
-            if (hit.transform.CompareTag("Player"))
-                Debug.DrawLine(transform.position, hit.point, Color.green);
+            if (hit.transform.CompareTag("Player") &&  !target.IsDead)
+            {
+                if (hit.distance <= distanceToView)
+                {
+                    Debug.DrawLine(transform.position, hit.point, Color.green);
+                    return true;
+                }
+                Debug.DrawLine(transform.position, hit.point, Color.cyan);
+            }
         }
 
+        return false;
     }
 
 
