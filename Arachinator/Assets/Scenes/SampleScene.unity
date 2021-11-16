@@ -3191,34 +3191,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1662088554}
     m_Modifications:
-    - target: {fileID: 1657596390, guid: 185716b3677ce7648859c98b44509606, type: 3}
-      propertyPath: view
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1657596390, guid: 185716b3677ce7648859c98b44509606, type: 3}
-      propertyPath: debug
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1657596390, guid: 185716b3677ce7648859c98b44509606, type: 3}
-      propertyPath: searchStep
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1657596390, guid: 185716b3677ce7648859c98b44509606, type: 3}
-      propertyPath: distanceToView
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 1657596393, guid: 185716b3677ce7648859c98b44509606, type: 3}
-      propertyPath: m_Size.x
-      value: 3.14469
-      objectReference: {fileID: 0}
-    - target: {fileID: 1657596393, guid: 185716b3677ce7648859c98b44509606, type: 3}
-      propertyPath: m_Center.x
-      value: 0.15346695
-      objectReference: {fileID: 0}
-    - target: {fileID: 1657596393, guid: 185716b3677ce7648859c98b44509606, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: ee0beb316abb44b8cbb804ab1f745352, type: 2}
     - target: {fileID: 358611280729302148, guid: 185716b3677ce7648859c98b44509606, type: 3}
       propertyPath: m_Name
       value: Cockroach
@@ -3267,13 +3239,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 9068983104536429840, guid: 185716b3677ce7648859c98b44509606, type: 3}
-    - {fileID: 6256085997980352478, guid: 185716b3677ce7648859c98b44509606, type: 3}
-    - {fileID: 6082223848293358406, guid: 185716b3677ce7648859c98b44509606, type: 3}
-    - {fileID: 30395302813104969, guid: 185716b3677ce7648859c98b44509606, type: 3}
-    - {fileID: 9163022172155324655, guid: 185716b3677ce7648859c98b44509606, type: 3}
-    - {fileID: 909607668081982249, guid: 185716b3677ce7648859c98b44509606, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 185716b3677ce7648859c98b44509606, type: 3}
 --- !u!1001 &955813220719515280
 PrefabInstance:
