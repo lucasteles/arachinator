@@ -19,6 +19,7 @@ public class WebPistol : MonoBehaviour
     [SerializeField]GameObject webPrefab;
     [SerializeField]Transform butTransform;
     [SerializeField]AnimationCurve butScaleCurve;
+    [SerializeField]LayerMask layerMask;
     Cooldown cooldown;
     Vector3? hitPosition = null;
     public Vector3 ShotPoint => shotPoint.position;
@@ -55,7 +56,7 @@ public class WebPistol : MonoBehaviour
     {
         audioSource.PlayOneShot(shotClip);
         ButShotFeedback();
-        if (Physics.Raycast(shotPoint.position, -shotPoint.forward, out var hit, maxDistance))
+        if (Physics.Raycast(shotPoint.position, -shotPoint.forward, out var hit, maxDistance, layerMask))
         {
             player.EnableInvicible();
             Invoke(nameof(DisableInvincible), .3f);

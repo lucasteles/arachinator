@@ -18,21 +18,31 @@ public class Enemy : MonoBehaviour, IDamageble
     [SerializeField]AudioClip deathAudio;
     [SerializeField]AudioClip deathAudio2;
     [SerializeField]AudioClip hitSound;
+    [SerializeField]AudioClip projectileSound;
     [SerializeField]GameObject[] bloodEffects;
     [SerializeField]GameObject dieEffect;
     [SerializeField]State initialState = State.Searching;
     [SerializeField]float view;
     [SerializeField]float distanceToView = 5;
     [SerializeField]float searchStep = 2;
+    [SerializeField]float minShootDistance = 4;
+    [SerializeField]float maxShoots = 3;
+    [SerializeField]float shootCooldownTime = 12;
+    [SerializeField]bool shouldShoot = true;
 
+    float currentNumberOfShoots = 0;
     NavMeshAgent navMeshAgent;
     Life target;
     Rigidbody rb;
     Life life;
+    Cooldown cooldown;
     BoxCollider targetCollider;
     BoxCollider myCollider;
+    Animator animator;
 
     State currentState = State.Stop;
+    static readonly int IsShooting = Animator.StringToHash("IsShooting");
+
     void Awake()
     {
         life = GetComponent<Life>();
@@ -40,6 +50,7 @@ public class Enemy : MonoBehaviour, IDamageble
         rb = GetComponent<Rigidbody>();
         myCollider = GetComponent<BoxCollider>();
         target = FindObjectOfType<Player>().GetComponent<Life>();
+        animator = GetComponent<Animator>();
     }
     void OnDestroy() => life.onDeath -= LifeOnDeath;
 
@@ -47,12 +58,13 @@ public class Enemy : MonoBehaviour, IDamageble
     {
         targetCollider = target.GetComponent<BoxCollider>();
         life.onDeath += LifeOnDeath;
+        cooldown = new Cooldown(shootCooldownTime);
         SetState(initialState);
     }
 
     void Update()
     {
-        if (SeeTarget() && currentState != State.Seeking)
+        if (SeeTarget() && currentState != State.Seeking && currentState != State.Shooting)
         {
             StopAllCoroutines();
             SetState(State.Seeking);
@@ -64,7 +76,7 @@ public class Enemy : MonoBehaviour, IDamageble
 
     void SetState(State newState)
     {
-        print($"{currentState} -> {newState}");
+        //print($"{currentState} -> {newState}");
         switch (newState)
         {
             case State.Searching:
@@ -80,6 +92,7 @@ public class Enemy : MonoBehaviour, IDamageble
                 HandleStop();
                 break;
             case State.Shooting:
+                currentState = State.Shooting;
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -147,6 +160,12 @@ public class Enemy : MonoBehaviour, IDamageble
         Destroy(gameObject);
     }
 
+    bool ShouldShoot() =>
+        shouldShoot
+        && cooldown
+        && Vector3.Distance(transform.position, target.transform.position) <= minShootDistance
+        && SeeTarget();
+
     IEnumerator SeekCoroutine()
     {
         while (!life.IsDead)
@@ -155,21 +174,60 @@ public class Enemy : MonoBehaviour, IDamageble
 
             if (!target.IsDead)
             {
-                if (navMeshAgent.isStopped)
-                    navMeshAgent.isStopped = false;
-
-                var targetDirection = TargetDirection();
-                var targetPosition = target.transform.position +
-                                     targetDirection * (targetCollider.size.x/2 - .5f);
-
-                if (!life.IsDead && !target.IsDead)
-                    navMeshAgent.SetDestination(targetPosition);
+                if (ShouldShoot())
+                  yield return StartShooting();
+                else
+                    GoCloser();
             }
             else
                SetState(State.Desingage);
         }
 
     }
+
+    IEnumerator StartShooting()
+    {
+        foreach (var spiderLegConstraint in GetComponentsInChildren<SpiderLegConstraint>())
+            spiderLegConstraint.enabled = false;
+
+        navMeshAgent.isStopped = true;
+        cooldown.Reset();
+        SetState(State.Shooting);
+        print("start shooting...");
+        currentNumberOfShoots = 0;
+        animator.SetBool(IsShooting, true);
+
+        while (currentNumberOfShoots <= maxShoots)
+        {
+            transform.LookAt(target.transform);
+            yield return null;
+        }
+
+        animator.SetBool(IsShooting, false);
+        foreach (var spiderLegConstraint in GetComponentsInChildren<SpiderLegConstraint>())
+            spiderLegConstraint.enabled = true;
+        SetState(State.Seeking);
+    }
+
+    public void ShootProjectileAnimationEvent()
+    {
+        currentNumberOfShoots++;
+        CameraAudioSource.Instance.AudioSource.PlayOneShot(projectileSound);
+        print($"Shoot {currentNumberOfShoots}");
+    }
+
+    void GoCloser()
+   {
+        if (navMeshAgent.isStopped)
+            navMeshAgent.isStopped = false;
+
+        var targetDirection = TargetDirection();
+        var targetPosition = target.transform.position +
+                             targetDirection * (targetCollider.size.x / 2 - .5f);
+
+        if (!life.IsDead && !target.IsDead)
+            navMeshAgent.SetDestination(targetPosition);
+   }
 
     IEnumerator SearchCoroutine()
     {
@@ -195,18 +253,19 @@ public class Enemy : MonoBehaviour, IDamageble
     }
 
     public void TakeDamage(float amount) => life.Subtract(amount);
+
     public void TakeHit(float amount, Vector3 @from, float force)
     {
         if (!navMeshAgent.isStopped)
         {
             navMeshAgent.isStopped = true;
-            Invoke(nameof(Walk), .1f);
+            Invoke(nameof(Walk), .4f);
         }
         TakeDamage(amount);
         CameraAudioSource.Instance.AudioSource.PlayOneShot(hitSound);
         rb.velocity = Vector3.zero;
         var direction = (transform.position - target.transform.position).normalized;
-        rb.AddForce(direction * force * rb.mass);
+        rb.AddForce(direction * force, ForceMode.VelocityChange);
         var i = Random.Range(0, bloodEffects.Length );
         var blood = Instantiate(bloodEffects[i], new Vector3(@from.x, 0, @from.z), transform.rotation);
         blood.transform.Rotate(Vector3.up,-90f);
@@ -220,16 +279,16 @@ public class Enemy : MonoBehaviour, IDamageble
         var looking = new Vector2(transform.forward.x, transform.forward.z);
         var direction =
             (new Vector2(target.transform.position.x, target.transform.position.z)
-            -new Vector2(transform.position.x, transform.position.z)
+             -new Vector2(transform.position.x, transform.position.z)
             ).normalized;
 
         var dot = Vector2.Dot(looking, direction);
         if (dot > view &&
             Physics.Raycast(transform.position,
-            (target.transform.position - transform.position).normalized,
-            out var hit, float.MaxValue))
+                (target.transform.position - transform.position).normalized,
+                out var hit, float.MaxValue))
         {
-            if (hit.transform.CompareTag("Player") &&  !target.IsDead)
+            if (hit.transform.CompareTag("Player") && !target.IsDead)
             {
                 if (hit.distance <= distanceToView)
                 {
@@ -242,7 +301,6 @@ public class Enemy : MonoBehaviour, IDamageble
 
         return false;
     }
-
 
 }
 

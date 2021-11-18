@@ -78,9 +78,8 @@ MonoBehaviour:
   speed: 50
   lifespan: 1
   impact: {fileID: 8300000, guid: fa66fc96712da41ef9dac6ce9edfa666, type: 3}
-  trailRenderer: {fileID: 8568803767858017378}
   damage: 1
-  force: 1000
+  force: 12
 --- !u!1 &6863857337905034704
 GameObject:
   m_ObjectHideFlags: 0
