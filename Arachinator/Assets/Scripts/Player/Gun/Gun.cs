@@ -79,4 +79,10 @@ public class Gun : MonoBehaviour
         audioSource.PlayOneShot(shotAudioClip);
         ObjectPooling.Get(Pools.Bullet, shotOrigin.position, transform.rotation);
     }
+
+    public void IncreaseFireSpeed(float amount)
+    {
+        cooldownTime -= amount;
+        cooldownTime = Mathf.Clamp(cooldownTime, 0.1f, 1f);
+    }
 }

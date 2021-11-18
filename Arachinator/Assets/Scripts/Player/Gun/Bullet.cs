@@ -29,6 +29,8 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.CompareTag("Item")) return;
+
         ObjectPooling.Get(Pools.HitParticle, transform.position, Quaternion.identity);
         Vanish();
         CameraAudioSource.Instance.AudioSource.PlayOneShot(impact);
