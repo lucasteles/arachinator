@@ -2,7 +2,16 @@ fileFormatVersion: 2
 guid: 700fbac8038c62c4ba23021bbb78eb12
 ModelImporter:
   serializedVersion: 20200
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: 6518481595665536422
+    second: Cockroach|PoseLib
+  - first:
+      74: 1736308225446006933
+    second: Cockroach|Spit
+  - first:
+      74: -1971123724796418430
+    second: Cockroach|StandUp
   externalObjects: {}
   materials:
     materialImportMode: 2

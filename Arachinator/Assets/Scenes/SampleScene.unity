@@ -1128,6 +1128,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1662088554}
     m_Modifications:
+    - target: {fileID: -2719312340720472387, guid: 185716b3677ce7648859c98b44509606, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -1749228383281720153, guid: 185716b3677ce7648859c98b44509606, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 342812144047816846, guid: 185716b3677ce7648859c98b44509606, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 358611280729302148, guid: 185716b3677ce7648859c98b44509606, type: 3}
       propertyPath: m_Name
       value: Cockroach (1)
@@ -1179,6 +1191,30 @@ PrefabInstance:
     - target: {fileID: 1130926477976616510, guid: 185716b3677ce7648859c98b44509606, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1558150119163206712, guid: 185716b3677ce7648859c98b44509606, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2068828194324722991, guid: 185716b3677ce7648859c98b44509606, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3399086596760757990, guid: 185716b3677ce7648859c98b44509606, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4988370656437824375, guid: 185716b3677ce7648859c98b44509606, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5885463361600451582, guid: 185716b3677ce7648859c98b44509606, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6220962095890417437, guid: 185716b3677ce7648859c98b44509606, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 185716b3677ce7648859c98b44509606, type: 3}
@@ -1449,6 +1485,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1662088554}
     m_Modifications:
+    - target: {fileID: -2719312340720472387, guid: 185716b3677ce7648859c98b44509606, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -1749228383281720153, guid: 185716b3677ce7648859c98b44509606, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 342812144047816846, guid: 185716b3677ce7648859c98b44509606, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 358611280729302148, guid: 185716b3677ce7648859c98b44509606, type: 3}
       propertyPath: m_Name
       value: Cockroach (2)
@@ -1500,6 +1548,30 @@ PrefabInstance:
     - target: {fileID: 1130926477976616510, guid: 185716b3677ce7648859c98b44509606, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1558150119163206712, guid: 185716b3677ce7648859c98b44509606, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2068828194324722991, guid: 185716b3677ce7648859c98b44509606, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259235898435166013, guid: 185716b3677ce7648859c98b44509606, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4988370656437824375, guid: 185716b3677ce7648859c98b44509606, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5885463361600451582, guid: 185716b3677ce7648859c98b44509606, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6220962095890417437, guid: 185716b3677ce7648859c98b44509606, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 185716b3677ce7648859c98b44509606, type: 3}
@@ -3191,6 +3263,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1662088554}
     m_Modifications:
+    - target: {fileID: -2719312340720472387, guid: 185716b3677ce7648859c98b44509606, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -1749228383281720153, guid: 185716b3677ce7648859c98b44509606, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 342812144047816846, guid: 185716b3677ce7648859c98b44509606, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 358611280729302148, guid: 185716b3677ce7648859c98b44509606, type: 3}
       propertyPath: m_Name
       value: Cockroach
@@ -3238,6 +3322,26 @@ PrefabInstance:
     - target: {fileID: 1130926477976616510, guid: 185716b3677ce7648859c98b44509606, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1558150119163206712, guid: 185716b3677ce7648859c98b44509606, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2068828194324722991, guid: 185716b3677ce7648859c98b44509606, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259235898435166013, guid: 185716b3677ce7648859c98b44509606, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4988370656437824375, guid: 185716b3677ce7648859c98b44509606, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5885463361600451582, guid: 185716b3677ce7648859c98b44509606, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 185716b3677ce7648859c98b44509606, type: 3}
@@ -3484,7 +3588,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -19.39
+      value: -1.14
       objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3492,7 +3596,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -14.43
+      value: 0.82
       objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_LocalRotation.w
