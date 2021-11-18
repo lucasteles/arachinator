@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class HealthIncrese : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] float amount;
+    [SerializeField] AudioClip sound;
 
-    // Update is called once per frame
-    void Update()
+    void OnTriggerEnter(Collider other)
     {
-        
+        if (!other.gameObject.CompareTag("Player")) return;
+        var life = other.GetComponentInChildren<Player>();
+        if (life.IsMaxHealth()) return;
+        life.AddLife(amount);
+        CameraAudioSource.Instance.AudioSource.PlayOneShot(sound);
+        Destroy(gameObject);
     }
 }

@@ -8,7 +8,6 @@ public class FireSpeed : MonoBehaviour
     [SerializeField] float amount;
     [SerializeField] AudioClip sound;
 
-
     void OnTriggerEnter(Collider other)
     {
         if (!other.gameObject.CompareTag("Player")) return;

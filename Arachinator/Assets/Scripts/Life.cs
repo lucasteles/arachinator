@@ -33,4 +33,6 @@ public class Life : MonoBehaviour
         currentLife = maxLife;
         dead = false;
     }
+
+    public bool IsFull() => currentLife == maxLife;
 }

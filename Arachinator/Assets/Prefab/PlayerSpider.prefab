@@ -524,7 +524,7 @@ MonoBehaviour:
   gunBody: {fileID: 1048413615143385604}
   audioSource: {fileID: 1048413615541081995}
   shotAudioClip: {fileID: 8300000, guid: 129beb00580c84c0ca9c4c00ab6969f0, type: 3}
-  cooldownTime: 0.2
+  fireSpeed: 1
   shakeData:
     timeToShake: 0.1
     magnitude: 0.04

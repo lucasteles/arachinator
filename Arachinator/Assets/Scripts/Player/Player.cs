@@ -61,8 +61,8 @@ public class Player : MonoBehaviour, IDamageble
 
     public void TakeDamage(float amount)
     {
-        if (ui) ui.RemoveHealth(amount);
         life.Subtract(amount);
+        if (ui) ui.SetHealth(life.CurrentLife);
     }
     public void TakeHit(float amount, Vector3 from, float force)
     {
@@ -152,5 +152,11 @@ public class Player : MonoBehaviour, IDamageble
         currentDamageCoroutine = null;
     }
 
+    public bool IsMaxHealth() => life.IsFull();
 
+    public void AddLife(float amount)
+    {
+        life.Add(amount);
+        if (ui) ui.SetHealth(life.CurrentLife);
+    }
 }

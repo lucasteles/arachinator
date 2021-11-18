@@ -12,7 +12,7 @@ public class Gun : MonoBehaviour
     [SerializeField] Transform gunBody;
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip shotAudioClip;
-    [SerializeField] float cooldownTime;
+    [SerializeField] float fireSpeed;
     [SerializeField] CameraShakeData shakeData;
     [SerializeField] Animator gunAnimator;
     [SerializeField] TurretAnimationEvents turretAnimationEvents;
@@ -34,14 +34,14 @@ public class Gun : MonoBehaviour
 
     void Start()
     {
-        cooldown = new Cooldown(cooldownTime);
+        cooldown = new Cooldown(fireSpeed);
     }
 
     void Update()
     {
         if (Input.GetButtonDown("Fire1") && !gunAnimator.GetBool("Shooting"))
         {
-            gunAnimator.SetFloat("RateOfFire", 1 / cooldownTime / 2);
+            gunAnimator.SetFloat("RateOfFire", fireSpeed);
             gunAnimator.SetBool("Shooting", true);
         }
         else if (Input.GetButtonUp("Fire1"))
@@ -82,7 +82,6 @@ public class Gun : MonoBehaviour
 
     public void IncreaseFireSpeed(float amount)
     {
-        cooldownTime -= amount;
-        cooldownTime = Mathf.Clamp(cooldownTime, 0.1f, 1f);
+        fireSpeed += amount;
     }
 }

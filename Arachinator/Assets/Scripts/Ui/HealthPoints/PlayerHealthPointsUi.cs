@@ -23,17 +23,17 @@ namespace Assets.Scripts.Ui.HealthPoints
             this.slider.maxValue = this.maxHealth;
         }
 
-        public void RemoveHealth(float toRemove)
-        {
-            timeChangingSlider = 0;
-            this.currentHealth -= toRemove;
-        }
-
         void Update()
         {
             if (this.slider.value == currentHealth) return;
             timeChangingSlider += Time.deltaTime;
             this.slider.value = Mathf.Lerp(this.slider.value, this.currentHealth, timeChangingSlider / timeToChangeSlider);
+        }
+
+        public void SetHealth(float amount)
+        {
+            timeChangingSlider = 0;
+            currentHealth = amount;
         }
     }
 }
