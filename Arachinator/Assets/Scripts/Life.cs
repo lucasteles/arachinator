@@ -9,12 +9,13 @@ public class Life : MonoBehaviour
 
     public float CurrentLife => currentLife;
     public bool IsDead => dead;
-    public float MaxLife => maxLife;
+    public float MaxLife =>  maxLife;
 
     public event Action onDeath;
 
     void Start() => Reset();
 
+    public void SetMaxLife(float val) => maxLife = val;
     void Update()
     {
         if (currentLife <= 0 && !dead)

@@ -2188,14 +2188,7 @@ MonoBehaviour:
   - {fileID: 7636614938515757400, guid: 3f91ef545a37049b588e3e2f62b4b5ec, type: 3}
   dieEffect: {fileID: 3167726466660889134, guid: 1cbd72c3acada496d905d0c6ccc4cba0, type: 3}
   shootPoint: {fileID: 3192714275810383446}
-  initialState: 1
-  view: 0.6
-  distanceToView: 30
-  searchStep: 10
-  minShootDistance: 20
-  maxShoots: 5
-  shootCooldownTime: 10
-  shouldShoot: 1
+  config: {fileID: 11400000, guid: 88130e3dc0f0346e59b127940fa88123, type: 2}
 --- !u!195 &1657596391
 NavMeshAgent:
   m_ObjectHideFlags: 0

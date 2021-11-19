@@ -22,14 +22,8 @@ public class Enemy : MonoBehaviour, IDamageble
     [SerializeField]GameObject[] bloodEffects;
     [SerializeField]GameObject dieEffect;
     [SerializeField]Transform shootPoint;
-    [SerializeField]State initialState = State.Searching;
-    [SerializeField]float view;
-    [SerializeField]float distanceToView = 5;
-    [SerializeField]float searchStep = 2;
-    [SerializeField]float minShootDistance = 4;
-    [SerializeField]int maxShoots = 3;
-    [SerializeField]float shootCooldownTime = 12;
-    [SerializeField]bool shouldShoot = true;
+
+    [SerializeField]EnemyConfiguration config;
 
     float currentNumberOfShoots = 0;
     NavMeshAgent navMeshAgent;
@@ -57,10 +51,12 @@ public class Enemy : MonoBehaviour, IDamageble
 
     void Start()
     {
+        life.SetMaxLife(config.maxLife);
+        navMeshAgent.speed = config.speed;
         targetCollider = target.GetComponent<BoxCollider>();
         life.onDeath += LifeOnDeath;
-        cooldown = new Cooldown(shootCooldownTime);
-        SetState(initialState);
+        cooldown = new Cooldown(config.shootCooldownTime);
+        SetState(config.initialState);
     }
 
     void Update()
@@ -173,9 +169,9 @@ public class Enemy : MonoBehaviour, IDamageble
     }
 
     bool ShouldShoot() =>
-        shouldShoot
+        config.shouldShoot
         && cooldown
-        && Vector3.Distance(transform.position, target.transform.position) <= minShootDistance
+        && Vector3.Distance(transform.position, target.transform.position) <= config.minShootDistance
         && SeeTarget();
 
     IEnumerator SeekCoroutine()
@@ -187,7 +183,7 @@ public class Enemy : MonoBehaviour, IDamageble
             if (!target.IsDead)
             {
                 if (ShouldShoot())
-                  yield return StartShooting(Random.Range(1, maxShoots));
+                  yield return StartShooting(Random.Range(1, config.maxShoots));
                 else
                     GoCloser();
             }
@@ -243,7 +239,7 @@ public class Enemy : MonoBehaviour, IDamageble
 
     IEnumerator SearchCoroutine()
     {
-        Vector3 nearPoint() => transform.position + Random.rotation * transform.forward * searchStep;
+        Vector3 nearPoint() => transform.position + Random.rotation * transform.forward * config.searchStep;
 
         StartNav();
         navMeshAgent.SetDestination(nearPoint());
@@ -298,14 +294,14 @@ public class Enemy : MonoBehaviour, IDamageble
             ).normalized;
 
         var dot = Vector2.Dot(looking, direction);
-        if (dot > view &&
+        if (dot > config.view &&
             Physics.Raycast(transform.position,
                 (target.transform.position - transform.position).normalized,
                 out var hit, float.MaxValue))
         {
             if (hit.transform.CompareTag("Player") && !target.IsDead)
             {
-                if (hit.distance <= distanceToView)
+                if (hit.distance <= config.distanceToView)
                 {
                     Debug.DrawLine(transform.position, hit.point, Color.green);
                     return true;
