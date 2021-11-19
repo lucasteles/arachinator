@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 public class EnemyHeathbar : MonoBehaviour
@@ -38,7 +39,6 @@ public class EnemyHeathbar : MonoBehaviour
         currentHealth = currentLife;
         maxHealth = maxLife;
     }
-
     IEnumerator Show()
     {
         var speed = .05f;
@@ -53,12 +53,6 @@ public class EnemyHeathbar : MonoBehaviour
             canvas.alpha = i;
             yield return null;
         }
-    }
-
-    void LateUpdate()
-    {
-        transform.LookAt(mainCamera.transform);
-        transform.Rotate(0,180,0);
     }
 
     void Update()
