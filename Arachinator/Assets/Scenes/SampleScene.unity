@@ -3758,14 +3758,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 955813219675699695, guid: 7edbfdcdcfbd6a587bad86d144ee5b93, type: 3}
-      propertyPath: poolingConfig.Array.data[4].theObject
-      value: 
-      objectReference: {fileID: 3327436750973728972, guid: f988ad5690d664df6b437ee1e2958f35, type: 3}
-    - target: {fileID: 955813219675699695, guid: 7edbfdcdcfbd6a587bad86d144ee5b93, type: 3}
-      propertyPath: poolingConfig.Array.data[4].numberOfObjects
-      value: 80
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7edbfdcdcfbd6a587bad86d144ee5b93, type: 3}
 --- !u!1001 &1572855933391516868
