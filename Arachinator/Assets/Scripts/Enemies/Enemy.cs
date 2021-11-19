@@ -21,12 +21,13 @@ public class Enemy : MonoBehaviour, IDamageble
     [SerializeField]AudioClip projectileSound;
     [SerializeField]GameObject[] bloodEffects;
     [SerializeField]GameObject dieEffect;
+    [SerializeField]Transform shootPoint;
     [SerializeField]State initialState = State.Searching;
     [SerializeField]float view;
     [SerializeField]float distanceToView = 5;
     [SerializeField]float searchStep = 2;
     [SerializeField]float minShootDistance = 4;
-    [SerializeField]float maxShoots = 3;
+    [SerializeField]int maxShoots = 3;
     [SerializeField]float shootCooldownTime = 12;
     [SerializeField]bool shouldShoot = true;
 
@@ -175,7 +176,7 @@ public class Enemy : MonoBehaviour, IDamageble
             if (!target.IsDead)
             {
                 if (ShouldShoot())
-                  yield return StartShooting();
+                  yield return StartShooting(Random.Range(1, maxShoots));
                 else
                     GoCloser();
             }
@@ -185,7 +186,7 @@ public class Enemy : MonoBehaviour, IDamageble
 
     }
 
-    IEnumerator StartShooting()
+    IEnumerator StartShooting(int numberOfShoots)
     {
         foreach (var spiderLegConstraint in GetComponentsInChildren<SpiderLegConstraint>())
             spiderLegConstraint.enabled = false;
@@ -193,13 +194,13 @@ public class Enemy : MonoBehaviour, IDamageble
         navMeshAgent.isStopped = true;
         cooldown.Reset();
         SetState(State.Shooting);
-        print("start shooting...");
         currentNumberOfShoots = 0;
         animator.SetBool(IsShooting, true);
 
-        while (currentNumberOfShoots <= maxShoots)
+        while (currentNumberOfShoots < numberOfShoots)
         {
             transform.LookAt(target.transform);
+            navMeshAgent.isStopped = true;
             yield return null;
         }
 
@@ -213,7 +214,7 @@ public class Enemy : MonoBehaviour, IDamageble
     {
         currentNumberOfShoots++;
         CameraAudioSource.Instance.AudioSource.PlayOneShot(projectileSound);
-        print($"Shoot {currentNumberOfShoots}");
+        ObjectPooling.Get(Pools.Cuspe, shootPoint.position, transform.rotation);
     }
 
     void GoCloser()
@@ -272,6 +273,9 @@ public class Enemy : MonoBehaviour, IDamageble
         blood.transform.localScale *= 1.5f;
         blood.transform.SetParent(transform);
         Destroy(blood, 8);
+
+        if (currentState != State.Seeking)
+            SetState(State.Seeking);
     }
 
     bool SeeTarget()

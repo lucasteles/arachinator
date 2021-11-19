@@ -9,6 +9,7 @@ public enum  Pools
     Bullet,
     MuzzleFlash,
     HitParticle,
+    Cuspe
 }
 
 [Serializable]
