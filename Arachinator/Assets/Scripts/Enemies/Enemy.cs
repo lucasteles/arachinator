@@ -100,11 +100,22 @@ public class Enemy : MonoBehaviour, IDamageble
         }
     }
 
+    void StopNav()
+    {
+        if (!life.IsDead)
+            navMeshAgent.isStopped = true;
+    }
+
+    void StartNav()
+    {
+        if (!life.IsDead)
+            navMeshAgent.isStopped = false;
+    }
     void HandleStop()
     {
         if (currentState == State.Stop) return;
         StopAllCoroutines();
-        navMeshAgent.isStopped = true;
+        StopNav();
         currentState = State.Stop;
     }
 
@@ -112,7 +123,7 @@ public class Enemy : MonoBehaviour, IDamageble
     {
         if (currentState == State.Desingage) return;
         StopAllCoroutines();
-        navMeshAgent.isStopped = false;
+        StartNav();
 
         IEnumerator Desingage()
         {
@@ -130,7 +141,7 @@ public class Enemy : MonoBehaviour, IDamageble
     {
         if (currentState == State.Seeking) return;
         StopAllCoroutines();
-        navMeshAgent.isStopped = false;
+        StartNav();
         StartCoroutine(SeekCoroutine());
         currentState = State.Seeking;
     }
@@ -139,7 +150,7 @@ public class Enemy : MonoBehaviour, IDamageble
     {
         if (currentState == State.Searching) return;
         StopAllCoroutines();
-        navMeshAgent.isStopped = false;
+        StartNav();
         StartCoroutine(SearchCoroutine());
         currentState = State.Searching;
     }
@@ -149,7 +160,7 @@ public class Enemy : MonoBehaviour, IDamageble
 
     void LifeOnDeath()
     {
-        navMeshAgent.isStopped = true;
+        StopNav();
         if (Random.Range(0,2) == 1)
             CameraAudioSource.Instance.AudioSource.PlayOneShot(deathAudio);
         CameraAudioSource.Instance.AudioSource.PlayOneShot(deathAudio2);
@@ -191,16 +202,16 @@ public class Enemy : MonoBehaviour, IDamageble
         foreach (var spiderLegConstraint in GetComponentsInChildren<SpiderLegConstraint>())
             spiderLegConstraint.enabled = false;
 
-        navMeshAgent.isStopped = true;
+        StopNav();
         cooldown.Reset();
         SetState(State.Shooting);
         currentNumberOfShoots = 0;
         animator.SetBool(IsShooting, true);
 
-        while (currentNumberOfShoots < numberOfShoots)
+        while (currentNumberOfShoots < numberOfShoots && !target.IsDead)
         {
             transform.LookAt(target.transform);
-            navMeshAgent.isStopped = true;
+            StopNav();
             yield return null;
         }
 
@@ -220,7 +231,7 @@ public class Enemy : MonoBehaviour, IDamageble
     void GoCloser()
    {
         if (navMeshAgent.isStopped)
-            navMeshAgent.isStopped = false;
+            StartNav();
 
         var targetDirection = TargetDirection();
         var targetPosition = target.transform.position +
@@ -234,7 +245,7 @@ public class Enemy : MonoBehaviour, IDamageble
     {
         Vector3 nearPoint() => transform.position + Random.rotation * transform.forward * searchStep;
 
-        navMeshAgent.isStopped = false;
+        StartNav();
         navMeshAgent.SetDestination(nearPoint());
         while (!life.IsDead)
         {
@@ -250,7 +261,7 @@ public class Enemy : MonoBehaviour, IDamageble
     void Walk()
     {
         rb.velocity = Vector3.zero;
-        navMeshAgent.isStopped = false;
+        StartNav();
     }
 
     public void TakeDamage(float amount) => life.Subtract(amount);
@@ -271,10 +282,10 @@ public class Enemy : MonoBehaviour, IDamageble
         var blood = Instantiate(bloodEffects[i], new Vector3(@from.x, 0, @from.z), transform.rotation);
         blood.transform.Rotate(Vector3.up,-90f);
         blood.transform.localScale *= 1.5f;
-        blood.transform.SetParent(transform);
+        //blood.transform.SetParent(transform);
         Destroy(blood, 8);
 
-        if (currentState != State.Seeking)
+        if (currentState != State.Seeking && currentState != State.Shooting)
             SetState(State.Seeking);
     }
 

@@ -1138,15 +1138,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 700fbac8038c62c4ba23021bbb78eb12, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.9682565
+      value: -14.26
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 700fbac8038c62c4ba23021bbb78eb12, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.986
+      value: 2.014
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 700fbac8038c62c4ba23021bbb78eb12, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.4203706
+      value: 0.14228
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 700fbac8038c62c4ba23021bbb78eb12, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1542,7 +1542,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 700fbac8038c62c4ba23021bbb78eb12, type: 3}
       propertyPath: m_Name
-      value: EnemyCockroach
+      value: Cockroach (1)
       objectReference: {fileID: 0}
     - target: {fileID: 1550056862050021891, guid: 700fbac8038c62c4ba23021bbb78eb12, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2183,7 +2183,7 @@ MonoBehaviour:
   deathAudio: {fileID: 8300000, guid: 8e27de054fdd647fd84677d3bedf2d55, type: 3}
   deathAudio2: {fileID: 8300000, guid: c6e71c1fe454446e3873fcd64b039bf5, type: 3}
   hitSound: {fileID: 8300000, guid: d9632003f385842128003cef610bd723, type: 3}
-  projectileSound: {fileID: 8300000, guid: 3e4fc2b368b3a4a7f97b64e9e9c24384, type: 3}
+  projectileSound: {fileID: 8300000, guid: 4552fc6bcf13047daac5fc86c4275e0f, type: 3}
   bloodEffects:
   - {fileID: 7636614938515757400, guid: 3f91ef545a37049b588e3e2f62b4b5ec, type: 3}
   dieEffect: {fileID: 3167726466660889134, guid: 1cbd72c3acada496d905d0c6ccc4cba0, type: 3}
