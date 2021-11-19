@@ -282,17 +282,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 861883877}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.69}
-  m_LocalScale: {x: 0.009999999, y: 0.009999999, z: 0.009999999}
+  m_LocalRotation: {x: 0.00000009415696, y: -0.7071068, z: -0.7071067, w: 0.00000009415697}
+  m_LocalPosition: {x: 0, y: 0, z: 0.08169999}
+  m_LocalScale: {x: 0.00009999999, y: 0.00010000001, z: 0.00010000001}
   m_Children:
   - {fileID: 193245623}
-  m_Father: {fileID: 1130926477976616510}
-  m_RootOrder: 5
+  m_Father: {fileID: 1496315095044268886}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.02000041, y: 8.17}
+  m_AnchoredPosition: {x: -0.00020000897, y: 0.026902199}
   m_SizeDelta: {x: 835.751, y: 168.041}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &861883881
@@ -365,8 +365,8 @@ CanvasGroup:
   m_GameObject: {fileID: 861883877}
   m_Enabled: 1
   m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!1 &1377743111
 GameObject:
@@ -2414,6 +2414,11 @@ Transform:
 --- !u!4 &2822563080311721914 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3391387489414452847, guid: 700fbac8038c62c4ba23021bbb78eb12, type: 3}
+  m_PrefabInstance: {fileID: 593176484577565141}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1496315095044268886 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -7135785968330114429, guid: 700fbac8038c62c4ba23021bbb78eb12, type: 3}
   m_PrefabInstance: {fileID: 593176484577565141}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1130926477976616510 stripped

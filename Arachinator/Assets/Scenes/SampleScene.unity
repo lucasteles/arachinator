@@ -1341,15 +1341,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 797745353, guid: 185716b3677ce7648859c98b44509606, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 797745353, guid: 185716b3677ce7648859c98b44509606, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 358611280729302148, guid: 185716b3677ce7648859c98b44509606, type: 3}
       propertyPath: m_Name
       value: Cockroach (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 358611280729302148, guid: 185716b3677ce7648859c98b44509606, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1130926477976616510, guid: 185716b3677ce7648859c98b44509606, type: 3}
       propertyPath: m_RootOrder
@@ -1670,11 +1674,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 797745353, guid: 185716b3677ce7648859c98b44509606, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 797745353, guid: 185716b3677ce7648859c98b44509606, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 342812144047816846, guid: 185716b3677ce7648859c98b44509606, type: 3}
       propertyPath: m_RootOrder
@@ -1686,7 +1690,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 358611280729302148, guid: 185716b3677ce7648859c98b44509606, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1130926477976616510, guid: 185716b3677ce7648859c98b44509606, type: 3}
       propertyPath: m_RootOrder

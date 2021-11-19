@@ -235,7 +235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3.5
   lifespan: 20
-  impact: {fileID: 8300000, guid: fa66fc96712da41ef9dac6ce9edfa666, type: 3}
+  impact: {fileID: 8300000, guid: 77955868ae380401c8143272ae642924, type: 3}
   damage: 5
   force: 8
   explosion: {fileID: 6593487261413071833, guid: 8f418dbacefe94b9b9bdaeb92f0f1ebb, type: 3}
