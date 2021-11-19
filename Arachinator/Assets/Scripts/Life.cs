@@ -12,10 +12,16 @@ public class Life : MonoBehaviour
     public float MaxLife =>  maxLife;
 
     public event Action onDeath;
+    public event Action<float, float> onLifeChange;
 
     void Start() => Reset();
 
-    public void SetMaxLife(float val) => maxLife = val;
+    public void SetMaxLife(float val)
+    {
+        maxLife = val;
+        InvokeEvent();
+    }
+
     void Update()
     {
         if (currentLife <= 0 && !dead)
@@ -26,13 +32,25 @@ public class Life : MonoBehaviour
         }
     }
 
-    public void Subtract(float amount) => currentLife -= amount;
-    public void Add(float amount) => currentLife += amount;
+    void InvokeEvent() => onLifeChange?.Invoke(currentLife, maxLife);
+
+    public void Subtract(float amount)
+    {
+        currentLife -= amount;
+        InvokeEvent();
+    }
+
+    public void Add(float amount)
+    {
+        currentLife += amount;
+        InvokeEvent();
+    }
 
     public void Reset()
     {
         currentLife = maxLife;
         dead = false;
+        InvokeEvent();
     }
 
     public bool IsFull() => currentLife == maxLife;
