@@ -89,8 +89,8 @@ MonoBehaviour:
     numberOfObjects: 20
     theObject: {fileID: 613433886817584986, guid: fe2b035b883004fb794e8f64945b371b, type: 3}
   - name: 4
-    numberOfObjects: 40
-    theObject: {fileID: 0}
+    numberOfObjects: 80
+    theObject: {fileID: 3327436750973728972, guid: f988ad5690d664df6b437ee1e2958f35, type: 3}
 --- !u!1 &955813220643435689
 GameObject:
   m_ObjectHideFlags: 0
