@@ -77,10 +77,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolingConfig:
   - name: 0
-    numberOfObjects: 100
+    numberOfObjects: 300
     theObject: {fileID: 1282248143301524, guid: 06f98f5948d854f9dbd1b2338378e576, type: 3}
   - name: 1
-    numberOfObjects: 100
+    numberOfObjects: 120
     theObject: {fileID: 6863857337172796869, guid: 83d12f9a7b03a4bd6a9d79540d7dd741, type: 3}
   - name: 2
     numberOfObjects: 20
