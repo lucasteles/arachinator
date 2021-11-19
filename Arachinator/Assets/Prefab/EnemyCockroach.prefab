@@ -1138,15 +1138,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 700fbac8038c62c4ba23021bbb78eb12, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -14.26
+      value: 4.9682565
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 700fbac8038c62c4ba23021bbb78eb12, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.014
+      value: 1.986
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 700fbac8038c62c4ba23021bbb78eb12, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.14228
+      value: -2.4203706
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 700fbac8038c62c4ba23021bbb78eb12, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1542,7 +1542,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 700fbac8038c62c4ba23021bbb78eb12, type: 3}
       propertyPath: m_Name
-      value: Cockroach (1)
+      value: Cockroach
       objectReference: {fileID: 0}
     - target: {fileID: 1550056862050021891, guid: 700fbac8038c62c4ba23021bbb78eb12, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2017,39 +2017,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 700fbac8038c62c4ba23021bbb78eb12, type: 3}
   m_PrefabInstance: {fileID: 593176484577565141}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2164878643138647054 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1598869648454421979, guid: 700fbac8038c62c4ba23021bbb78eb12, type: 3}
-  m_PrefabInstance: {fileID: 593176484577565141}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &358611280729302148 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 700fbac8038c62c4ba23021bbb78eb12, type: 3}
-  m_PrefabInstance: {fileID: 593176484577565141}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6523416738529663851 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -3261531744092192066, guid: 700fbac8038c62c4ba23021bbb78eb12, type: 3}
-  m_PrefabInstance: {fileID: 593176484577565141}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &3222251419852064472 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -6589647759616532723, guid: 700fbac8038c62c4ba23021bbb78eb12, type: 3}
-  m_PrefabInstance: {fileID: 593176484577565141}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &886227757678225632 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 321974033855557941, guid: 700fbac8038c62c4ba23021bbb78eb12, type: 3}
-  m_PrefabInstance: {fileID: 593176484577565141}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &901976268731661411 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -8881357410870401610, guid: 700fbac8038c62c4ba23021bbb78eb12, type: 3}
-  m_PrefabInstance: {fileID: 593176484577565141}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7574473680434027549 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7000438186972054984, guid: 700fbac8038c62c4ba23021bbb78eb12, type: 3}
   m_PrefabInstance: {fileID: 593176484577565141}
   m_PrefabAsset: {fileID: 0}
 --- !u!54 &1657596392
@@ -2227,99 +2197,3 @@ MonoBehaviour:
   - m_Rig: {fileID: 2297417555959510113}
     m_Active: 1
   m_Effectors: []
---- !u!114 &271220262
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 886227757678225632}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a899182a3d7594ad683f50eb88bcd71f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minRotation: {x: 0, y: 2.408, z: 0}
-  maxRotation: {x: 0, y: 122.85, z: 0}
-  speed: 0.742
-  defaultRot: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &1007588123
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 901976268731661411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a899182a3d7594ad683f50eb88bcd71f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minRotation: {x: 0, y: 0, z: -66.138}
-  maxRotation: {x: 0, y: 0, z: 37.58}
-  speed: 0.502
-  defaultRot: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &974246988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2164878643138647054}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a899182a3d7594ad683f50eb88bcd71f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minRotation: {x: -11.701, y: 0, z: 0}
-  maxRotation: {x: 56.7, y: 0, z: 0}
-  speed: 0.396
-  defaultRot: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &2144151000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3222251419852064472}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a899182a3d7594ad683f50eb88bcd71f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minRotation: {x: 0, y: -90.13, z: 0}
-  maxRotation: {x: 0, y: -1.917, z: 0}
-  speed: 0.71
-  defaultRot: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &1312009785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6523416738529663851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a899182a3d7594ad683f50eb88bcd71f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minRotation: {x: 0, y: 0, z: 20}
-  maxRotation: {x: 0, y: 0, z: 59.665}
-  speed: 0.608
-  defaultRot: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &1716718091
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7574473680434027549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a899182a3d7594ad683f50eb88bcd71f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minRotation: {x: -7.339, y: 0, z: 0}
-  maxRotation: {x: 55.2, y: 0, z: 0}
-  speed: 0.306
-  defaultRot: {x: 0, y: 0, z: 0, w: 0}
