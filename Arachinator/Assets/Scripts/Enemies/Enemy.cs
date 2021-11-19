@@ -276,7 +276,7 @@ public class Enemy : MonoBehaviour, IDamageble
         rb.AddForce(direction * force, ForceMode.VelocityChange);
         var i = Random.Range(0, bloodEffects.Length );
         var blood = Instantiate(bloodEffects[i], new Vector3(@from.x, 0, @from.z), transform.rotation);
-        blood.transform.Rotate(Vector3.up,-90f);
+        blood.transform.Rotate(Vector3.up,Random.rotation.eulerAngles.y);
         blood.transform.localScale *= 1.5f;
         //blood.transform.SetParent(transform);
         Destroy(blood, 8);

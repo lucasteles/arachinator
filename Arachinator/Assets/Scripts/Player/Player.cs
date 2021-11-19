@@ -38,16 +38,23 @@ public class Player : MonoBehaviour, IDamageble
         playerEffects = GetComponent<PlayerEffects>();
         audioSource = GetComponent<AudioSource>();
         life.onDeath += OnDeath;
+        life.onLifeChange += OnLifeChange;
         ui = FindObjectOfType<PlayerHealthPointsUi>();
     }
-    void OnDestroy() => life.onDeath -= OnDeath;
+
+    void OnLifeChange(float current, float max)
+    {
+        if (!ui) return;
+        ui.SetMaxHealth(life.MaxLife);
+        ui.SetHealth(life.CurrentLife);
+    }
+
+    void OnDestroy()
+    {
+        life.onDeath -= OnDeath;
+    }
 
     void OnDeath() => StartCoroutine(DieAnimation());
-
-    void Start()
-    {
-        if (ui) ui.SetMaxHealth(life.MaxLife);
-    }
 
     void Update ()
     {
@@ -62,7 +69,6 @@ public class Player : MonoBehaviour, IDamageble
     public void TakeDamage(float amount)
     {
         life.Subtract(amount);
-        if (ui) ui.SetHealth(life.CurrentLife);
     }
     public void TakeHit(float amount, Vector3 from, float force)
     {
@@ -126,7 +132,6 @@ public class Player : MonoBehaviour, IDamageble
         gun.enabled = webPistol.enabled = true;
         rb.constraints = constraints;
         life.Reset();
-        if (ui) ui.SetMaxHealth(life.MaxLife);
         DisableInvicible();
         movement.Unlock(lockKey);
     }
@@ -157,6 +162,5 @@ public class Player : MonoBehaviour, IDamageble
     public void AddLife(float amount)
     {
         life.Add(amount);
-        if (ui) ui.SetHealth(life.CurrentLife);
     }
 }

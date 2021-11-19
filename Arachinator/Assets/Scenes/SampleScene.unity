@@ -3735,10 +3735,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1662088554}
     m_Modifications:
-    - target: {fileID: 193245624, guid: 185716b3677ce7648859c98b44509606, type: 3}
-      propertyPath: timeToChangeSlider
-      value: 0.3
-      objectReference: {fileID: 0}
     - target: {fileID: 797745353, guid: 185716b3677ce7648859c98b44509606, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -3746,14 +3742,6 @@ PrefabInstance:
     - target: {fileID: 797745353, guid: 185716b3677ce7648859c98b44509606, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 861883878, guid: 185716b3677ce7648859c98b44509606, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 2.69
-      objectReference: {fileID: 0}
-    - target: {fileID: 861883878, guid: 185716b3677ce7648859c98b44509606, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 8.17
       objectReference: {fileID: 0}
     - target: {fileID: 358611280729302148, guid: 185716b3677ce7648859c98b44509606, type: 3}
       propertyPath: m_Name
