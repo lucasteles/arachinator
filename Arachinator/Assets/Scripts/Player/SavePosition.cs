@@ -33,7 +33,6 @@ public class SavePosition : MonoBehaviour
 
         if (!life.IsDead && cooldown && transform.position.y > 0 && Mathf.Approximately(rb.velocity.y, 0f))
         {
-            print("save...");
             cooldown.Reset();
             player.RespawnPosition = new Vector3(transform.position.x, 1.5f, transform.position.z);
         }

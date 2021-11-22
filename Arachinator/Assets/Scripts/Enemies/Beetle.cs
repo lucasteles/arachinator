@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Assets.Scripts.Enemies;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -208,6 +209,9 @@ public class Beetle : MonoBehaviour, IDamageble
         foreach (var spiderLegConstraint in GetComponentsInChildren<SpiderLegConstraint>())
             spiderLegConstraint.enabled = false;
 
+        var damage = GetComponent<EnemyDamageDealer>();
+        damage.damage *= 2;
+        damage.force *= 2;
         animator.SetBool(IsShooting, true);
         StopNav();
         cooldown.Reset();
@@ -233,6 +237,8 @@ public class Beetle : MonoBehaviour, IDamageble
 
         rb.velocity *= .2f;
         trailRenderer.enabled = false;
+        damage.damage /= 2;
+        damage.force /= 2;
 
         SetState(State.Seeking);
     }

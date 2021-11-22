@@ -447,7 +447,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 315201184307164450}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 24.75, y: 0.119, z: 33.35}
+  m_LocalPosition: {x: 24.75, y: 0.14, z: 33.35}
   m_LocalScale: {x: 0.2036, y: 0.2036, z: 0.2036}
   m_Children: []
   m_Father: {fileID: 860475364336692770}
@@ -704,7 +704,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1300086743990698108}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 33.59, y: 0.119, z: 33.14}
+  m_LocalPosition: {x: 33.59, y: 0.14, z: 33.14}
   m_LocalScale: {x: 0.2036, y: 0.2036, z: 0.2036}
   m_Children: []
   m_Father: {fileID: 860475364336692770}
@@ -939,7 +939,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2818222075750472732}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 26.38, y: 0.119, z: 39.16}
+  m_LocalPosition: {x: 26.38, y: 0.14, z: 39.16}
   m_LocalScale: {x: 0.2036, y: 0.2036, z: 0.2036}
   m_Children: []
   m_Father: {fileID: 860475364336692770}
@@ -1020,7 +1020,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3376104030342563491}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 32.02, y: 0.119, z: 39.183}
+  m_LocalPosition: {x: 32.02, y: 0.14, z: 39.183}
   m_LocalScale: {x: 0.2036, y: 0.2036, z: 0.2036}
   m_Children: []
   m_Father: {fileID: 860475364336692770}
@@ -1101,7 +1101,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4188400136912495399}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 31.812, y: 0.119, z: 30.624}
+  m_LocalPosition: {x: 31.812, y: 0.14, z: 30.624}
   m_LocalScale: {x: 0.2036, y: 0.2036, z: 0.2036}
   m_Children: []
   m_Father: {fileID: 860475364336692770}
@@ -1259,7 +1259,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5390725757000158137}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 26.64, y: 0.119, z: 30.47}
+  m_LocalPosition: {x: 26.64, y: 0.14, z: 30.47}
   m_LocalScale: {x: 0.2036, y: 0.2036, z: 0.2036}
   m_Children: []
   m_Father: {fileID: 860475364336692770}
@@ -1440,9 +1440,9 @@ GameObject:
   - component: {fileID: 1581816596}
   - component: {fileID: 1581816597}
   - component: {fileID: 1581816601}
-  - component: {fileID: 749355625}
   - component: {fileID: 749355618}
   - component: {fileID: 749355622}
+  - component: {fileID: 6723300653028579083}
   m_Layer: 0
   m_Name: EnemyBeetle
   m_TagString: Untagged
@@ -1529,20 +1529,6 @@ MonoBehaviour:
   dieEffect: {fileID: 3167726466660889134, guid: 1cbd72c3acada496d905d0c6ccc4cba0, type: 3}
   trackeForce: 2
   config: {fileID: 11400000, guid: 3e6de3f8ac3614419a9d9c7ff1fbda4b, type: 2}
---- !u!136 &749355625
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8527039263426274505}
-  m_Material: {fileID: 13400000, guid: ee0beb316abb44b8cbb804ab1f745352, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 1.36
-  m_Height: 0.8
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0.46}
 --- !u!96 &749355618
 TrailRenderer:
   serializedVersion: 2
@@ -1677,10 +1663,23 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 1
-  m_BaseOffset: 0
+  m_Height: 1.51
+  m_BaseOffset: 0.89
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!65 &6723300653028579083
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8527039263426274505}
+  m_Material: {fileID: 13400000, guid: ee0beb316abb44b8cbb804ab1f745352, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.76546, y: 1.3354067, z: 3.227393}
+  m_Center: {x: -0.033029452, y: -0.11442798, z: 0.11212137}
 --- !u!1 &9160429943510424366
 GameObject:
   m_ObjectHideFlags: 0
@@ -1787,7 +1786,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 920f481612ec7a94c90b71392935eee2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.658
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 920f481612ec7a94c90b71392935eee2, type: 3}
       propertyPath: m_LocalPosition.z

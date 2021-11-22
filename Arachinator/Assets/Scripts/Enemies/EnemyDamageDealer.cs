@@ -4,8 +4,8 @@ namespace Assets.Scripts.Enemies
 {
     public class EnemyDamageDealer : MonoBehaviour
     {
-        [SerializeField] float damage;
-        [SerializeField] float force = 10f;
+        public float damage;
+        public float force = 10f;
 
         void OnCollisionEnter(Collision collision)
         {
