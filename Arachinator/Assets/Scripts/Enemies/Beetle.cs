@@ -4,19 +4,16 @@ using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
-public class Enemy : MonoBehaviour, IDamageble
+public class Beetle : MonoBehaviour, IDamageble
 {
     [SerializeField]AudioClip deathAudio;
     [SerializeField]AudioClip deathAudio2;
     [SerializeField]AudioClip hitSound;
-    [SerializeField]AudioClip projectileSound;
     [SerializeField]GameObject[] bloodEffects;
     [SerializeField]GameObject dieEffect;
-    [SerializeField]Transform shootPoint;
 
     [SerializeField]EnemyConfiguration config;
 
-    float currentNumberOfShoots = 0;
     NavMeshAgent navMeshAgent;
     Life target;
     Rigidbody rb;
@@ -39,6 +36,7 @@ public class Enemy : MonoBehaviour, IDamageble
         animator = GetComponent<Animator>();
     }
     void OnDestroy() => life.onDeath -= LifeOnDeath;
+
 
     void Start()
     {
@@ -157,7 +155,7 @@ public class Enemy : MonoBehaviour, IDamageble
         CameraAudioSource.Instance.AudioSource.PlayOneShot(deathAudio2);
         var pos = transform.position;
         var blood = Instantiate(dieEffect, new Vector3(pos.x, 0,pos.z), transform.rotation);
-        blood.transform.localScale *= Random.Range(1.5f, 2.5f);
+        blood.transform.localScale *= Random.Range(2.5f, 5.5f);
         blood.transform.Rotate(Vector3.up,Random.Range(0f, 90f));
         Destroy(blood, 12);
         Destroy(gameObject);
@@ -177,9 +175,9 @@ public class Enemy : MonoBehaviour, IDamageble
 
             if (!target.IsDead)
             {
-                if (ShouldShoot())
-                  yield return StartShooting(Random.Range(1, config.maxShoots));
-                else
+                // if (ShouldShoot())
+                //   yield return DoTrackle();
+                // else
                     GoCloser();
             }
             else
@@ -188,7 +186,7 @@ public class Enemy : MonoBehaviour, IDamageble
 
     }
 
-    IEnumerator StartShooting(int numberOfShoots)
+    IEnumerator DoTrackle()
     {
         foreach (var spiderLegConstraint in GetComponentsInChildren<SpiderLegConstraint>())
             spiderLegConstraint.enabled = false;
@@ -196,27 +194,17 @@ public class Enemy : MonoBehaviour, IDamageble
         StopNav();
         cooldown.Reset();
         SetState(State.Shooting);
-        currentNumberOfShoots = 0;
-        animator.SetBool(IsShooting, true);
 
-        while (currentNumberOfShoots < numberOfShoots && !target.IsDead)
+        while (!target.IsDead)
         {
             transform.LookAt(target.transform);
             StopNav();
             yield return null;
         }
 
-        animator.SetBool(IsShooting, false);
         foreach (var spiderLegConstraint in GetComponentsInChildren<SpiderLegConstraint>())
             spiderLegConstraint.enabled = true;
         SetState(State.Seeking);
-    }
-
-    public void ShootProjectileAnimationEvent()
-    {
-        currentNumberOfShoots++;
-        CameraAudioSource.Instance.AudioSource.PlayOneShot(projectileSound);
-        ObjectPooling.Get(Pools.Cuspe, shootPoint.position, transform.rotation);
     }
 
     void GoCloser()
@@ -268,16 +256,18 @@ public class Enemy : MonoBehaviour, IDamageble
         CameraAudioSource.Instance.AudioSource.PlayOneShot(hitSound);
         rb.velocity = Vector3.zero;
         var direction = (transform.position - target.transform.position).normalized;
-        rb.AddForce(direction * force, ForceMode.VelocityChange);
+        rb.AddForce(direction * force /2, ForceMode.VelocityChange);
         var i = Random.Range(0, bloodEffects.Length );
         var blood = Instantiate(bloodEffects[i], new Vector3(@from.x, 0, @from.z), transform.rotation);
         blood.transform.Rotate(Vector3.up,Random.rotation.eulerAngles.y);
-        blood.transform.localScale *= 1.5f;
+        blood.transform.localScale *= 2.5f;
         Destroy(blood, 8);
 
         if (currentState != State.Seeking && currentState != State.Shooting)
             SetState(State.Seeking);
     }
+
+
 
 }
 

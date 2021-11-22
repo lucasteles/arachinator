@@ -1,9 +1,18 @@
 using UnityEngine;
 
+public enum State
+{
+    Stop,
+    Searching,
+    Seeking,
+    Shooting,
+    Desingage
+}
+
 [CreateAssetMenu(fileName = "Enemy Configuration", menuName = "ScriptableObjects/EnemyConfiguration", order = 1)]
 public class EnemyConfiguration : ScriptableObject
 {
-    public Enemy.State initialState = Enemy.State.Searching;
+    public State initialState = State.Searching;
     public float speed = 5;
     public float maxLife = 10;
     public float view;
@@ -15,3 +24,4 @@ public class EnemyConfiguration : ScriptableObject
     public float shootCooldownTime = 12;
     public bool shouldShoot = true;
 }
+
