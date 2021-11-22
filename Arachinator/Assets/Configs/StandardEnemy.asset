@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StandardEnemy
   m_EditorClassIdentifier: 
   initialState: 1
-  speed: 3
+  speed: 5
   maxLife: 10
   view: 0.6
   distanceToView: 30
