@@ -16,10 +16,10 @@ MonoBehaviour:
   speed: 2
   maxLife: 20
   view: 0.6
-  distanceToView: 30
-  distanceAroundToSee: 3
+  distanceToView: 50
+  distanceAroundToSee: 5
   searchStep: 10
-  minShootDistance: 20
+  minShootDistance: 3
   maxShoots: 5
-  shootCooldownTime: 10
+  shootCooldownTime: 6
   shouldShoot: 1

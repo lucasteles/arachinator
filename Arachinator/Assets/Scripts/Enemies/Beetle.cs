@@ -11,6 +11,7 @@ public class Beetle : MonoBehaviour, IDamageble
     [SerializeField]AudioClip hitSound;
     [SerializeField]GameObject[] bloodEffects;
     [SerializeField]GameObject dieEffect;
+    [SerializeField]float trackeForce;
 
     [SerializeField]EnemyConfiguration config;
 
@@ -23,8 +24,10 @@ public class Beetle : MonoBehaviour, IDamageble
     BoxCollider myCollider;
     Animator animator;
 
+    bool inTracke = false;
     State currentState = State.Stop;
     static readonly int IsShooting = Animator.StringToHash("IsShooting");
+    BeetleTrackeEvent tracke;
 
     void Awake()
     {
@@ -32,20 +35,31 @@ public class Beetle : MonoBehaviour, IDamageble
         navMeshAgent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
         myCollider = GetComponent<BoxCollider>();
+        tracke = GetComponentInChildren<BeetleTrackeEvent>();
         target = FindObjectOfType<Player>().GetComponent<Life>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
+        life.onDeath += LifeOnDeath;
+        tracke.onTracke += Trackle;
     }
-    void OnDestroy() => life.onDeath -= LifeOnDeath;
+
+    void Trackle()
+    {
+        inTracke = true;
+    }
+    void OnDestroy()
+    {
+        life.onDeath -= LifeOnDeath;
+        tracke.onTracke -= Trackle;
+    }
 
 
     void Start()
     {
-        life.SetMaxLife(config.maxLife);
         navMeshAgent.speed = config.speed;
         targetCollider = target.GetComponent<BoxCollider>();
-        life.onDeath += LifeOnDeath;
         cooldown = new Cooldown(config.shootCooldownTime);
         SetState(config.initialState);
+        life.SetMaxLife(config.maxLife);
     }
 
     void Update()
@@ -164,7 +178,7 @@ public class Beetle : MonoBehaviour, IDamageble
     bool ShouldShoot() =>
         config.shouldShoot
         && cooldown
-        && Vector3.Distance(transform.position, target.transform.position) <= config.minShootDistance
+        && Vector3.Distance(transform.position, target.transform.position) >= config.minShootDistance
         && Utils.SeeTargetInFront(config.view, config.distanceToView, transform, target);
 
     IEnumerator SeekCoroutine()
@@ -175,9 +189,9 @@ public class Beetle : MonoBehaviour, IDamageble
 
             if (!target.IsDead)
             {
-                // if (ShouldShoot())
-                //   yield return DoTrackle();
-                // else
+                if (ShouldShoot())
+                   yield return DoTrackle();
+                else
                     GoCloser();
             }
             else
@@ -188,22 +202,31 @@ public class Beetle : MonoBehaviour, IDamageble
 
     IEnumerator DoTrackle()
     {
+        yield return new WaitForSeconds(1f);
         foreach (var spiderLegConstraint in GetComponentsInChildren<SpiderLegConstraint>())
             spiderLegConstraint.enabled = false;
 
+        animator.SetBool(IsShooting, true);
         StopNav();
+        transform.LookAt(target.transform);
         cooldown.Reset();
         SetState(State.Shooting);
-
-        while (!target.IsDead)
+        while (!inTracke) yield return null;
+        inTracke = false;
+        var time = 0f;
+        while (!target.IsDead && time <= 1f)
         {
-            transform.LookAt(target.transform);
             StopNav();
+            rb.AddForce(transform.forward * trackeForce, ForceMode.Force);
+            time += Time.deltaTime;
             yield return null;
         }
 
         foreach (var spiderLegConstraint in GetComponentsInChildren<SpiderLegConstraint>())
             spiderLegConstraint.enabled = true;
+
+        animator.SetBool(IsShooting, false);
+
         SetState(State.Seeking);
     }
 
@@ -266,8 +289,6 @@ public class Beetle : MonoBehaviour, IDamageble
         if (currentState != State.Seeking && currentState != State.Shooting)
             SetState(State.Seeking);
     }
-
-
 
 }
 
