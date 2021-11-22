@@ -27702,22 +27702,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1581816597, guid: 3f38622346a1d9746812f298bc08ff41, type: 3}
-      propertyPath: force
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1581816597, guid: 3f38622346a1d9746812f298bc08ff41, type: 3}
-      propertyPath: damage
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1581816599, guid: 3f38622346a1d9746812f298bc08ff41, type: 3}
-      propertyPath: m_UseGravity
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1581816601, guid: 3f38622346a1d9746812f298bc08ff41, type: 3}
-      propertyPath: trackeForce
-      value: 1.5
-      objectReference: {fileID: 0}
+    - target: {fileID: 6723300653028579083, guid: 3f38622346a1d9746812f298bc08ff41, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: b6afc1311405348daa49d29f0e700ea0, type: 2}
     - target: {fileID: 8527039263426274505, guid: 3f38622346a1d9746812f298bc08ff41, type: 3}
       propertyPath: m_Name
       value: EnemyBeetle
@@ -40642,18 +40630,6 @@ PrefabInstance:
     - target: {fileID: 797745353, guid: 185716b3677ce7648859c98b44509606, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1657596391, guid: 185716b3677ce7648859c98b44509606, type: 3}
-      propertyPath: m_Speed
-      value: 3.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1657596391, guid: 185716b3677ce7648859c98b44509606, type: 3}
-      propertyPath: m_Height
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1657596391, guid: 185716b3677ce7648859c98b44509606, type: 3}
-      propertyPath: m_Radius
-      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 358611280729302148, guid: 185716b3677ce7648859c98b44509606, type: 3}
       propertyPath: m_Name

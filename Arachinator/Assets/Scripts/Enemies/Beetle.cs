@@ -10,6 +10,9 @@ public class Beetle : MonoBehaviour, IDamageble
     [SerializeField]AudioClip deathAudio;
     [SerializeField]AudioClip deathAudio2;
     [SerializeField]AudioClip hitSound;
+    [SerializeField]AudioClip whoosh;
+    [SerializeField]AudioClip creek;
+    [SerializeField]AudioClip impact;
     [SerializeField]GameObject[] bloodEffects;
     [SerializeField]GameObject dieEffect;
     [SerializeField]float trackeForce;
@@ -216,30 +219,37 @@ public class Beetle : MonoBehaviour, IDamageble
         StopNav();
         cooldown.Reset();
         SetState(State.Shooting);
+        CameraAudioSource.Instance.AudioSource.PlayOneShot(creek);
         while (!inTracke)
         {
             transform.LookAt(target.transform);
             yield return null;
         }
         animator.SetBool(IsShooting, false);
-        inTracke = false;
         var time = 0f;
         trailRenderer.enabled = true;
+        var playedWoosh = false;
         while (!target.IsDead && time <= 1f)
         {
             rb.AddForce(transform.forward * trackeForce, ForceMode.VelocityChange);
             time += Time.deltaTime;
             yield return null;
+            if (!playedWoosh && time > .1f)
+            {
+                playedWoosh = true;
+                CameraAudioSource.Instance.AudioSource.PlayOneShot(whoosh);
+            }
         }
 
         foreach (var spiderLegConstraint in GetComponentsInChildren<SpiderLegConstraint>())
             spiderLegConstraint.enabled = true;
 
-        rb.velocity *= .1f;
         trailRenderer.enabled = false;
         damage.damage /= 2;
         damage.force /= 2;
+        rb.velocity /= 2;
 
+        inTracke = false;
         SetState(State.Seeking);
     }
 
@@ -303,5 +313,10 @@ public class Beetle : MonoBehaviour, IDamageble
             SetState(State.Seeking);
     }
 
+    void OnCollisionEnter(Collision other)
+    {
+        if (inTracke && !other.gameObject.CompareTag("Floor"))
+            CameraAudioSource.Instance.AudioSource.PlayOneShot(impact);
+    }
 }
 
