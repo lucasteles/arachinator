@@ -20,6 +20,7 @@ public class Player : MonoBehaviour, IDamageble
     [SerializeField]AudioClip hit;
     [SerializeField]AudioClip dieSound;
 
+    public Vector3 RespawnPosition { get; set; }
     PlayerHealthPointsUi ui;
 
     Movement movement;
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour, IDamageble
     AudioSource audioSource;
     PlayerEffects playerEffects;
     Coroutine currentDamageCoroutine;
+
 
     public bool IsInvincible {
         get => invincible;
@@ -58,6 +60,11 @@ public class Player : MonoBehaviour, IDamageble
     }
 
     void OnDeath() => StartCoroutine(DieAnimation());
+
+    void Start()
+    {
+        RespawnPosition = startPosition.position;
+    }
 
     void Update ()
     {
@@ -123,7 +130,7 @@ public class Player : MonoBehaviour, IDamageble
             yield return playerEffects.DissolveEffect(1f);
 
         rb.velocity = Vector3.zero;
-        rb.MovePosition(startPosition.position);
+        rb.MovePosition(RespawnPosition);
         transform.rotation = originalRotation;
         aimLegCubes.ToList().ForEach(x => x.DisableKinematic());
         aimLegCubes.ToList().ForEach(x => x.RestorePosition());
@@ -176,9 +183,6 @@ public class Player : MonoBehaviour, IDamageble
     }
 
     public bool IsMaxHealth() => life.IsFull();
+    public void AddLife(float amount) => life.Add(amount);
 
-    public void AddLife(float amount)
-    {
-        life.Add(amount);
-    }
 }

@@ -71,6 +71,10 @@ public class Enemy : MonoBehaviour, IDamageble
             Debug.DrawLine(navMeshAgent.destination, navMeshAgent.destination + Vector3.up * 5, Color.white);
     }
 
+    bool SeeTarget() => SeeTargetInFront()
+                        || config.distanceAroundToSee
+                            <= Vector3.Distance(transform.position, target.transform.position);
+
     void SetState(State newState)
     {
         //print($"{currentState} -> {newState}");
@@ -172,7 +176,7 @@ public class Enemy : MonoBehaviour, IDamageble
         config.shouldShoot
         && cooldown
         && Vector3.Distance(transform.position, target.transform.position) <= config.minShootDistance
-        && SeeTarget();
+        && SeeTargetInFront();
 
     IEnumerator SeekCoroutine()
     {
@@ -285,7 +289,7 @@ public class Enemy : MonoBehaviour, IDamageble
             SetState(State.Seeking);
     }
 
-    bool SeeTarget()
+    bool SeeTargetInFront()
     {
         var looking = new Vector2(transform.forward.x, transform.forward.z);
         var direction =
