@@ -54,4 +54,9 @@ public class Life : MonoBehaviour
     }
 
     public bool IsFull() => currentLife == maxLife;
+
+    public void Die()
+    {
+        currentLife = 0;
+    }
 }
