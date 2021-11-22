@@ -13,10 +13,14 @@ public class Player : MonoBehaviour, IDamageble
     [SerializeField]float damageFlashTime = 1f;
     [SerializeField]bool invincible;
 
+
+    [SerializeField]Transform startPosition;
+
     [Header("Audio")]
     [SerializeField]AudioClip hit;
     [SerializeField]AudioClip dieSound;
 
+    public Vector3 RespawnPosition { get; set; }
     PlayerHealthPointsUi ui;
 
     Movement movement;
@@ -25,6 +29,7 @@ public class Player : MonoBehaviour, IDamageble
     AudioSource audioSource;
     PlayerEffects playerEffects;
     Coroutine currentDamageCoroutine;
+
 
     public bool IsInvincible {
         get => invincible;
@@ -55,6 +60,11 @@ public class Player : MonoBehaviour, IDamageble
     }
 
     void OnDeath() => StartCoroutine(DieAnimation());
+
+    void Start()
+    {
+        RespawnPosition = startPosition.position;
+    }
 
     void Update ()
     {
@@ -109,21 +119,18 @@ public class Player : MonoBehaviour, IDamageble
         rb.AddForce(Vector3.up * 12,ForceMode.VelocityChange);
 
         audioSource.PlayOneShot(dieSound);
-        var rotationTarget = transform.rotation * Quaternion.Euler(0,40, 180);
-        for (var i = 0f; i <= 1; i+=0.02f)
-        {
-            transform.rotation = Quaternion.Lerp(transform.rotation,  rotationTarget,i);
-
-            foreach (var aim in aimLegCubes)
-                aim.transform.localPosition = Vector3.Lerp(aim.transform.localPosition, Vector3.down * 2f,  i/15);
-            yield return null;
-        }
-        yield return new WaitForSeconds(.3f);
 
         var dissolveStep = 0.0065f;
-        yield return playerEffects.DissolveEffect(dissolveStep);
+        if (!IsInFall())
+        {
+            yield return DieJumpAnimation(aimLegCubes, dissolveStep);
+            yield return playerEffects.DissolveEffect(dissolveStep);
+        }
+        else
+            yield return playerEffects.DissolveEffect(1f);
 
-        rb.MovePosition(Vector3.zero + Vector3.up * 2);
+        rb.velocity = Vector3.zero;
+        rb.MovePosition(RespawnPosition);
         transform.rotation = originalRotation;
         aimLegCubes.ToList().ForEach(x => x.DisableKinematic());
         aimLegCubes.ToList().ForEach(x => x.RestorePosition());
@@ -134,6 +141,24 @@ public class Player : MonoBehaviour, IDamageble
         life.Reset();
         DisableInvicible();
         movement.Unlock(lockKey);
+    }
+
+    bool IsInFall() => transform.position.y < -5;
+
+    private IEnumerator DieJumpAnimation(AimLegGrounder[] aimLegCubes, float dissolveStep)
+    {
+        var rotationTarget = transform.rotation * Quaternion.Euler(0, 40, 180);
+        for (var i = 0f; i <= 1; i += 0.02f)
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, rotationTarget, i);
+
+            foreach (var aim in aimLegCubes)
+                aim.transform.localPosition = Vector3.Lerp(aim.transform.localPosition, Vector3.down * 2f, i / 15);
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(.3f);
+
     }
 
     IEnumerator DamageFlash()
@@ -158,9 +183,6 @@ public class Player : MonoBehaviour, IDamageble
     }
 
     public bool IsMaxHealth() => life.IsFull();
+    public void AddLife(float amount) => life.Add(amount);
 
-    public void AddLife(float amount)
-    {
-        life.Add(amount);
-    }
 }
