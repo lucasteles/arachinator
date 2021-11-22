@@ -235,7 +235,7 @@ public class Beetle : MonoBehaviour, IDamageble
         foreach (var spiderLegConstraint in GetComponentsInChildren<SpiderLegConstraint>())
             spiderLegConstraint.enabled = true;
 
-        rb.velocity *= .2f;
+        rb.velocity *= .1f;
         trailRenderer.enabled = false;
         damage.damage /= 2;
         damage.force /= 2;

@@ -27702,6 +27702,22 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1581816597, guid: 3f38622346a1d9746812f298bc08ff41, type: 3}
+      propertyPath: force
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581816597, guid: 3f38622346a1d9746812f298bc08ff41, type: 3}
+      propertyPath: damage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581816599, guid: 3f38622346a1d9746812f298bc08ff41, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581816601, guid: 3f38622346a1d9746812f298bc08ff41, type: 3}
+      propertyPath: trackeForce
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8527039263426274505, guid: 3f38622346a1d9746812f298bc08ff41, type: 3}
       propertyPath: m_Name
       value: EnemyBeetle
@@ -27716,7 +27732,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8527039263426274550, guid: 3f38622346a1d9746812f298bc08ff41, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.72
+      value: 1.343
       objectReference: {fileID: 0}
     - target: {fileID: 8527039263426274550, guid: 3f38622346a1d9746812f298bc08ff41, type: 3}
       propertyPath: m_LocalPosition.z
@@ -40657,7 +40673,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1130926477976616510, guid: 185716b3677ce7648859c98b44509606, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.663789
+      value: 22.59
       objectReference: {fileID: 0}
     - target: {fileID: 1130926477976616510, guid: 185716b3677ce7648859c98b44509606, type: 3}
       propertyPath: m_LocalRotation.w
