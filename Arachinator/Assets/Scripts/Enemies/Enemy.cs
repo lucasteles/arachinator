@@ -267,7 +267,7 @@ public class Enemy : MonoBehaviour, IDamageble
         if (!navMeshAgent.isStopped)
         {
             navMeshAgent.isStopped = true;
-            Invoke(nameof(Walk), .4f);
+            Invoke(nameof(Walk), .5f);
         }
         TakeDamage(amount);
         CameraAudioSource.Instance.AudioSource.PlayOneShot(hitSound);
