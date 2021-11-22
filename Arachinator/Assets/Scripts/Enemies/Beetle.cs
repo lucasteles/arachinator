@@ -23,6 +23,7 @@ public class Beetle : MonoBehaviour, IDamageble
     BoxCollider targetCollider;
     BoxCollider myCollider;
     Animator animator;
+    TrailRenderer trailRenderer;
 
     bool inTracke = false;
     State currentState = State.Stop;
@@ -38,6 +39,7 @@ public class Beetle : MonoBehaviour, IDamageble
         tracke = GetComponentInChildren<BeetleTrackeEvent>();
         target = FindObjectOfType<Player>().GetComponent<Life>();
         animator = GetComponentInChildren<Animator>();
+        trailRenderer = GetComponentInChildren<TrailRenderer>();
         life.onDeath += LifeOnDeath;
         tracke.onTracke += Trackle;
     }
@@ -208,16 +210,20 @@ public class Beetle : MonoBehaviour, IDamageble
 
         animator.SetBool(IsShooting, true);
         StopNav();
-        transform.LookAt(target.transform);
         cooldown.Reset();
         SetState(State.Shooting);
-        while (!inTracke) yield return null;
+        while (!inTracke)
+        {
+            transform.LookAt(target.transform);
+            yield return null;
+        }
+        animator.SetBool(IsShooting, false);
         inTracke = false;
         var time = 0f;
+        trailRenderer.enabled = true;
         while (!target.IsDead && time <= 1f)
         {
-            StopNav();
-            rb.AddForce(transform.forward * trackeForce, ForceMode.Force);
+            rb.AddForce(transform.forward * trackeForce, ForceMode.VelocityChange);
             time += Time.deltaTime;
             yield return null;
         }
@@ -225,7 +231,8 @@ public class Beetle : MonoBehaviour, IDamageble
         foreach (var spiderLegConstraint in GetComponentsInChildren<SpiderLegConstraint>())
             spiderLegConstraint.enabled = true;
 
-        animator.SetBool(IsShooting, false);
+        rb.velocity *= .2f;
+        trailRenderer.enabled = false;
 
         SetState(State.Seeking);
     }
