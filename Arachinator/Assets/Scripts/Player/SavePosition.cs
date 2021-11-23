@@ -24,7 +24,7 @@ public class SavePosition : MonoBehaviour
         life.onDeath += LifeOnDeath;
     }
     void OnDestroy() => life.onDeath -= LifeOnDeath;
-    void LifeOnDeath() => cooldown.Reset();
+    void LifeOnDeath(Life life) => cooldown.Reset();
 
 
     void Update()

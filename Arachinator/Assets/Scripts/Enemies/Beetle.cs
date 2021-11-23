@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
-public class Beetle : MonoBehaviour, IDamageble
+public class Beetle : MonoBehaviour, IDamageble, IEnemy
 {
     [SerializeField]AudioClip deathAudio;
     [SerializeField]AudioClip deathAudio2;
@@ -61,11 +61,17 @@ public class Beetle : MonoBehaviour, IDamageble
 
     void Start()
     {
-        navMeshAgent.speed = config.speed;
         targetCollider = target.GetComponent<BoxCollider>();
+        SetConfiguration(config);
+    }
+    public void SetConfiguration(EnemyConfiguration configuration)
+    {
+        this.config = configuration;
+        navMeshAgent.speed = config.speed;
         cooldown = new Cooldown(config.shootCooldownTime);
         SetState(config.initialState);
         life.SetMaxLife(config.maxLife);
+
     }
 
     void Update()
@@ -167,7 +173,7 @@ public class Beetle : MonoBehaviour, IDamageble
 
     Vector3 TargetDirection() => (transform.position - target.transform.position).normalized;
 
-    void LifeOnDeath()
+    void LifeOnDeath(Life life)
     {
         StopNav();
         if (Random.Range(0,2) == 1)
@@ -318,5 +324,6 @@ public class Beetle : MonoBehaviour, IDamageble
         if (inTracke && !other.gameObject.CompareTag("Floor"))
             CameraAudioSource.Instance.AudioSource.PlayOneShot(impact);
     }
+
 }
 

@@ -11,7 +11,7 @@ public class Life : MonoBehaviour
     public bool IsDead => dead;
     public float MaxLife =>  maxLife;
 
-    public event Action onDeath;
+    public event Action<Life> onDeath;
     public event Action<float, float> onLifeChange;
 
     void Start() => Reset();
@@ -28,7 +28,7 @@ public class Life : MonoBehaviour
         {
             currentLife = 0;
             dead = true;
-            onDeath?.Invoke();
+            onDeath?.Invoke(this);
         }
     }
 

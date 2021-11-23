@@ -59,7 +59,7 @@ public class Player : MonoBehaviour, IDamageble
         life.onDeath -= OnDeath;
     }
 
-    void OnDeath() => StartCoroutine(DieAnimation());
+    void OnDeath(Life life) => StartCoroutine(DieAnimation());
 
     void Start()
     {

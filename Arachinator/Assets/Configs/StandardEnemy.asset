@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialState: 1
   speed: 5
-  maxLife: 10
+  maxLife: 5
   view: 0.6
   distanceToView: 30
+  distanceAroundToSee: 3
   searchStep: 10
   minShootDistance: 20
   maxShoots: 5

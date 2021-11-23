@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
-public class Enemy : MonoBehaviour, IDamageble
+public class Enemy : MonoBehaviour, IDamageble, IEnemy
 {
     [SerializeField]AudioClip deathAudio;
     [SerializeField]AudioClip deathAudio2;
@@ -40,14 +40,20 @@ public class Enemy : MonoBehaviour, IDamageble
     }
     void OnDestroy() => life.onDeath -= LifeOnDeath;
 
-    void Start()
+    public void SetConfiguration(EnemyConfiguration config)
     {
+        this.config = config;
         life.SetMaxLife(config.maxLife);
         navMeshAgent.speed = config.speed;
-        targetCollider = target.GetComponent<BoxCollider>();
-        life.onDeath += LifeOnDeath;
         cooldown = new Cooldown(config.shootCooldownTime);
         SetState(config.initialState);
+    }
+
+    void Start()
+    {
+        targetCollider = target.GetComponent<BoxCollider>();
+        life.onDeath += LifeOnDeath;
+        SetConfiguration(config);
     }
 
     void Update()
@@ -149,7 +155,7 @@ public class Enemy : MonoBehaviour, IDamageble
 
     Vector3 TargetDirection() => (transform.position - target.transform.position).normalized;
 
-    void LifeOnDeath()
+    void LifeOnDeath(Life life)
     {
         StopNav();
         if (Random.Range(0,2) == 1)
@@ -279,5 +285,10 @@ public class Enemy : MonoBehaviour, IDamageble
             SetState(State.Seeking);
     }
 
+}
+
+public interface IEnemy
+{
+    void SetConfiguration(EnemyConfiguration configuration);
 }
 
