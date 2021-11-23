@@ -92,8 +92,9 @@ public class Area1 : MonoBehaviour
     [SerializeField] GameObject[] spawnPoints;
     [SerializeField] WaveController wave;
     [SerializeField] AudioClip sound;
-
+    [SerializeField] bool resetOnPlayerDeath;
     Life player;
+
     bool playing;
     bool done = false;
     public void CloseGates()
@@ -120,6 +121,8 @@ public class Area1 : MonoBehaviour
 
     void PlayerOnDeath(Life obj)
     {
+        if (!playing) return;
+        if (resetOnPlayerDeath) done = false;
         playing = false;
         OpenGates();
         StopAllCoroutines();
@@ -145,9 +148,11 @@ public class Area1 : MonoBehaviour
 
     public void PlayerEntered()
     {
+        print("player entrou");
         if (playing || done) return;
-        CloseGates();
         playing = true;
+        print("player iniciou");
+        CloseGates();
         StartCoroutine(wave.Spawn(spawnPoints, player.transform));
     }
 }

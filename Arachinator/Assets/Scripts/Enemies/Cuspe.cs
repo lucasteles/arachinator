@@ -22,6 +22,7 @@ public class Cuspe : MonoBehaviour
 
     void Vanish()
     {
+        if (!gameObject) return;
         bulletRigidbody.velocity = Vector3.zero;
         ObjectPooling.GiveBack(Pools.Cuspe, gameObject);
     }
