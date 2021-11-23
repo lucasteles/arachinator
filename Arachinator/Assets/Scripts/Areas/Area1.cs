@@ -91,18 +91,21 @@ public class Area1 : MonoBehaviour
     [SerializeField] GameObject[] gates;
     [SerializeField] GameObject[] spawnPoints;
     [SerializeField] WaveController wave;
+    [SerializeField] AudioClip sound;
 
     Life player;
     bool playing;
     bool done = false;
     public void CloseGates()
     {
+        CameraAudioSource.Instance.AudioSource.PlayOneShot(sound);
         foreach (var portal in gates)
             portal.SetActive(true);
     }
 
     public void OpenGates()
     {
+        CameraAudioSource.Instance.AudioSource.PlayOneShot(sound);
         foreach (var portal in gates)
             portal.SetActive(false);
     }

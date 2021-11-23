@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialState: 1
   speed: 2
-  maxLife: 20
+  maxLife: 12
   view: 0.6
   distanceToView: 50
   distanceAroundToSee: 5

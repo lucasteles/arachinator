@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class EnergyWall : MonoBehaviour
 {
-    [SerializeField] AudioClip sound;
     [SerializeField] float effectStep = .4f;
 
     Material material;
@@ -21,14 +20,7 @@ public class EnergyWall : MonoBehaviour
 
     void OnEnable()
     {
-        CameraAudioSource.Instance.AudioSource.PlayOneShot(sound);
         StartCoroutine(Fadein());
-    }
-
-    void OnDisable()
-    {
-        if (material == null) return;
-        CameraAudioSource.Instance.AudioSource.PlayOneShot(sound);
     }
 
     IEnumerator Fadein()
