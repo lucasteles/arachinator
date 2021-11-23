@@ -59257,6 +59257,7 @@ MonoBehaviour:
         Configuration: {fileID: 11400000, guid: 3e6de3f8ac3614419a9d9c7ff1fbda4b, type: 2}
         Quantity: 1
     effect: {fileID: 111786, guid: 6fed2eb6a9e2f5e4892b57ce34fbee4b, type: 3}
+    spawnSfx: {fileID: 8300000, guid: 4543ffc750cf9468e8b36949bdd4dfa0, type: 3}
 --- !u!4 &1821752112
 Transform:
   m_ObjectHideFlags: 0

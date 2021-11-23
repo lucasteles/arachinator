@@ -30,6 +30,7 @@ public class WaveController
     public WaveGroup[] Waves;
 
     public GameObject effect;
+    public AudioClip spawnSfx;
     public event Action OnWaveEnded;
 
     public bool NextWave()
@@ -41,7 +42,7 @@ public class WaveController
         return true;
     }
 
-    public IEnumerator Spawn(GameObject[] spawmPoints)
+    public IEnumerator Spawn(GameObject[] spawmPoints, Transform player)
     {
         var waveGroup = Waves[currentWave];
         for (var j = 0; j < waveGroup.Waves.Length; j++)
@@ -56,7 +57,9 @@ public class WaveController
                 var point = spawmPoints[Random.Range(0, spawmPoints.Length)].transform.position;
                 enemy.GetComponent<NavMeshAgent>().Warp(point);
                 enemy.transform.position = point;
+                enemy.transform.LookAt(player);
                 Object.Destroy(Object.Instantiate(effect, point, Quaternion.identity), 3f);
+                CameraAudioSource.Instance.AudioSource.PlayOneShot(spawnSfx);
                 enemies.Add(enemy);
             }
         }
@@ -129,7 +132,7 @@ public class Area1 : MonoBehaviour
     void WaveOnOnWaveEnded()
     {
         if (wave.NextWave())
-            StartCoroutine(wave.Spawn(spawnPoints));
+            StartCoroutine(wave.Spawn(spawnPoints, player.transform));
         else
         {
             OpenGates();
@@ -142,6 +145,6 @@ public class Area1 : MonoBehaviour
         if (playing || done) return;
         CloseGates();
         playing = true;
-        StartCoroutine(wave.Spawn(spawnPoints));
+        StartCoroutine(wave.Spawn(spawnPoints, player.transform));
     }
 }

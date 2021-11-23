@@ -181,7 +181,7 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
         CameraAudioSource.Instance.AudioSource.PlayOneShot(deathAudio2);
         var pos = transform.position;
         var blood = Instantiate(dieEffect, new Vector3(pos.x, 0,pos.z), transform.rotation);
-        blood.transform.localScale *= Random.Range(2.5f, 5.5f);
+        blood.transform.localScale *= Random.Range(2.5f, 3.5f);
         blood.transform.Rotate(Vector3.up,Random.Range(0f, 90f));
         Destroy(blood, 12);
         Destroy(gameObject);
@@ -312,7 +312,7 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
         var i = Random.Range(0, bloodEffects.Length );
         var blood = Instantiate(bloodEffects[i], new Vector3(@from.x, 0, @from.z), transform.rotation);
         blood.transform.Rotate(Vector3.up,Random.rotation.eulerAngles.y);
-        blood.transform.localScale *= 2.5f;
+        blood.transform.localScale *= 2f;
         Destroy(blood, 8);
 
         if (currentState != State.Seeking && currentState != State.Shooting)
