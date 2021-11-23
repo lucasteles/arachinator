@@ -20,6 +20,6 @@ MonoBehaviour:
   distanceAroundToSee: 3
   searchStep: 10
   minShootDistance: 20
-  maxShoots: 5
+  maxShoots: 3
   shootCooldownTime: 10
   shouldShoot: 1

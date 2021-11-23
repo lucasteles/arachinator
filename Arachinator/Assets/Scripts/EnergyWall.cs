@@ -13,10 +13,10 @@ public class EnergyWall : MonoBehaviour
 
     void Awake()
     {
+        gameObject.SetActive(false);
         var renderer = GetComponent<Renderer>();
         material = new Material(renderer.sharedMaterial);
         renderer.sharedMaterial = material;
-        gameObject.SetActive(false);
     }
 
     void OnEnable()
@@ -25,9 +25,23 @@ public class EnergyWall : MonoBehaviour
         StartCoroutine(Fadein());
     }
 
+    void OnDisable()
+    {
+        if (material == null) return;
+        CameraAudioSource.Instance.AudioSource.PlayOneShot(sound);
+    }
+
     IEnumerator Fadein()
     {
         for (var i = 0f; i <= 3; i+=effectStep)
+        {
+            material.SetFloat(Fresnel, i);
+            yield return null;
+        }
+    }
+    IEnumerator Fadeout()
+    {
+        for (var i = 3f; i >= 0; i-=effectStep)
         {
             material.SetFloat(Fresnel, i);
             yield return null;

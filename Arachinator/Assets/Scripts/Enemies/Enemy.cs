@@ -207,7 +207,7 @@ public class Enemy : MonoBehaviour, IDamageble, IEnemy
 
         while (currentNumberOfShoots < numberOfShoots && !target.IsDead)
         {
-            transform.LookAt(target.transform);
+            // transform.LookAt(target.transform);
             StopNav();
             yield return null;
         }
