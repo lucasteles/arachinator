@@ -7,6 +7,9 @@ public class TriggerEvent : MonoBehaviour
     [SerializeField]bool selfDestruct = true;
     void OnTriggerEnter(Collider other)
     {
+        if (!other.gameObject.CompareTag("Player"))
+            return;
+        
         triggerEvent?.Invoke();
         if (selfDestruct) Destroy(gameObject);
     }
