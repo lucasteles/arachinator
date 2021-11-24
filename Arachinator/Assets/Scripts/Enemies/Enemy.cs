@@ -106,7 +106,7 @@ public class Enemy : MonoBehaviour, IDamageble, IEnemy
 
     void StartNav()
     {
-        if (!life.IsDead)
+        if (!life.IsDead && navMeshAgent.isActiveAndEnabled)
             navMeshAgent.isStopped = false;
     }
     void HandleStop()
@@ -259,6 +259,7 @@ public class Enemy : MonoBehaviour, IDamageble, IEnemy
     void Walk()
     {
         rb.velocity = Vector3.zero;
+        rb.isKinematic = true;
         StartNav();
     }
 
@@ -272,8 +273,10 @@ public class Enemy : MonoBehaviour, IDamageble, IEnemy
             Invoke(nameof(Walk), .5f);
         }
         TakeDamage(amount);
+
         CameraAudioSource.Instance.AudioSource.PlayOneShot(hitSound);
         rb.velocity = Vector3.zero;
+        rb.isKinematic = false;
         var direction = (transform.position - target.transform.position).normalized;
         rb.AddForce(direction * force, ForceMode.VelocityChange);
         var i = Random.Range(0, bloodEffects.Length );

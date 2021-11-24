@@ -3,6 +3,7 @@ using System.Collections;
 using Assets.Scripts.Enemies;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.PlayerLoop;
 using Random = UnityEngine.Random;
 
 public class Beetle : MonoBehaviour, IDamageble, IEnemy
@@ -16,6 +17,7 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
     [SerializeField]GameObject[] bloodEffects;
     [SerializeField]GameObject dieEffect;
     [SerializeField]float trackeForce;
+    [SerializeField]LayerMask layersToTrackleIgnore;
 
     [SerializeField]EnemyConfiguration config;
 
@@ -28,8 +30,10 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
     BoxCollider myCollider;
     Animator animator;
     TrailRenderer trailRenderer;
+    SphereCollider hitCollider;
 
     bool inTracke = false;
+    bool trackeHit = true;
     State currentState = State.Stop;
     static readonly int IsShooting = Animator.StringToHash("IsShooting");
     BeetleTrackeEvent tracke;
@@ -40,6 +44,7 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
         navMeshAgent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
         myCollider = GetComponent<BoxCollider>();
+        hitCollider = GetComponent<SphereCollider>();
         tracke = GetComponentInChildren<BeetleTrackeEvent>();
         target = FindObjectOfType<Player>().GetComponent<Life>();
         animator = GetComponentInChildren<Animator>();
@@ -125,7 +130,7 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
 
     void StartNav()
     {
-        if (!life.IsDead)
+        if (!life.IsDead && navMeshAgent.isActiveAndEnabled)
             navMeshAgent.isStopped = false;
     }
     void HandleStop()
@@ -221,8 +226,19 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
             spiderLegConstraint.enabled = false;
 
         var damage = GetComponent<EnemyDamageDealer>();
+        trackeHit = false;
         damage.damage *= 2;
         damage.force *= 2;
+        rb.velocity = Vector3.zero;
+        myCollider.enabled = false;
+        hitCollider.enabled = true;
+
+        for (var i = 0f; i <= 1; i+= .2f)
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(target.transform.position - transform.position), i);
+            yield return null;
+        }
+
         animator.SetBool(IsShooting, true);
         StopNav();
         cooldown.Reset();
@@ -230,18 +246,21 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
         CameraAudioSource.Instance.AudioSource.PlayOneShot(creek);
         while (!inTracke)
         {
-            transform.LookAt(target.transform);
+            var direction = (target.transform.position - transform.position);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(direction), .2f);
             yield return null;
         }
+
+        rb.isKinematic = false;
         animator.SetBool(IsShooting, false);
         var time = 0f;
         trailRenderer.enabled = true;
         var playedWoosh = false;
-        while (!target.IsDead && time <= 1f)
+        while (!target.IsDead && time <= 1f && !trackeHit)
         {
             rb.AddForce(transform.forward * trackeForce, ForceMode.VelocityChange);
-            time += Time.deltaTime;
             yield return null;
+            time += Time.deltaTime;
             if (!playedWoosh && time > .1f)
             {
                 playedWoosh = true;
@@ -249,15 +268,26 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
             }
         }
 
+        time = 0;
+        while (time < 5f && !trackeHit)
+        {
+            yield return null;
+            time += Time.deltaTime;
+        }
+
         foreach (var spiderLegConstraint in GetComponentsInChildren<SpiderLegConstraint>())
             spiderLegConstraint.enabled = true;
 
         trailRenderer.enabled = false;
+        myCollider.enabled = true;
+        hitCollider.enabled = false;
         damage.damage /= 2;
         damage.force /= 2;
-        rb.velocity /= 2;
-
+        rb.velocity /= 3;
+        rb.isKinematic = true;
+        yield return new WaitForSeconds(.5f);
         inTracke = false;
+        navMeshAgent.ResetPath();
         SetState(State.Seeking);
     }
 
@@ -294,6 +324,7 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
     void Walk()
     {
         rb.velocity = Vector3.zero;
+        rb.isKinematic = true;
         StartNav();
     }
 
@@ -301,16 +332,24 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
 
     public void TakeHit(float amount, Vector3 @from, float force)
     {
+        if (currentState == State.Shooting)
+        {
+            TakeDamage(amount);
+            return;
+        }
+
         if (!navMeshAgent.isStopped)
         {
             StopNav();
             Invoke(nameof(Walk), .5f);
         }
+
         TakeDamage(amount);
         CameraAudioSource.Instance.AudioSource.PlayOneShot(hitSound);
+        rb.isKinematic = false;
         rb.velocity = Vector3.zero;
         var direction = (transform.position - target.transform.position).normalized;
-        rb.AddForce(direction * force /2, ForceMode.VelocityChange);
+        rb.AddForce(direction * force / 2, ForceMode.VelocityChange);
         var i = Random.Range(0, bloodEffects.Length );
         var blood = Instantiate(bloodEffects[i], new Vector3(@from.x, 0, @from.z), transform.rotation);
         blood.transform.Rotate(Vector3.up,Random.rotation.eulerAngles.y);
@@ -323,8 +362,14 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
 
     void OnCollisionEnter(Collision other)
     {
-        if (inTracke && !other.gameObject.CompareTag("Floor"))
+        if (Utils.IsInLayerMask(other.gameObject, layersToTrackleIgnore)) return;
+        if (!inTracke) return;
+        if (!trackeHit)
+        {
             CameraAudioSource.Instance.AudioSource.PlayOneShot(impact);
+            trackeHit = true;
+        }
+        rb.velocity = Vector3.zero;
     }
 
 }

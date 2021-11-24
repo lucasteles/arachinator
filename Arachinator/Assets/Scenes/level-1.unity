@@ -21735,6 +21735,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gate1
       objectReference: {fileID: 0}
+    - target: {fileID: 1360636192179377025, guid: 880dfeba929bd462a832651ea2964064, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1360636192179377037, guid: 880dfeba929bd462a832651ea2964064, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -29082,6 +29086,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gate2
       objectReference: {fileID: 0}
+    - target: {fileID: 1360636192179377025, guid: 880dfeba929bd462a832651ea2964064, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1360636192179377037, guid: 880dfeba929bd462a832651ea2964064, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -29821,13 +29829,13 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1581816599, guid: 3f38622346a1d9746812f298bc08ff41, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8527039263426274505, guid: 3f38622346a1d9746812f298bc08ff41, type: 3}
       propertyPath: m_Name
       value: EnemyBeetle
-      objectReference: {fileID: 0}
-    - target: {fileID: 8527039263426274505, guid: 3f38622346a1d9746812f298bc08ff41, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8527039263426274550, guid: 3f38622346a1d9746812f298bc08ff41, type: 3}
       propertyPath: m_RootOrder
@@ -29843,7 +29851,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8527039263426274550, guid: 3f38622346a1d9746812f298bc08ff41, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 35.24
+      value: 23.78
       objectReference: {fileID: 0}
     - target: {fileID: 8527039263426274550, guid: 3f38622346a1d9746812f298bc08ff41, type: 3}
       propertyPath: m_LocalRotation.w
@@ -55092,6 +55100,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gate2
       objectReference: {fileID: 0}
+    - target: {fileID: 1360636192179377025, guid: 880dfeba929bd462a832651ea2964064, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1360636192179377037, guid: 880dfeba929bd462a832651ea2964064, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -74358,6 +74370,10 @@ PrefabInstance:
     - target: {fileID: 1360636192179377025, guid: 880dfeba929bd462a832651ea2964064, type: 3}
       propertyPath: m_Name
       value: Gate1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1360636192179377025, guid: 880dfeba929bd462a832651ea2964064, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1360636192179377037, guid: 880dfeba929bd462a832651ea2964064, type: 3}
       propertyPath: m_RootOrder

@@ -29,6 +29,7 @@ public class Switch : MonoBehaviour
     public void PushSwitch()
     {
         pushed = true;
+        transform.parent.GetComponentInChildren<SwitchText>().gameObject.SetActive(false);
         door.GetComponent<Door>().OpenDoor();
         currentMaterial.SetFloat("_FresnelLevel", 0);
         currentMaterial.SetFloat("_Auto", 0);

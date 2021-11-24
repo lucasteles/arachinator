@@ -30,4 +30,7 @@ public static class Utils
 
         return false;
     }
+
+    public static bool IsInLayerMask(GameObject obj, LayerMask layerMask) =>
+        (layerMask.value & (1 << obj.layer)) > 0;
 }

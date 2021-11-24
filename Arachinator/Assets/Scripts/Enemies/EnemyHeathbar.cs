@@ -35,9 +35,9 @@ public class EnemyHeathbar : MonoBehaviour
     void OnLifeChange(float currentLife, float maxLife)
     {
         StopAllCoroutines();
-        StartCoroutine(Show());
         currentHealth = currentLife;
-        maxHealth = maxLife;
+        slider.maxValue = maxHealth = maxLife;
+        StartCoroutine(Show());
     }
     IEnumerator Show()
     {
