@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class TriggerEvent : MonoBehaviour
 {
     [SerializeField]UnityEvent triggerEvent;
+    [SerializeField]UnityEvent triggerEventExit;
     [SerializeField]bool selfDestruct = true;
     [SerializeField]bool runOnce = true;
     bool done;
@@ -16,5 +18,10 @@ public class TriggerEvent : MonoBehaviour
         done = true;
         
         if (selfDestruct) Destroy(gameObject);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        triggerEventExit?.Invoke();
     }
 }
