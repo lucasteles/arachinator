@@ -7,7 +7,7 @@ public class SwitchText : MonoBehaviour
         GetComponent<Canvas>().enabled = true;
     }
     
-    public void hide()
+    public void Hide()
     {
         GetComponent<Canvas>().enabled = false;
     }
