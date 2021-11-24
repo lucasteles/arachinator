@@ -52363,7 +52363,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 23.48
+      value: 16.2
       objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -52371,7 +52371,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 27.43
+      value: 10.11
       objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -61947,7 +61947,7 @@ MonoBehaviour:
   - {fileID: 986089882}
   wave:
     currentWave: 0
-    enemies: []
+    enemyCount: 0
     spawnWait: 2
     Waves:
     - Waves:
@@ -67594,7 +67594,7 @@ MonoBehaviour:
   - {fileID: 1695330951}
   wave:
     currentWave: 0
-    enemies: []
+    enemyCount: 0
     spawnWait: 2
     Waves:
     - Waves:
@@ -73084,7 +73084,7 @@ MonoBehaviour:
   - {fileID: 200666820}
   wave:
     currentWave: 0
-    enemies: []
+    enemyCount: 0
     spawnWait: 2
     Waves:
     - Waves:
