@@ -13,12 +13,17 @@ public class Player : MonoBehaviour, IDamageble
     [SerializeField]float damageFlashTime = 1f;
     [SerializeField]bool invincible;
 
-
     [SerializeField]Transform startPosition;
 
     [Header("Audio")]
     [SerializeField]AudioClip hit;
     [SerializeField]AudioClip dieSound;
+
+    [Header("Dash")]
+    [SerializeField]float dashForce;
+    [SerializeField]float dashDuration;
+    [SerializeField]Cooldown dashCooldown;
+    [SerializeField]AudioClip dashSound;
 
     public Vector3 RespawnPosition { get; set; }
     PlayerHealthPointsUi ui;
@@ -29,7 +34,7 @@ public class Player : MonoBehaviour, IDamageble
     AudioSource audioSource;
     PlayerEffects playerEffects;
     Coroutine currentDamageCoroutine;
-
+    bool inDash = false;
 
     public bool IsInvincible {
         get => invincible;
@@ -68,9 +73,32 @@ public class Player : MonoBehaviour, IDamageble
 
     void Update ()
     {
-        if (life.IsDead) return;
+        if (life.IsDead || inDash) return;
+
+        if (Input.GetKeyDown(KeyCode.Space) && dashCooldown)
+        {
+            StartCoroutine(Dash());
+        }
+
+
         var input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         movement.Move(input.normalized * speed);
+    }
+
+    IEnumerator Dash()
+    {
+        inDash = true;
+        dashCooldown.Reset();
+        rb.velocity = Vector3.zero;
+        var mlock = movement.Lock();
+        var direction = movement.Direction == Vector3.zero ? transform.forward : movement.Direction;
+        audioSource.PlayOneShot(dashSound);
+        rb.AddForce(direction * dashForce, ForceMode.VelocityChange);
+        yield return new WaitForSeconds(dashDuration);
+
+        rb.velocity = Vector3.zero;
+        movement.Unlock(mlock);
+        inDash = false;
     }
 
     public void DisableInvicible() => IsInvincible = false;
