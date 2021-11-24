@@ -205,13 +205,25 @@ PrefabInstance:
       value: Fly_Yellow
       objectReference: {fileID: 0}
     - target: {fileID: 1226182738546020699, guid: ae7006ace33b87e49ac567ff5ed99e35, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1226182738546020699, guid: ae7006ace33b87e49ac567ff5ed99e35, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ae3cee28877f2465b84cb899665f1fdb, type: 2}
     - target: {fileID: 4478433078650337336, guid: ae7006ace33b87e49ac567ff5ed99e35, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4478433078650337336, guid: ae7006ace33b87e49ac567ff5ed99e35, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 7ca07230e2e244fa995bf544f4fea43b, type: 2}
+    - target: {fileID: 7897506791054397479, guid: ae7006ace33b87e49ac567ff5ed99e35, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7897506791054397479, guid: ae7006ace33b87e49ac567ff5ed99e35, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

@@ -18729,6 +18729,18 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1589926032}
+    - target: {fileID: 404011693475376452, guid: 893916c3dd2145358ade1937ba0bb46e, type: 3}
+      propertyPath: wallClipOffset.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 404011693475376452, guid: 893916c3dd2145358ade1937ba0bb46e, type: 3}
+      propertyPath: wallClipOffset.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 404011693475376452, guid: 893916c3dd2145358ade1937ba0bb46e, type: 3}
+      propertyPath: wallClipOffset.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 404011693475376454, guid: 893916c3dd2145358ade1937ba0bb46e, type: 3}
       propertyPath: m_Name
       value: Camera Holder
@@ -38852,8 +38864,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openSound: {fileID: 8300000, guid: fc350efc011078d3ab916932347eb2cf, type: 3}
   cameraShakeData:
-    timeToShake: 0
-    magnitude: 0
+    timeToShake: 4
+    magnitude: 0.04
 --- !u!1 &1102368521 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1556200662759192, guid: 42eeb2cb84e945f48bfbf7e4a450d54b, type: 3}
@@ -52426,15 +52438,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 104
+      value: 22.81
       objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.4
+      value: 0.91
       objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 55.6
+      value: 37.07
       objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -53334,8 +53346,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openSound: {fileID: 8300000, guid: fc350efc011078d3ab916932347eb2cf, type: 3}
   cameraShakeData:
-    timeToShake: 0
-    magnitude: 0
+    timeToShake: 4
+    magnitude: 0.04
 --- !u!95 &1525959828
 Animator:
   serializedVersion: 3
