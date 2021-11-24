@@ -119,7 +119,7 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
 
     void StopNav()
     {
-        if (!life.IsDead)
+        if (!life.IsDead && navMeshAgent.isActiveAndEnabled)
             navMeshAgent.isStopped = true;
     }
 
@@ -303,7 +303,7 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
     {
         if (!navMeshAgent.isStopped)
         {
-            navMeshAgent.isStopped = true;
+            StopNav();
             Invoke(nameof(Walk), .5f);
         }
         TakeDamage(amount);

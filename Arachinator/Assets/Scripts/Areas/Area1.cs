@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
 using Object = UnityEngine.Object;
@@ -25,17 +26,17 @@ public struct WaveGroup
 public class WaveController
 {
     public int currentWave = 0;
-    public List<GameObject> enemies;
+    public int enemyCount;
     public float spawnWait = 1;
     public WaveGroup[] Waves;
 
     public GameObject effect;
     public AudioClip spawnSfx;
+    List<GameObject> enemies = new List<GameObject>();
     public event Action OnWaveEnded;
-
     public bool NextWave()
     {
-        if (currentWave == Waves.Length - 1)
+        if (currentWave >= Waves.Length - 1)
             return false;
 
         currentWave++;
@@ -45,6 +46,7 @@ public class WaveController
     public IEnumerator Spawn(GameObject[] spawmPoints, Transform player)
     {
         var waveGroup = Waves[currentWave];
+        enemyCount = waveGroup.Waves.Sum(x => x.Quantity);
         for (var j = 0; j < waveGroup.Waves.Length; j++)
         {
             var wave = waveGroup.Waves[j];
@@ -68,9 +70,9 @@ public class WaveController
     void onDeath(Life life)
     {
         life.onDeath -= onDeath;
+        Interlocked.Decrement(ref enemyCount);
         enemies.Remove(life.gameObject);
-
-        if (enemies.Count == 0)
+        if (enemyCount == 0)
             OnWaveEnded?.Invoke();
     }
 
@@ -83,6 +85,7 @@ public class WaveController
             Object.Destroy(enemy);
         }
         enemies.Clear();
+        Interlocked.Add(ref enemyCount, -enemyCount);
     }
 }
 
@@ -137,6 +140,7 @@ public class Area1 : MonoBehaviour
 
     void WaveOnOnWaveEnded()
     {
+
         if (wave.NextWave())
             StartCoroutine(wave.Spawn(spawnPoints, player.transform));
         else
