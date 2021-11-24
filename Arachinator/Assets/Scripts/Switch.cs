@@ -34,5 +34,6 @@ public class Switch : MonoBehaviour
         currentMaterial.SetFloat("_FresnelLevel", 0);
         currentMaterial.SetFloat("_Auto", 0);
         CameraAudioSource.Instance.AudioSource.PlayOneShot(pushSound);
+        if (TryGetComponent<ShinyMaterial>(out var s)) s.Shiny();
     }
 }
