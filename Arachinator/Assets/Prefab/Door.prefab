@@ -13,12 +13,13 @@ GameObject:
   - component: {fileID: 3518987935062854659}
   - component: {fileID: 3486100263508500535}
   - component: {fileID: 3962977192531861400}
+  - component: {fileID: 1908779467}
   m_Layer: 11
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &3497369290024549279
 Transform:
@@ -92,7 +93,7 @@ MeshCollider:
   m_GameObject: {fileID: 3495457695327166479}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -107,9 +108,22 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.76600003, y: 0.624, z: 0.13000001}
+  m_Extents: {x: 0.88, y: 0.71, z: 0.645}
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0.12200001}
   m_TimeToStationary: 0.5
+--- !u!65 &1908779467
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3495457695327166479}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.8444393, y: 1.2478004, z: 1.0450993}
+  m_Center: {x: 0.01432102, y: -0.00000004085885, z: 0.5139017}
