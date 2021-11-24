@@ -31,6 +31,15 @@ public class CameraFollow : MonoBehaviour
         var ray = myCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         if (Physics.Raycast(ray, out var hit, floor))
           screenCenterOffset = new Vector3(hit.point.x, 0, hit.point.z);
+        else
+        {
+            var plan = new Plane(Vector3.up, Vector3.up * -1);
+            if (plan.Raycast(ray, out var dist))
+            {
+                var point = ray.GetPoint(dist);
+                screenCenterOffset = new Vector3(point.x, 0, point.z);
+            }
+        }
 
         var cameraDistance = Vector3.up * currentCameraDistance;
         var targetPosition = target.position;

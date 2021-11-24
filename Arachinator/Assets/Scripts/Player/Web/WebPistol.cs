@@ -79,8 +79,9 @@ public class WebPistol : MonoBehaviour
         movement.Lock(isPressing ? 1f : .3f);
         rigidybody.velocity = Vector3.zero;
         var newForce = isPressing
-            ? upForce * transform.up + upBackDashForce * -transform.forward
-            : simpleBackdash * -transform.forward;
+            ? simpleBackdash * -transform.forward
+            : upForce * transform.up + upBackDashForce * -transform.forward;
+
         rigidybody.AddForce(newForce, ForceMode.Acceleration);
         var web = Instantiate(webPrefab, hit.point, Quaternion.LookRotation(hit.normal));
         web.transform.SetParent(hit.collider.gameObject.transform);

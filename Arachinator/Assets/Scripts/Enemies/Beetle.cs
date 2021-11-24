@@ -269,7 +269,10 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
         }
 
         time = 0;
-        while (time < 5f && !trackeHit)
+        while (time < 3f
+               && !trackeHit
+               && navMeshAgent.FindClosestEdge(out var border)
+               &&  border.distance > .5f)
         {
             yield return null;
             time += Time.deltaTime;
@@ -350,6 +353,7 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
         rb.velocity = Vector3.zero;
         var direction = (transform.position - target.transform.position).normalized;
         rb.AddForce(direction * force / 2, ForceMode.VelocityChange);
+
         var i = Random.Range(0, bloodEffects.Length );
         var blood = Instantiate(bloodEffects[i], new Vector3(@from.x, 0, @from.z), transform.rotation);
         blood.transform.Rotate(Vector3.up,Random.rotation.eulerAngles.y);
