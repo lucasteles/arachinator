@@ -12,13 +12,13 @@ GameObject:
   - component: {fileID: 3526681211057390009}
   - component: {fileID: 3518987935062854659}
   - component: {fileID: 3486100263508500535}
-  - component: {fileID: 3496952558406162762}
-  m_Layer: 0
+  - component: {fileID: 3962977192531861400}
+  m_Layer: 11
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3497369290024549279
 Transform:
@@ -27,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3495457695327166479}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 23.0924, y: 3.97, z: 19.695782}
   m_LocalScale: {x: 8.620815, y: 5.835176, z: 1}
   m_Children: []
@@ -97,22 +97,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 43326404694936638, guid: cad360fa1abc2bd4cb4ffb2cee749c31, type: 2}
---- !u!95 &3496952558406162762
-Animator:
-  serializedVersion: 3
+--- !u!208 &3962977192531861400
+NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3495457695327166479}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7208d0fde69224840b719315cd946cb9, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.76600003, y: 0.624, z: 0.13000001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0.12200001}
+  m_TimeToStationary: 0.5

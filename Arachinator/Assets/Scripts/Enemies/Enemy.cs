@@ -37,6 +37,7 @@ public class Enemy : MonoBehaviour, IDamageble, IEnemy
         myCollider = GetComponent<BoxCollider>();
         target = FindObjectOfType<Player>().GetComponent<Life>();
         animator = GetComponent<Animator>();
+        life.onDeath += LifeOnDeath;
     }
     void OnDestroy() => life.onDeath -= LifeOnDeath;
 
@@ -44,6 +45,7 @@ public class Enemy : MonoBehaviour, IDamageble, IEnemy
     {
         this.config = config;
         life.SetMaxLife(config.maxLife);
+        life.Reset();
         navMeshAgent.speed = config.speed;
         cooldown = new Cooldown(config.shootCooldownTime);
         SetState(config.initialState);
@@ -52,7 +54,6 @@ public class Enemy : MonoBehaviour, IDamageble, IEnemy
     void Start()
     {
         targetCollider = target.GetComponent<BoxCollider>();
-        life.onDeath += LifeOnDeath;
         SetConfiguration(config);
     }
 
@@ -68,9 +69,9 @@ public class Enemy : MonoBehaviour, IDamageble, IEnemy
             Debug.DrawLine(navMeshAgent.destination, navMeshAgent.destination + Vector3.up * 5, Color.white);
     }
 
-    bool SeeTarget() => Utils.SeeTargetInFront(config.view, config.distanceToView, transform, target)
-                        || config.distanceAroundToSee
-                            <= Vector3.Distance(transform.position, target.transform.position);
+    bool SeeTarget() =>
+        Utils.SeeTargetInFront(config.view, config.distanceToView, transform, target)
+        || Vector3.Distance(transform.position, target.transform.position) <= config.distanceAroundToSee;
 
     void SetState(State newState)
     {

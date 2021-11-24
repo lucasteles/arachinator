@@ -13,11 +13,12 @@ GameObject:
   - component: {fileID: 1360636192179377039}
   - component: {fileID: 1360636192179377024}
   - component: {fileID: 1360636192179377036}
+  - component: {fileID: 2658941664183872861}
   m_Layer: 11
   m_Name: EnergyGate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1360636192179377037
@@ -108,5 +109,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22c7444efd7494310bd9cdb1dbebd38e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sound: {fileID: 8300000, guid: 7640268aae5064bdb814f2d66611a0c9, type: 3}
   effectStep: 0.05
+--- !u!208 &2658941664183872861
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1360636192179377025}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

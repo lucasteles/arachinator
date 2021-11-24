@@ -123,10 +123,10 @@ public class Area1 : MonoBehaviour
     {
         if (!playing) return;
         if (resetOnPlayerDeath) done = false;
-        playing = false;
-        OpenGates();
         StopAllCoroutines();
         wave.Reset();
+        playing = false;
+        OpenGates();
     }
 
     void OnDestroy()
@@ -137,6 +137,7 @@ public class Area1 : MonoBehaviour
 
     void WaveOnOnWaveEnded()
     {
+        print("wave ended");
         if (wave.NextWave())
             StartCoroutine(wave.Spawn(spawnPoints, player.transform));
         else
@@ -148,10 +149,8 @@ public class Area1 : MonoBehaviour
 
     public void PlayerEntered()
     {
-        print("player entrou");
         if (playing || done) return;
         playing = true;
-        print("player iniciou");
         CloseGates();
         StartCoroutine(wave.Spawn(spawnPoints, player.transform));
     }

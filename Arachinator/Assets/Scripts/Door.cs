@@ -1,11 +1,14 @@
+using Assets.Scripts.Cameras.Effects;
 using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    [SerializeField] private AudioClip openSound;
+    [SerializeField] AudioClip openSound;
+    [SerializeField] CameraShakeData cameraShakeData;
     public void OpenDoor()
     {
         GetComponent<Animator>().SetBool("Open", true);
         CameraAudioSource.Instance.AudioSource.PlayOneShot(openSound);
+        CameraShaker.Instance.Shake(cameraShakeData);
     }
 }

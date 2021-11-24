@@ -66,11 +66,12 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
     }
     public void SetConfiguration(EnemyConfiguration configuration)
     {
-        this.config = configuration;
+        config = configuration;
         navMeshAgent.speed = config.speed;
         cooldown = new Cooldown(config.shootCooldownTime);
         SetState(config.initialState);
         life.SetMaxLife(config.maxLife);
+        life.Reset();
 
     }
 
@@ -87,8 +88,9 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
     }
 
     bool SeeTarget() => Utils.SeeTargetInFront(config.view, config.distanceToView, transform, target)
-                        || config.distanceAroundToSee
-                            <= Vector3.Distance(transform.position, target.transform.position);
+                        ||
+                        Vector3.Distance(transform.position, target.transform.position)
+                        <= config.distanceAroundToSee;
 
     void SetState(State newState)
     {

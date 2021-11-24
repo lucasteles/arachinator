@@ -6871,6 +6871,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 3495457695327166479, guid: aad8838b87fb07f21aaba8bd7e339d14, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 3497369290024549279, guid: aad8838b87fb07f21aaba8bd7e339d14, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -17011,6 +17015,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openSound: {fileID: 8300000, guid: fc350efc011078d3ab916932347eb2cf, type: 3}
+  cameraShakeData:
+    timeToShake: 0
+    magnitude: 0
 --- !u!1001 &473533605
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38500,7 +38507,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1102027145
 Transform:
@@ -38549,6 +38556,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openSound: {fileID: 8300000, guid: fc350efc011078d3ab916932347eb2cf, type: 3}
+  cameraShakeData:
+    timeToShake: 0
+    magnitude: 0
 --- !u!1001 &1106812996
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45096,6 +45106,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 3495457695327166479, guid: aad8838b87fb07f21aaba8bd7e339d14, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 3497369290024549279, guid: aad8838b87fb07f21aaba8bd7e339d14, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -47082,6 +47096,10 @@ PrefabInstance:
     - target: {fileID: 3495457695327166479, guid: aad8838b87fb07f21aaba8bd7e339d14, type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3495457695327166479, guid: aad8838b87fb07f21aaba8bd7e339d14, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 3497369290024549279, guid: aad8838b87fb07f21aaba8bd7e339d14, type: 3}
       propertyPath: m_RootOrder
@@ -52809,7 +52827,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!114 &1525959827
 MonoBehaviour:
@@ -52824,6 +52842,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openSound: {fileID: 8300000, guid: fc350efc011078d3ab916932347eb2cf, type: 3}
+  cameraShakeData:
+    timeToShake: 0
+    magnitude: 0
 --- !u!95 &1525959828
 Animator:
   serializedVersion: 3
@@ -65678,7 +65699,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!114 &1923938107
 MonoBehaviour:
@@ -65693,6 +65714,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openSound: {fileID: 8300000, guid: fc350efc011078d3ab916932347eb2cf, type: 3}
+  cameraShakeData:
+    timeToShake: 4
+    magnitude: 0.04
 --- !u!95 &1923938108
 Animator:
   serializedVersion: 3
