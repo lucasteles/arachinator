@@ -26,19 +26,25 @@ public class CameraFollow : MonoBehaviour
 
     void FixedUpdate()
     {
-        var mouseAimOffset = (player.CurrentMousePosition - target.position) / 2f;
 
-        if (Vector3.SqrMagnitude(mouseAimOffset) >= Math.Pow(maxLook, 2))
-            mouseAimOffset = mouseAimOffset.normalized * maxLook;
-
-        var targetPosition = target.position + mouseAimOffset;
         var screenCenterOffset= Vector3.zero;
         var ray = myCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         if (Physics.Raycast(ray, out var hit, floor))
-          screenCenterOffset = targetPosition - new Vector3(hit.point.x, 0, hit.point.z);
+          screenCenterOffset = new Vector3(hit.point.x, 0, hit.point.z);
 
         var cameraDistance = Vector3.up * currentCameraDistance;
-        var desiredPosition = targetPosition + screenCenterOffset + offset + cameraDistance;
+        var targetPosition = target.position;
+
+        if (Input.GetButton("Fire1"))
+        {
+            var mouseAimOffset = (player.CurrentMousePosition - target.position) / 2f;
+            if (Vector3.SqrMagnitude(mouseAimOffset) >= Math.Pow(maxLook, 2))
+                mouseAimOffset = mouseAimOffset.normalized * maxLook;
+            targetPosition +=  mouseAimOffset;
+
+        }
+
+        var desiredPosition = targetPosition + (targetPosition - screenCenterOffset) + offset + cameraDistance;
 
         // if (Physics.Linecast(transform.position, target.position, out var hitwall))
         // {

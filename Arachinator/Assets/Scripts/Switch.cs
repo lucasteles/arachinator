@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class Switch : MonoBehaviour
 {
-    [SerializeField] private AudioClip pushSound;
+    [SerializeField] AudioClip pushSound;
     [SerializeField] GameObject door;
     Material currentMaterial;
-    private bool canBeUsed;
-    private bool pushed;
+    bool canBeUsed;
+    bool pushed;
     void Awake()
     {
         var renderer = GetComponent<Renderer>();
@@ -15,26 +15,15 @@ public class Switch : MonoBehaviour
         renderer.sharedMaterial = currentMaterial;
     }
     
-    public void Enable()
-    {
-        canBeUsed = true;
-    }
-    
-    public void Disable()
-    {
-        canBeUsed = false;
-    }
-    
+    public void Enable() => canBeUsed = true;
+
+    public void Disable() => canBeUsed = false;
+
     void Update ()
     {
-        if (canBeUsed)
-        {
-            print(canBeUsed);
-            if (Input.GetKeyDown(KeyCode.E) && !pushed)
-            {
-                PushSwitch();
-            }
-        }
+        if (!canBeUsed) return;
+        if (Input.GetKeyDown(KeyCode.E) && !pushed)
+            PushSwitch();
     }
     
     public void PushSwitch()
