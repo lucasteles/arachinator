@@ -71,7 +71,7 @@ MonoBehaviour:
     m_Bits: 64
   maxCameraDistance: 13
   zoomSpeed: 4.5
-  currentCameraDistance: 4.5
+  currentCameraDistance: 13
   maxLook: 3
 --- !u!82 &1649225504
 AudioSource:
