@@ -137,7 +137,6 @@ public class Area1 : MonoBehaviour
 
     void WaveOnOnWaveEnded()
     {
-        print("wave ended");
         if (wave.NextWave())
             StartCoroutine(wave.Spawn(spawnPoints, player.transform));
         else

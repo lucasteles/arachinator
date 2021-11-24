@@ -17,7 +17,7 @@ MonoBehaviour:
   maxLife: 5
   view: 0.6
   distanceToView: 30
-  distanceAroundToSee: 3
+  distanceAroundToSee: 1
   searchStep: 10
   minShootDistance: 20
   maxShoots: 3

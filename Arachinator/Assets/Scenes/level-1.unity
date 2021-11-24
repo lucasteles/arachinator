@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.31329995, g: 0.293963, b: 0.514219, a: 1}
+  m_IndirectSpecularColor: {r: 0.3130848, g: 0.29375094, b: 0.514118, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6873,7 +6873,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3495457695327166479, guid: aad8838b87fb07f21aaba8bd7e339d14, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 4294967295
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3497369290024549279, guid: aad8838b87fb07f21aaba8bd7e339d14, type: 3}
       propertyPath: m_RootOrder
@@ -34245,8 +34245,8 @@ Transform:
   - {fileID: 1228721527}
   - {fileID: 807894263}
   - {fileID: 756389860}
-  - {fileID: 325695667}
   - {fileID: 673514675}
+  - {fileID: 325695667}
   - {fileID: 89132750}
   m_Father: {fileID: 2118805658}
   m_RootOrder: 7
@@ -38507,7 +38507,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1102027145
 Transform:
@@ -45108,7 +45108,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3495457695327166479, guid: aad8838b87fb07f21aaba8bd7e339d14, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 4294967295
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3497369290024549279, guid: aad8838b87fb07f21aaba8bd7e339d14, type: 3}
       propertyPath: m_RootOrder
@@ -47099,7 +47099,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3495457695327166479, guid: aad8838b87fb07f21aaba8bd7e339d14, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 4294967295
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3497369290024549279, guid: aad8838b87fb07f21aaba8bd7e339d14, type: 3}
       propertyPath: m_RootOrder
@@ -50630,8 +50630,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.1407855, y: 3.962069, z: 0.9008963}
-  m_Center: {x: 0.0000009536743, y: 1.9810345, z: -0.16026025}
+  m_Size: {x: 1.1407855, y: 3.962069, z: 1.98}
+  m_Center: {x: 0.0000009536743, y: 1.9810345, z: -0.94}
 --- !u!1001 &1452583035
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -51935,7 +51935,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.5
+      value: 23.48
       objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -51943,7 +51943,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9
+      value: 27.43
       objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -52827,7 +52827,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!114 &1525959827
 MonoBehaviour:
@@ -65699,7 +65699,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!114 &1923938107
 MonoBehaviour:
