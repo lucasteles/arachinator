@@ -36,6 +36,7 @@ public class Player : MonoBehaviour, IDamageble
     PlayerEffects playerEffects;
     Coroutine currentDamageCoroutine;
     bool inDash = false;
+    bool hasWebPistol = false;
 
     public bool IsInvincible {
         get => invincible;
@@ -142,6 +143,7 @@ public class Player : MonoBehaviour, IDamageble
         var webPistol = GetComponentInChildren<WebPistol>();
 
         gun.StopShot();
+        hasWebPistol = webPistol.enabled;
         gun.enabled = webPistol.enabled = false;
 
         rb.constraints = RigidbodyConstraints.FreezePositionX
@@ -167,7 +169,9 @@ public class Player : MonoBehaviour, IDamageble
         aimLegCubes.ToList().ForEach(x => x.RestorePosition());
         yield return playerEffects.DissolveRestoreEffect(dissolveStep);
 
-        gun.enabled = webPistol.enabled = true;
+        gun.enabled = true;
+        webPistol.enabled = hasWebPistol;
+        
         rb.constraints = constraints;
         life.Reset();
         DisableInvicible();

@@ -16,7 +16,7 @@ public class RespawnPoint : MonoBehaviour
     [SerializeField] SpawnData[] data;
     [SerializeField] float positionOffset = 1;
 
-    List<GameObject> enemies = new List<GameObject>();
+    List<GameObject> objects = new List<GameObject>();
 
     Player player;
     Life playerLife;
@@ -34,13 +34,14 @@ public class RespawnPoint : MonoBehaviour
 
     void Respawn()
     {
-
-        foreach (var enemyInfo in data)
+        foreach (var objectInfo in data)
         {
             var randomOffset = positions[Random.Range(0, positions.Length)] * Random.Range(0f, positionOffset);
-            var enemy = Instantiate(enemyInfo.Prefab, transform.position + randomOffset, Quaternion.identity);
-            enemy.GetComponent<IEnemy>().SetConfiguration(enemyInfo.Configuration);
-            enemies.Add(enemy);
+            var objectPrefab = Instantiate(objectInfo.Prefab, transform.position + randomOffset, Quaternion.identity);
+            if (objectInfo.Configuration) {
+                objectPrefab.GetComponent<IEnemy>().SetConfiguration(objectInfo.Configuration);
+            }
+            objects.Add(objectPrefab);
         }
     }
 
@@ -48,11 +49,10 @@ public class RespawnPoint : MonoBehaviour
 
     void Reset()
     {
-        for (var i = 0; i < enemies.Count; i++)
-            if (enemies[i] != null)
-                Destroy(enemies[i]);
-        enemies.Clear();
+        for (var i = 0; i < objects.Count; i++)
+            if (objects[i] != null)
+                Destroy(objects[i]);
+        objects.Clear();
         Respawn();
     }
-
 }
