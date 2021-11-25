@@ -17,6 +17,7 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
     [SerializeField]AudioClip impact;
     [SerializeField]GameObject[] bloodEffects;
     [SerializeField]GameObject dieEffect;
+    [SerializeField]GameObject trackEffect;
     [SerializeField]float trackeForce;
     [SerializeField]LayerMask layersToTrackleIgnore;
 
@@ -318,10 +319,10 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
         while (!life.IsDead)
         {
             yield return new WaitForSeconds(.15f);
-            if (navMeshAgent.isActiveAndEnabled && navMeshAgent.remainingDistance <= myCollider.size.z / 2 || !navMeshAgent.isOnNavMesh)
-            {
+            if (navMeshAgent.isActiveAndEnabled &&
+                (navMeshAgent.remainingDistance <= myCollider.size.z / 2
+                 || !navMeshAgent.isOnNavMesh))
                 navMeshAgent.SetDestination(nearPoint());
-            }
         }
 
     }
@@ -386,6 +387,7 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
         if (!trackeHit)
         {
             CameraAudioSource.Instance.AudioSource.PlayOneShot(impact);
+            Destroy(Instantiate(trackEffect, other.contacts[0].point, Quaternion.identity), .5f);
             trackeHit = true;
         }
         rb.velocity = Vector3.zero;

@@ -1533,6 +1533,7 @@ MonoBehaviour:
   bloodEffects:
   - {fileID: 7636614938515757400, guid: 3f91ef545a37049b588e3e2f62b4b5ec, type: 3}
   dieEffect: {fileID: 3167726466660889134, guid: 1cbd72c3acada496d905d0c6ccc4cba0, type: 3}
+  trackEffect: {fileID: 6593487261413071833, guid: e413efde98e534aa7bd107549c10c839, type: 3}
   trackeForce: 1.5
   layersToTrackleIgnore:
     serializedVersion: 2
@@ -1708,9 +1709,9 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8527039263426274505}
-  m_Material: {fileID: 13400000, guid: ee0beb316abb44b8cbb804ab1f745352, type: 2}
+  m_Material: {fileID: 13400000, guid: b6afc1311405348daa49d29f0e700ea0, type: 2}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.76
   m_Height: 2.92
   m_Direction: 2

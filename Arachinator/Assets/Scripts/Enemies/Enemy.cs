@@ -250,10 +250,10 @@ public class Enemy : MonoBehaviour, IDamageble, IEnemy
         while (!life.IsDead)
         {
             yield return new WaitForSeconds(.15f);
-            if (navMeshAgent.remainingDistance <= myCollider.size.z / 2 || !navMeshAgent.isOnNavMesh)
-            {
+            if (navMeshAgent.isActiveAndEnabled
+                && (navMeshAgent.remainingDistance <= myCollider.size.z / 2
+                    || !navMeshAgent.isOnNavMesh))
                 navMeshAgent.SetDestination(nearPoint());
-            }
         }
 
     }
