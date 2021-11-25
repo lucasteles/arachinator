@@ -10,6 +10,7 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
 {
     [SerializeField]AudioClip deathAudio;
     [SerializeField]AudioClip deathAudio2;
+    [SerializeField]AudioClip deflectSound;
     [SerializeField]AudioClip hitSound;
     [SerializeField]AudioClip whoosh;
     [SerializeField]AudioClip creek;
@@ -30,7 +31,7 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
     BoxCollider myCollider;
     Animator animator;
     TrailRenderer trailRenderer;
-    SphereCollider hitCollider;
+    CapsuleCollider hitCollider;
 
     bool inTracke = false;
     bool trackeHit = true;
@@ -38,13 +39,14 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
     static readonly int IsShooting = Animator.StringToHash("IsShooting");
     BeetleTrackeEvent tracke;
 
+    public bool ShouldDeflect => inTracke;
     void Awake()
     {
         life = GetComponent<Life>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
         myCollider = GetComponent<BoxCollider>();
-        hitCollider = GetComponent<SphereCollider>();
+        hitCollider = GetComponent<CapsuleCollider>();
         tracke = GetComponentInChildren<BeetleTrackeEvent>();
         target = FindObjectOfType<Player>().GetComponent<Life>();
         animator = GetComponentInChildren<Animator>();
@@ -316,7 +318,7 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
         while (!life.IsDead)
         {
             yield return new WaitForSeconds(.15f);
-            if (navMeshAgent.remainingDistance <= myCollider.size.z / 2 || !navMeshAgent.isOnNavMesh)
+            if (navMeshAgent.isActiveAndEnabled && navMeshAgent.remainingDistance <= myCollider.size.z / 2 || !navMeshAgent.isOnNavMesh)
             {
                 navMeshAgent.SetDestination(nearPoint());
             }
@@ -366,8 +368,21 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
 
     void OnCollisionEnter(Collision other)
     {
-        if (Utils.IsInLayerMask(other.gameObject, layersToTrackleIgnore)) return;
         if (!inTracke) return;
+
+        if (other.transform.CompareTag("Projectile"))
+        {
+            var bulletRb = other.transform.GetComponent<Rigidbody>();
+            var mag = bulletRb.velocity.magnitude;
+            var currentDir = (transform.position - other.transform.position).normalized;
+            var dir = Vector3.Reflect(currentDir, other.contacts[0].normal);
+            CameraAudioSource.Instance.AudioSource.PlayOneShot(deflectSound);
+            other.transform.rotation = Quaternion.LookRotation(dir);
+            bulletRb.velocity = new Vector3(dir.x, currentDir.y, dir.y) * mag * 1.5f;
+            return;
+        }
+
+        if (Utils.IsInLayerMask(other.gameObject, layersToTrackleIgnore)) return;
         if (!trackeHit)
         {
             CameraAudioSource.Instance.AudioSource.PlayOneShot(impact);

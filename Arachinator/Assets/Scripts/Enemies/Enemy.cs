@@ -51,6 +51,8 @@ public class Enemy : MonoBehaviour, IDamageble, IEnemy
         SetState(config.initialState);
     }
 
+    public bool ShouldDeflect => false;
+
     void Start()
     {
         targetCollider = target.GetComponent<BoxCollider>();
@@ -294,5 +296,6 @@ public class Enemy : MonoBehaviour, IDamageble, IEnemy
 public interface IEnemy
 {
     void SetConfiguration(EnemyConfiguration configuration);
+    bool ShouldDeflect { get; }
 }
 

@@ -1444,7 +1444,7 @@ GameObject:
   - component: {fileID: 749355622}
   - component: {fileID: 6723300653028579083}
   - component: {fileID: 837902176510717747}
-  - component: {fileID: 755618114976616020}
+  - component: {fileID: 4598193606505144785}
   m_Layer: 13
   m_Name: EnemyBeetle
   m_TagString: Untagged
@@ -1525,6 +1525,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathAudio: {fileID: 8300000, guid: 8e27de054fdd647fd84677d3bedf2d55, type: 3}
   deathAudio2: {fileID: 8300000, guid: c6e71c1fe454446e3873fcd64b039bf5, type: 3}
+  deflectSound: {fileID: 8300000, guid: d9f27a93d6ddf4cacbd567b042f8c76e, type: 3}
   hitSound: {fileID: 8300000, guid: fa66fc96712da41ef9dac6ce9edfa666, type: 3}
   whoosh: {fileID: 8300000, guid: 9281cebe9bf83455ea2153295cc81681, type: 3}
   creek: {fileID: 8300000, guid: 1087ae302be414c63852990ba1571084, type: 3}
@@ -1700,19 +1701,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 665eeee77f083413492960135371af04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &755618114976616020
-SphereCollider:
+--- !u!136 &4598193606505144785
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8527039263426274505}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: ee0beb316abb44b8cbb804ab1f745352, type: 2}
   m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.54
-  m_Center: {x: 0, y: -0.03333334, z: 1.4}
+  m_Enabled: 1
+  m_Radius: 0.76
+  m_Height: 2.92
+  m_Direction: 2
+  m_Center: {x: 0, y: -0.03333334, z: 0.54}
 --- !u!1 &9160429943510424366
 GameObject:
   m_ObjectHideFlags: 0

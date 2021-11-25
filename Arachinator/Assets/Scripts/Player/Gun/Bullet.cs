@@ -29,7 +29,9 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Item")) return;
+        if (other.gameObject.CompareTag("Item")
+            || (other.gameObject.TryGetComponent<IEnemy>(out var enemy) && enemy.ShouldDeflect))
+            return;
 
         ObjectPooling.Get(Pools.HitParticle, transform.position, Quaternion.identity);
         Vanish();
