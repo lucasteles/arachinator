@@ -378,7 +378,7 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
             var dir = Vector3.Reflect(currentDir, other.contacts[0].normal);
             CameraAudioSource.Instance.AudioSource.PlayOneShot(deflectSound);
             other.transform.rotation = Quaternion.LookRotation(dir);
-            bulletRb.velocity = new Vector3(dir.x, currentDir.y, dir.y) * mag * 1.5f;
+            bulletRb.velocity = new Vector3(dir.x, currentDir.y, dir.y) * mag + rb.velocity;
             return;
         }
 
