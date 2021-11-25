@@ -75,13 +75,16 @@ public class WebPistol : MonoBehaviour
     IEnumerator Hit(RaycastHit hit)
     {
         yield return new WaitForSeconds(.3f);
-        var isPressing = Input.GetButton("Fire2");
-        movement.Lock(isPressing ? 1f : .3f);
+        // var isPressing = Input.GetButton("Fire2");
+        // movement.Lock(isPressing ? 1f : .3f);
+        movement.Lock(1f);
         rigidybody.velocity = Vector3.zero;
-        var newForce = isPressing
-            ? simpleBackdash * -transform.forward
-            : upForce * transform.up + upBackDashForce * -transform.forward;
 
+        // var newForce = isPressing
+        //     ? simpleBackdash * -transform.forward
+        //     : upForce * transform.up + upBackDashForce * -transform.forward;
+
+        var newForce = upForce * transform.up + upBackDashForce * -transform.forward;
         rigidybody.AddForce(newForce, ForceMode.Acceleration);
         var web = Instantiate(webPrefab, hit.point, Quaternion.LookRotation(hit.normal));
         web.transform.SetParent(hit.collider.gameObject.transform);
