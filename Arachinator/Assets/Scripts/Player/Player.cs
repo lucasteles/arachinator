@@ -24,6 +24,7 @@ public class Player : MonoBehaviour, IDamageble
     [SerializeField]float dashDuration;
     [SerializeField]Cooldown dashCooldown;
     [SerializeField]AudioClip dashSound;
+    [SerializeField]ParticleSystem dashParticle;
 
     public Vector3 RespawnPosition { get; set; }
     PlayerHealthPointsUi ui;
@@ -93,10 +94,12 @@ public class Player : MonoBehaviour, IDamageble
         var mlock = movement.Lock();
         var direction = movement.Direction == Vector3.zero ? transform.forward : movement.Direction;
         audioSource.PlayOneShot(dashSound);
+        dashParticle.Play();
         rb.AddForce(direction * dashForce, ForceMode.VelocityChange);
         yield return new WaitForSeconds(dashDuration);
 
         rb.velocity = Vector3.zero;
+        dashParticle.Stop();
         movement.Unlock(mlock);
         inDash = false;
     }
