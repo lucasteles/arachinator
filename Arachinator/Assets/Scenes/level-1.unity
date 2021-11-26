@@ -67327,6 +67327,22 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.5660378
       objectReference: {fileID: 0}
+    - target: {fileID: 1109812942, guid: 9c098decf1e544029a7d0bc807e51670, type: 3}
+      propertyPath: m_fontSize
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109812942, guid: 9c098decf1e544029a7d0bc807e51670, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 7aa495a661eb84be590a7d82fc0c55ba, type: 2}
+    - target: {fileID: 1109812942, guid: 9c098decf1e544029a7d0bc807e51670, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109812942, guid: 9c098decf1e544029a7d0bc807e51670, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 640015355368513357, guid: 7aa495a661eb84be590a7d82fc0c55ba, type: 2}
     - target: {fileID: 7422519970047850016, guid: 9c098decf1e544029a7d0bc807e51670, type: 3}
       propertyPath: m_Name
       value: UI
