@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3130848, g: 0.29375094, b: 0.514118, a: 1}
+  m_IndirectSpecularColor: {r: 0.31329995, g: 0.293963, b: 0.514219, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -67315,34 +67315,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 364312794, guid: 9c098decf1e544029a7d0bc807e51670, type: 3}
-      propertyPath: m_Color.b
-      value: 0.5660378
+    - target: {fileID: 107892991, guid: 9c098decf1e544029a7d0bc807e51670, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.0612
       objectReference: {fileID: 0}
-    - target: {fileID: 364312794, guid: 9c098decf1e544029a7d0bc807e51670, type: 3}
-      propertyPath: m_Color.g
-      value: 0.5660378
+    - target: {fileID: 4204613201285014433, guid: 9c098decf1e544029a7d0bc807e51670, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 48.557
       objectReference: {fileID: 0}
-    - target: {fileID: 364312794, guid: 9c098decf1e544029a7d0bc807e51670, type: 3}
-      propertyPath: m_Color.r
-      value: 0.5660378
+    - target: {fileID: 4204613201285014433, guid: 9c098decf1e544029a7d0bc807e51670, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -9.7269
       objectReference: {fileID: 0}
-    - target: {fileID: 1109812942, guid: 9c098decf1e544029a7d0bc807e51670, type: 3}
-      propertyPath: m_fontSize
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 1109812942, guid: 9c098decf1e544029a7d0bc807e51670, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 7aa495a661eb84be590a7d82fc0c55ba, type: 2}
-    - target: {fileID: 1109812942, guid: 9c098decf1e544029a7d0bc807e51670, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 1109812942, guid: 9c098decf1e544029a7d0bc807e51670, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 640015355368513357, guid: 7aa495a661eb84be590a7d82fc0c55ba, type: 2}
     - target: {fileID: 7422519970047850016, guid: 9c098decf1e544029a7d0bc807e51670, type: 3}
       propertyPath: m_Name
       value: UI
