@@ -358,7 +358,7 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
         rb.AddForce(direction * force / 2, ForceMode.VelocityChange);
 
         var i = Random.Range(0, bloodEffects.Length );
-        var blood = Instantiate(bloodEffects[i], new Vector3(@from.x, 0, @from.z), transform.rotation);
+        var blood = Instantiate(bloodEffects[i], @from, transform.rotation);
         blood.transform.Rotate(Vector3.up,Random.rotation.eulerAngles.y);
         blood.transform.localScale *= 2f;
         Destroy(blood, 8);

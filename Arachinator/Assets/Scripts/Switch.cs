@@ -1,5 +1,8 @@
-using UnityEditor;
 using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class Switch : MonoBehaviour
 {
@@ -37,3 +40,16 @@ public class Switch : MonoBehaviour
         if (TryGetComponent<ShinyMaterial>(out var s)) s.Shiny();
     }
 }
+
+#if UNITY_EDITOR
+ [CustomEditor(typeof(Switch))]
+ class SwitchEditor : Editor
+ {
+     public override void OnInspectorGUI() {
+         DrawDefaultInspector();
+         if(GUILayout.Button("Push Switch"))
+             ((MonoBehaviour)target).GetComponent<Switch>().PushSwitch();
+
+     }
+ }
+#endif
