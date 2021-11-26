@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.31329995, g: 0.293963, b: 0.514219, a: 1}
+  m_IndirectSpecularColor: {r: 0.3130848, g: 0.29375094, b: 0.514118, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -30432,6 +30432,18 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4598193606505144785, guid: 3f38622346a1d9746812f298bc08ff41, type: 3}
+      propertyPath: m_Height
+      value: 2.4254344
+      objectReference: {fileID: 0}
+    - target: {fileID: 4598193606505144785, guid: 3f38622346a1d9746812f298bc08ff41, type: 3}
+      propertyPath: m_Center.y
+      value: -0.03333337
+      objectReference: {fileID: 0}
+    - target: {fileID: 4598193606505144785, guid: 3f38622346a1d9746812f298bc08ff41, type: 3}
+      propertyPath: m_Center.z
+      value: 0.78728306
+      objectReference: {fileID: 0}
     - target: {fileID: 8527039263426274505, guid: 3f38622346a1d9746812f298bc08ff41, type: 3}
       propertyPath: m_Name
       value: EnemyBeetle
@@ -54822,15 +54834,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.5
+      value: 22.99
       objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.45
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.5
+      value: 35.67
       objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_LocalRotation.w

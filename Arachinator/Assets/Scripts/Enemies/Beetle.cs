@@ -232,6 +232,8 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
 
         var damage = GetComponent<EnemyDamageDealer>();
         trackeHit = false;
+        var constraints = rb.constraints;
+        var useGravity = rb.useGravity;
         damage.damage *= 2;
         damage.force *= 2;
         rb.velocity = Vector3.zero;
@@ -261,6 +263,15 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
         var time = 0f;
         trailRenderer.enabled = true;
         var playedWoosh = false;
+        var originalPos = transform.position;
+        rb.constraints |= RigidbodyConstraints.FreezePositionY;
+        rb.useGravity = false;
+        var upPos = new Vector3(originalPos.x, originalPos.y + 2f, originalPos.z);
+        for (var i = 0f; i < 1; i += .1f)
+        {
+            rb.MovePosition(Vector3.Lerp(originalPos, upPos, i));
+            yield return null;
+        }
         while (!target.IsDead && time <= 1f && !trackeHit)
         {
             rb.AddForce(transform.forward * trackeForce, ForceMode.VelocityChange);
@@ -292,7 +303,10 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
         damage.damage /= 2;
         damage.force /= 2;
         rb.velocity /= 3;
+        rb.constraints = constraints;
         rb.isKinematic = true;
+        rb.useGravity = useGravity;
+        rb.MovePosition(new Vector3(transform.position.x, originalPos.y, transform.position.z));
         yield return new WaitForSeconds(.5f);
         inTracke = false;
         navMeshAgent.ResetPath();
