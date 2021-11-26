@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3167726466660889134}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.1102533, y: 8.349671, z: 7.573662}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
   - {fileID: 4224658985272677936}
@@ -57,7 +57,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8100912558557415596}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children:
   - {fileID: 994562137966546306}
@@ -4921,7 +4921,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8718339863858725999}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.93}
+  m_LocalPosition: {x: 0, y: 0, z: 0.36}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.79999995}
   m_Children: []
   m_Father: {fileID: 4224658985272677936}
@@ -5063,8 +5063,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 20
-      minScalar: 10
+      scalar: 8
+      minScalar: 4
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -9835,7 +9835,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 194536683455497692, guid: 13bd51e289b234d168055407020db69e, type: 3}
       propertyPath: InitialModule.startSpeed.minScalar
-      value: 0.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 194536683455497692, guid: 13bd51e289b234d168055407020db69e, type: 3}
       propertyPath: CollisionModule.collidesWith.m_Bits
@@ -9843,11 +9843,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 194536683455497692, guid: 13bd51e289b234d168055407020db69e, type: 3}
       propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
-      value: 100
+      value: 130
       objectReference: {fileID: 0}
     - target: {fileID: 194536683455497692, guid: 13bd51e289b234d168055407020db69e, type: 3}
       propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
-      value: 60
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 194536683455497694, guid: 13bd51e289b234d168055407020db69e, type: 3}
       propertyPath: m_Name
@@ -9856,6 +9856,10 @@ PrefabInstance:
     - target: {fileID: 7304889813493404608, guid: 13bd51e289b234d168055407020db69e, type: 3}
       propertyPath: moveWithTransform
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8012078756651924137, guid: 13bd51e289b234d168055407020db69e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8227490037649191879, guid: 13bd51e289b234d168055407020db69e, type: 3}
       propertyPath: moveWithTransform
