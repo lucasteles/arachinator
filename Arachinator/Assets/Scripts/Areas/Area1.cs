@@ -100,18 +100,26 @@ public class Area1 : MonoBehaviour
 
     bool playing;
     bool done = false;
+    static readonly int Open = Animator.StringToHash("Open");
+
     public void CloseGates()
     {
         CameraAudioSource.Instance.AudioSource.PlayOneShot(sound);
         foreach (var portal in gates)
-            portal.SetActive(true);
+            if (portal.TryGetComponent<Animator>(out var animator))
+                animator.SetBool(Open, false);
+            else
+                portal.SetActive(true);
     }
 
     public void OpenGates()
     {
         CameraAudioSource.Instance.AudioSource.PlayOneShot(sound);
         foreach (var portal in gates)
-            portal.SetActive(false);
+            if (portal.TryGetComponent<Animator>(out var animator))
+                animator.SetBool(Open, true);
+            else
+                portal.SetActive(false);
     }
 
     void Awake()
@@ -140,7 +148,6 @@ public class Area1 : MonoBehaviour
 
     void WaveOnOnWaveEnded()
     {
-
         if (wave.NextWave())
             StartCoroutine(wave.Spawn(spawnPoints, player.transform));
         else
