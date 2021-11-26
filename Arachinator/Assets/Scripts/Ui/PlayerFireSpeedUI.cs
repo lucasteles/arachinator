@@ -8,8 +8,10 @@ namespace Assets.Scripts.Ui.PlayerFireSpeedUI
         [SerializeField] float currentSpeed;
         RawImage[] speedIcons;
     
-        public void SetCurrentSpeed(float fireSpeed) =>
+        public void SetCurrentSpeed(float fireSpeed)
+        {
             currentSpeed = fireSpeed;
+        }
 
         private void Awake() =>
             speedIcons = GetComponentsInChildren<RawImage>();
@@ -18,7 +20,7 @@ namespace Assets.Scripts.Ui.PlayerFireSpeedUI
         {
             for (int i = 0; i < speedIcons.Length; i++)
             {
-                speedIcons[i].enabled = i < currentSpeed;
+                speedIcons[i].enabled = i < Mathf.RoundToInt(currentSpeed);
             }
         }
     }
