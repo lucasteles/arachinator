@@ -1,6 +1,6 @@
-using System;
 using Assets.Scripts.Cameras.Effects;
 using UnityEngine;
+using Assets.Scripts.Ui.PlayerFireSpeedUI;
 
 public class Gun : MonoBehaviour
 {
@@ -19,11 +19,13 @@ public class Gun : MonoBehaviour
 
     Cooldown cooldown;
     public bool IsShooting { get; private set; }
+    PlayerFireSpeedUI uiFireSpeed;
 
     void Awake()
     {
         turretAnimationEvents.ShotLeftEvent += ShotLeftEvent;
         turretAnimationEvents.ShotRightEvent += ShotRightEvent;
+        uiFireSpeed = FindObjectOfType<PlayerFireSpeedUI>();
     }
 
     void OnDestroy()
@@ -83,5 +85,8 @@ public class Gun : MonoBehaviour
     public void IncreaseFireSpeed(float amount)
     {
         fireSpeed += amount;
+        
+        if (!uiFireSpeed) return;
+        uiFireSpeed.SetCurrentSpeed(fireSpeed);
     }
 }
