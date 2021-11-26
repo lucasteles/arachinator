@@ -4962,6 +4962,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blood14
       objectReference: {fileID: 0}
+    - target: {fileID: 5494213943435191861, guid: db51fe09adf27d640b4e10018c2d76ba, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db51fe09adf27d640b4e10018c2d76ba, type: 3}
 --- !u!4 &123282029169524373 stripped

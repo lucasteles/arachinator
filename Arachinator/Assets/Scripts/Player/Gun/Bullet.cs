@@ -27,7 +27,7 @@ public class Bullet : MonoBehaviour
         ObjectPooling.GiveBack(Pools.Bullet, gameObject);
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Item")
             || (other.gameObject.TryGetComponent<IEnemy>(out var enemy) && enemy.ShouldDeflect))
@@ -37,9 +37,10 @@ public class Bullet : MonoBehaviour
         Vanish();
         CameraAudioSource.Instance.AudioSource.PlayOneShot(impact);
 
-        if (other.GetComponent<IDamageble>() is { } damageble)
+        if (other.transform.GetComponent<IDamageble>() is { } damageble)
         {
-            damageble.TakeHit(damage, other.ClosestPoint(transform.position), force);
+            damageble.TakeHit(damage, other.contacts[0].point, force);
         }
     }
+
 }
