@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Cameras.Effects;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -14,8 +16,21 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         Sleep,
         Awake,
         Seeking,
-        RunningAway
+        RunningAway,
+        RunningAwayAndShoot,
+        SpawnEnemies,
+        Shoot,
     }
+
+    public Dictionary<WaspState, (int from, int to)> Actions =
+        new Dictionary<WaspState, (int, int)>
+    {
+        [WaspState.Seeking] = (0, 20),
+        [WaspState.RunningAway] = (20, 100),
+        [WaspState.RunningAwayAndShoot] = (0,0),
+        [WaspState.SpawnEnemies] = (0,0),
+        [WaspState.Shoot] = (0,0),
+    };
 
     [SerializeField] float timeToSeek = 5;
     [SerializeField] float seekSpeed = 3;
@@ -30,10 +45,14 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     [SerializeField] float takeOffSpeed = .02f;
     [SerializeField] AudioClip takeOffSound;
     [SerializeField] AudioClip takeOffWhoosh;
+    [SerializeField] AudioClip landSound;
     [SerializeField] AudioSource zunido;
     [SerializeField] GameObject body;
     [SerializeField] Transform[] flyPoints;
     [SerializeField] float airShakeSize;
+    [SerializeField] AnimationCurve moveCurve;
+    [SerializeField] float airMovementSpeed;
+    [SerializeField] int maxAirMoveCount = 4;
 
 
     WaspEffects waspEffects;
@@ -53,6 +72,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         player = FindObjectOfType<Player>();
         playerLife = player.GetComponent<Life>();
     }
+
 
     void Start()
     {
@@ -133,12 +153,93 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
         inFly = shouldShake = true;
         zunido.Play();
-        yield return new WaitForSeconds(2f);
     }
 
+    IEnumerator GoToFarPoint()
+    {
+        var curveStrength = 3f;
+        var numberOfSteps = Random.Range(1, maxAirMoveCount);
+        for (var j = 0; j < numberOfSteps; j++)
+        {
+            var point = GetFarPoint();
+            var pos = transform.position;
+
+            var rot = transform.rotation;
+            var dir = (point - pos).normalized;
+            for (var i = 0f; i < 1; i += .05f)
+            {
+                transform.rotation = Quaternion.Lerp(rot, Quaternion.LookRotation(dir), i);
+                yield return null;
+            }
+
+            shouldShake = false;
+            for (var i = 0f; i < 1; i+=airMovementSpeed)
+            {
+                var target = point + Utils.SimpleCurve(i) * curveStrength * Vector3.down;
+                transform.position = Vector3.Lerp(pos, target, moveCurve.Evaluate(i));
+                yield return null;
+            }
+            shouldShake = true;
+        }
+    }
+
+    Vector3 GetFarPoint()
+    {
+        var playerPos = player.transform.position;
+        var all = flyPoints
+            .Select(x => (position: x.position, distance: Vector3.Distance(x.position, playerPos)))
+            .OrderByDescending(x => x.distance)
+            .Take(4)
+            .ToArray();
+        var point = all[Random.Range(0, all.Length)];
+        return new Vector3(point.position.x, transform.position.y, point.position.z);
+    }
+
+    IEnumerator WaitLooking(float time)
+    {
+        var t = Time.time + time;
+        while (Time.time <= t)
+        {
+            transform.LookAt(player.transform);
+            yield return null;
+        }
+    }
+
+    IEnumerator RunAwayCoroutine()
+    {
+        yield return TakeOff();
+        yield return WaitLooking(2f);
+        yield return GoToFarPoint();
+        yield return WaitLooking(1f);
+        yield return Land();
+    }
     void RunAway()
     {
+        IEnumerator routine()
+        {
+            yield return RunAwayCoroutine();
+            yield return WaitLooking(1f);
+            SetState(WaspState.Awake);
+        }
         currentState = WaspState.RunningAway;
+        StartCoroutine(routine());
+    }
+
+    IEnumerator Land()
+    {
+        shouldShake = false;
+        zunido.Stop();
+        var pos = transform.position;
+        var targetPos = new Vector3(pos.x, pos.y - flyOffset, pos.z);
+        audioSource.PlayOneShot(takeOffSound);
+        audioSource.PlayOneShot(takeOffWhoosh);
+        for (var i = 0f; i < 1; i+=takeOffSpeed)
+        {
+            transform.position = Vector3.Lerp(pos, targetPos, takeOffCurve.Evaluate(i));
+            yield return null;
+        }
+        audioSource.PlayOneShot(landSound);
+        inFly = false;
     }
 
     public void LookAtPlayer()
@@ -156,7 +257,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
                 dir = (player.transform.position - transform.position).normalized;
             }
 
-            SetState(WaspState.Seeking);
+            SetState(GetRandomState());
         }
 
         StartCoroutine(Looking());
@@ -183,9 +284,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
                 transform.position += transform.forward * seekSpeed * Time.deltaTime;
                 yield return null;
             }
-
-            yield return TakeOff();
-            //SetState(WaspState.Awake);
+            SetState(WaspState.Awake);
         }
 
         StartCoroutine(Follow());
@@ -200,4 +299,19 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     public void TakeDamage(float amount) { }
 
     public void Reset() { }
+
+
+    WaspState GetRandomState()
+    {
+        var percent = Random.Range(0, 101);
+        var action =
+            Actions
+                .Where(x => percent >= x.Value.from && percent <= x.Value.to)
+                .OrderBy(x => x.Value)
+                .First()
+                .Key;
+
+        return action;
+    }
+
 }

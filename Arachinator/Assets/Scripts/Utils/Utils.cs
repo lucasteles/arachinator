@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public static class Utils
@@ -33,4 +36,6 @@ public static class Utils
 
     public static bool IsInLayerMask(GameObject obj, LayerMask layerMask) =>
         (layerMask.value & (1 << obj.layer)) > 0;
+
+    public static float SimpleCurve(float x) => 4 * (-Mathf.Pow(x, 2) + x);
 }

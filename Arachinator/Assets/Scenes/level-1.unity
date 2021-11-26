@@ -30381,7 +30381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7785bb43c4f8e428ba617541ba1d6499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToSeek: 4
+  timeToSeek: 3
   seekSpeed: 3
   awake: {fileID: 8300000, guid: bf7491a3d85754638b25bfac58324b88, type: 3}
   roar: {fileID: 8300000, guid: 3fc8f9a91a31847baaa574dd1777d3ac, type: 3}
@@ -30430,10 +30430,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  flyOffset: 8
+  flyOffset: 5
   takeOffSpeed: 0.02
   takeOffSound: {fileID: 8300000, guid: 648539473adbf4fa4b328f7cfd3a5bea, type: 3}
   takeOffWhoosh: {fileID: 8300000, guid: b94beacf6de2a4387ac3543a9ef633df, type: 3}
+  landSound: {fileID: 8300000, guid: 39e705325edfb4d9ca9b38c0718a1920, type: 3}
   zunido: {fileID: 803364426}
   body: {fileID: 408982267}
   flyPoints:
@@ -30451,6 +30452,32 @@ MonoBehaviour:
   - {fileID: 1001978997}
   - {fileID: 798207030}
   airShakeSize: 0.02
+  moveCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  airMovementSpeed: 0.02
+  maxAirMoveCount: 5
 --- !u!114 &803364424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55862,18 +55889,6 @@ PrefabInstance:
       propertyPath: startPosition
       value: 
       objectReference: {fileID: 920972797}
-    - target: {fileID: 1048413615541081995, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 24300002, guid: 7cfd2dc06bf584972a3023fe02ef2aa6, type: 2}
-    - target: {fileID: 1048413615772019480, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 24300002, guid: 7cfd2dc06bf584972a3023fe02ef2aa6, type: 2}
-    - target: {fileID: 1048413615772019486, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -55888,7 +55903,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -58.99
+      value: -67.4
       objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_LocalRotation.w
