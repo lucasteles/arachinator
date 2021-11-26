@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Assets.Scripts.Cameras.Effects;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(WaspEffects))]
 public class Wasp : MonoBehaviour, IEnemy, IDamageble
@@ -16,7 +17,9 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         RunningAway
     }
 
-    [SerializeField] float timeToSeek;
+    [SerializeField] float timeToSeek = 5;
+    [SerializeField] float seekSpeed = 3;
+
     [SerializeField] AudioClip awake;
     [SerializeField] AudioClip roar;
     [SerializeField] CameraShakeData roarShake;
@@ -25,15 +28,22 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     [SerializeField] AnimationCurve takeOffCurve;
     [SerializeField] float flyOffset = 4;
     [SerializeField] float takeOffSpeed = .02f;
+    [SerializeField] AudioClip takeOffSound;
+    [SerializeField] AudioClip takeOffWhoosh;
+    [SerializeField] AudioSource zunido;
+    [SerializeField] GameObject body;
     [SerializeField] Transform[] flyPoints;
+    [SerializeField] float airShakeSize;
+
 
     WaspEffects waspEffects;
     AudioSource audioSource;
     WaspState currentState = WaspState.Sleep;
     Player player;
     Life playerLife;
-    NavMeshAgent navMeshAgent;
     Vector3 initialPos;
+    bool inFly;
+    bool shouldShake;
 
     public WaspState CurrentState => currentState;
     void Awake()
@@ -42,7 +52,6 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         audioSource = GetComponent<AudioSource>();
         player = FindObjectOfType<Player>();
         playerLife = player.GetComponent<Life>();
-        navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     void Start()
@@ -52,7 +61,11 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
     void Update()
     {
-        
+        if (currentState == WaspState.Sleep) return;
+
+        if (shouldShake && inFly)
+            Shake();
+
     }
 
     public void AwakeBoss() => StartCoroutine(Awakening());
@@ -70,23 +83,15 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
             yield return null;
         }
 
-       // yield return Roar();
+        yield return Roar();
 
-        yield return TakeOff();
-        //SetState(WaspState.Awake);
-    }
-
-    void StopNav()
-    {
-        if (navMeshAgent.isActiveAndEnabled && navMeshAgent.isStopped == false)
-            navMeshAgent.isStopped = true;
+        SetState(WaspState.Awake);
     }
 
     void SetState(WaspState newState)
     {
         print($"{currentState} -> {newState}");
         StopAllCoroutines();
-        StopNav();
         switch (newState)
         {
             case WaspState.Sleep:
@@ -106,16 +111,29 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
     }
 
+    public void Shake()
+    {
+        var x = Random.Range(-1, 2) * airShakeSize;
+        var y = Random.Range(-1, 2) * airShakeSize;
+        var z = Random.Range(-1, 2) * airShakeSize;
+        body.transform.localPosition = new Vector3(x, y, z);
+    }
+
     IEnumerator TakeOff()
     {
         var pos = transform.position;
         var targetPos = new Vector3(pos.x, pos.y + flyOffset, pos.z);
+        audioSource.PlayOneShot(takeOffSound);
+        audioSource.PlayOneShot(takeOffWhoosh);
         for (var i = 0f; i < 1; i+=takeOffSpeed)
         {
             transform.position = Vector3.Lerp(pos, targetPos, takeOffCurve.Evaluate(i));
             yield return null;
         }
 
+        inFly = shouldShake = true;
+        zunido.Play();
+        yield return new WaitForSeconds(2f);
     }
 
     void RunAway()
@@ -161,18 +179,16 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
             var timer = Time.time + timeToSeek;
             while (!playerLife.IsDead && Time.time <= timer)
             {
-                yield return new WaitForSeconds(.1f);
-                navMeshAgent.SetDestination(player.transform.position);
+                transform.LookAt(player.transform);
+                transform.position += transform.forward * seekSpeed * Time.deltaTime;
+                yield return null;
             }
-            print(1);
-            SetState(WaspState.Awake);
+
+            yield return TakeOff();
+            //SetState(WaspState.Awake);
         }
 
-        if (navMeshAgent.isActiveAndEnabled)
-        {
-            navMeshAgent.isStopped = false;
-            StartCoroutine(Follow());
-        }
+        StartCoroutine(Follow());
     }
 
 
