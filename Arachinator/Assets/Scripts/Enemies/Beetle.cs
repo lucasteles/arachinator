@@ -192,8 +192,8 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
             CameraAudioSource.Instance.AudioSource.PlayOneShot(deathAudio);
         CameraAudioSource.Instance.AudioSource.PlayOneShot(deathAudio2);
         var pos = transform.position;
-        var blood = Instantiate(dieEffect, new Vector3(pos.x, 0,pos.z), transform.rotation);
-        blood.transform.localScale *= Random.Range(2.5f, 3.5f);
+        var blood = Instantiate(dieEffect, pos, transform.rotation);
+        blood.transform.localScale *= Random.Range(1.5f, 2.5f);
         blood.transform.Rotate(Vector3.up,Random.Range(0f, 90f));
         Destroy(blood, 12);
         Destroy(gameObject);
