@@ -33,6 +33,7 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
     Animator animator;
     TrailRenderer trailRenderer;
     CapsuleCollider hitCollider;
+    EnemyEffects enemyEffects;
 
     bool inTracke = false;
     bool trackeHit = true;
@@ -52,6 +53,7 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
         target = FindObjectOfType<Player>().GetComponent<Life>();
         animator = GetComponentInChildren<Animator>();
         trailRenderer = GetComponentInChildren<TrailRenderer>();
+        enemyEffects = GetComponentInChildren<EnemyEffects>();
         life.onDeath += LifeOnDeath;
         tracke.onTracke += Trackle;
     }
@@ -294,6 +296,7 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
         yield return new WaitForSeconds(.5f);
         inTracke = false;
         navMeshAgent.ResetPath();
+        enemyEffects.RestoreMaterials();
         SetState(State.Seeking);
     }
 
@@ -367,6 +370,14 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
             SetState(State.Seeking);
     }
 
+    Coroutine blink;
+    IEnumerator Blink()
+    {
+        enemyEffects.UseDeflectShader();
+        yield return new WaitForSeconds(.2f);
+        enemyEffects.RestoreMaterials();
+    }
+
     void OnCollisionEnter(Collision other)
     {
         if (!inTracke) return;
@@ -378,6 +389,8 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
             var currentDir = (transform.position - other.transform.position).normalized;
             var dir = Vector3.Reflect(currentDir, other.contacts[0].normal);
             CameraAudioSource.Instance.AudioSource.PlayOneShot(deflectSound);
+            if (blink != null) StopCoroutine(blink);
+            blink = StartCoroutine(Blink());
             other.transform.rotation = Quaternion.LookRotation(dir);
             bulletRb.velocity = new Vector3(dir.x, currentDir.y, dir.y) * mag + rb.velocity;
             return;
