@@ -59,4 +59,5 @@ public class Life : MonoBehaviour
     {
         currentLife = 0;
     }
+
 }
