@@ -274,21 +274,26 @@ public class Enemy : MonoBehaviour, IDamageble, IEnemy
             StopNav();
             Invoke(nameof(Walk), .5f);
         }
-        TakeDamage(amount);
 
-        CameraAudioSource.Instance.AudioSource.PlayOneShot(hitSound);
+        if (amount > 0)
+        {
+            TakeDamage(amount);
+            CameraAudioSource.Instance.AudioSource.PlayOneShot(hitSound);
+            var i = Random.Range(0, bloodEffects.Length );
+            var blood = Instantiate(bloodEffects[i], @from, transform.rotation);
+            blood.transform.Rotate(Vector3.up,Random.rotation.eulerAngles.y);
+            blood.transform.localScale *= 1.5f;
+            Destroy(blood, 8);
+
+            if (currentState != State.Seeking && currentState != State.Shooting)
+                SetState(State.Seeking);
+        }
+
         rb.velocity = Vector3.zero;
         rb.isKinematic = false;
-        var direction = (transform.position - target.transform.position).normalized;
+        var direction = (transform.position - @from).normalized;
         rb.AddForce(direction * force, ForceMode.VelocityChange);
-        var i = Random.Range(0, bloodEffects.Length );
-        var blood = Instantiate(bloodEffects[i], @from, transform.rotation);
-        blood.transform.Rotate(Vector3.up,Random.rotation.eulerAngles.y);
-        blood.transform.localScale *= 1.5f;
-        Destroy(blood, 8);
 
-        if (currentState != State.Seeking && currentState != State.Shooting)
-            SetState(State.Seeking);
     }
 
 }

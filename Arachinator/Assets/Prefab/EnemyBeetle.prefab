@@ -421,6 +421,36 @@ MonoBehaviour:
   timeToChangeSlider: 0.3
   life: {fileID: 1581816596}
   canvas: {fileID: 18490481}
+--- !u!1 &2033190224
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2033190225}
+  m_Layer: 13
+  m_Name: EnemyCheckerPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2033190225
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033190224}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 2.009}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8527039263426274550}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &315201184307164450
 GameObject:
   m_ObjectHideFlags: 0
@@ -1466,6 +1496,7 @@ Transform:
   m_Children:
   - {fileID: 8204600250231415562}
   - {fileID: 18490480}
+  - {fileID: 2033190225}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1539,6 +1570,8 @@ MonoBehaviour:
   layersToTrackleIgnore:
     serializedVersion: 2
     m_Bits: 13632
+  enemyCheckerPoint: {fileID: 2033190224}
+  enemyPushForce: 50
   config: {fileID: 11400000, guid: 3e6de3f8ac3614419a9d9c7ff1fbda4b, type: 2}
 --- !u!96 &749355618
 TrailRenderer:

@@ -20,6 +20,8 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
     [SerializeField]GameObject trackEffect;
     [SerializeField]float trackeForce;
     [SerializeField]LayerMask layersToTrackleIgnore;
+    [SerializeField]GameObject enemyCheckerPoint;
+    [SerializeField]float enemyPushForce;
 
     [SerializeField]EnemyConfiguration config;
 
@@ -95,6 +97,18 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
 
         if (!navMeshAgent.isStopped)
             Debug.DrawLine(navMeshAgent.destination, navMeshAgent.destination + Vector3.up * 5, Color.white);
+
+        if (inTracke && rb.velocity.sqrMagnitude > .01f
+            && Physics.SphereCast(
+                enemyCheckerPoint.transform.position,
+                myCollider.size.x / 2,
+                transform.forward,
+                out var hit, 2f,
+                LayerMask.GetMask("Enemy"))
+            && hit.transform.TryGetComponent<IDamageble>(out var damageble))
+        {
+            damageble.TakeHit(0, hit.point, enemyPushForce);
+        }
     }
 
     bool SeeTarget() => Utils.SeeTargetInFront(config.view, config.distanceToView, transform, target)
@@ -367,21 +381,24 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
             Invoke(nameof(Walk), .5f);
         }
 
-        TakeDamage(amount);
-        CameraAudioSource.Instance.AudioSource.PlayOneShot(hitSound);
         rb.isKinematic = false;
         rb.velocity = Vector3.zero;
         var direction = (transform.position - target.transform.position).normalized;
         rb.AddForce(direction * force * .8f, ForceMode.VelocityChange);
 
-        var i = Random.Range(0, bloodEffects.Length );
-        var blood = Instantiate(bloodEffects[i], @from, transform.rotation);
-        blood.transform.Rotate(Vector3.up,Random.rotation.eulerAngles.y);
-        blood.transform.localScale *= 2f;
-        Destroy(blood, 8);
+        if (amount > 0)
+        {
+            TakeDamage(amount);
+            CameraAudioSource.Instance.AudioSource.PlayOneShot(hitSound);
+            var i = Random.Range(0, bloodEffects.Length);
+            var blood = Instantiate(bloodEffects[i], @from, transform.rotation);
+            blood.transform.Rotate(Vector3.up, Random.rotation.eulerAngles.y);
+            blood.transform.localScale *= 2f;
+            Destroy(blood, 8);
 
-        if (currentState != State.Seeking && currentState != State.Shooting)
-            SetState(State.Seeking);
+            if (currentState != State.Seeking && currentState != State.Shooting)
+                SetState(State.Seeking);
+        }
     }
 
     Coroutine blink;

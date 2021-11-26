@@ -57,7 +57,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6863857337172796869}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: ee0beb316abb44b8cbb804ab1f745352, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -79,7 +79,7 @@ MonoBehaviour:
   lifespan: 1
   impact: {fileID: 8300000, guid: fa66fc96712da41ef9dac6ce9edfa666, type: 3}
   damage: 1
-  force: 12
+  force: 14
 --- !u!1 &6863857337905034704
 GameObject:
   m_ObjectHideFlags: 0
