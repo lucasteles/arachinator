@@ -1,6 +1,6 @@
 # Arachinator
 
-The Wasps are zombifying the bugs to dominate the world destroy all giant zombie bugs with your Big Turet Spider.
+The wasps are zombifying the bugs to dominate the world, destroy all zombie bugs with your BTS (big turret spider).
 
 ## About
 
