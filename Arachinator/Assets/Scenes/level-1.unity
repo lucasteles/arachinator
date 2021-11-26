@@ -1511,8 +1511,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 14.791594, y: 1.4673728, z: 9.867439}
-  m_Center: {x: -6.290057, y: 0.23368639, z: -11.050327}
+  m_Size: {x: 10.986578, y: 1.4673728, z: 8.915031}
+  m_Center: {x: -7.676162, y: 0.23368639, z: -9.587635}
 --- !u!1 &50785398 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1556200662759192, guid: 42eeb2cb84e945f48bfbf7e4a450d54b, type: 3}
@@ -14795,7 +14795,7 @@ Transform:
   m_GameObject: {fileID: 408982267}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.6413939, y: 1.6413939, z: 1.6413939}
   m_Children:
   - {fileID: 1857581726}
   m_Father: {fileID: 803364422}
@@ -30278,6 +30278,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   awake: {fileID: 8300000, guid: bf7491a3d85754638b25bfac58324b88, type: 3}
+  roar: {fileID: 8300000, guid: 3fc8f9a91a31847baaa574dd1777d3ac, type: 3}
+  roarShake:
+    timeToShake: 0
+    magnitude: 0.3
 --- !u!114 &803364424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43172,7 +43176,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1156767559}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -8.92, y: -4.12, z: 21}
+  m_LocalPosition: {x: -8.92, y: -3.04, z: 28.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 48334956}
