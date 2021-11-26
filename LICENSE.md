@@ -13,3 +13,12 @@ version 4.0 (CC-BY 4.0) <https://creativecommons.org/licenses/by/4.0/legalcode>.
 All assets in PolygonSciFiCity Copyright (c) 2021 , Synty Studios Limited  
 May not be redistributed under Synty Store End User License  
 As at 7 October 2019 <https://syntystore.com/pages/end-user-licence-agreement>
+
+************************************************************************
+ 
+
+Artillery shell icon and Broken Heart icon assets Copyright (c) 2021 , Quoting and Lorc respectively  
+Distributed under the terms of the Creative Commons Attribution License  
+version 3.0 (CC-BY 3.0) <https://creativecommons.org/licenses/by/3.0/legalcode>.
+
+************************************************************************
