@@ -25,10 +25,9 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     public Dictionary<WaspState, (int from, int to)> Actions =
         new Dictionary<WaspState, (int, int)>
     {
-        [WaspState.Seeking] = (0, 20),
-        [WaspState.RunningAway] = (20, 100),
+        [WaspState.Seeking] = (0, 50),
+        [WaspState.RunningAway] = (50, 100),
         [WaspState.RunningAwayAndShoot] = (0,0),
-        [WaspState.SpawnEnemies] = (0,0),
         [WaspState.Shoot] = (0,0),
     };
 
@@ -148,6 +147,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         for (var i = 0f; i < 1; i+=takeOffSpeed)
         {
             transform.position = Vector3.Lerp(pos, targetPos, takeOffCurve.Evaluate(i));
+            transform.LookAt(player.transform);
             yield return null;
         }
 
@@ -157,26 +157,19 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
     IEnumerator GoToFarPoint()
     {
-        var curveStrength = 3f;
+        var curveStrength = 2f;
         var numberOfSteps = Random.Range(1, maxAirMoveCount);
         for (var j = 0; j < numberOfSteps; j++)
         {
             var point = GetFarPoint();
             var pos = transform.position;
 
-            var rot = transform.rotation;
-            var dir = (point - pos).normalized;
-            for (var i = 0f; i < 1; i += .05f)
-            {
-                transform.rotation = Quaternion.Lerp(rot, Quaternion.LookRotation(dir), i);
-                yield return null;
-            }
-
             shouldShake = false;
             for (var i = 0f; i < 1; i+=airMovementSpeed)
             {
                 var target = point + Utils.SimpleCurve(i) * curveStrength * Vector3.down;
                 transform.position = Vector3.Lerp(pos, target, moveCurve.Evaluate(i));
+                transform.LookAt(player.transform);
                 yield return null;
             }
             shouldShake = true;
@@ -198,11 +191,13 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     IEnumerator WaitLooking(float time)
     {
         var t = Time.time + time;
+        var rot = transform.rotation;
         while (Time.time <= t)
         {
             transform.LookAt(player.transform);
             yield return null;
         }
+        transform.rotation = rot;
     }
 
     IEnumerator RunAwayCoroutine()
@@ -303,7 +298,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
     WaspState GetRandomState()
     {
-        var percent = Random.Range(0, 101);
+        var percent = Random.Range(0, 100);
         var action =
             Actions
                 .Where(x => percent >= x.Value.from && percent <= x.Value.to)

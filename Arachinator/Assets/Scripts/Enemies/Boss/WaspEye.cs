@@ -22,18 +22,18 @@ public class WaspEye : MonoBehaviour
     public IEnumerator OpenEyes()
     {
         var currentColor = waspEyeClosed.color;
-        var currentEmission = waspEyeClosed.GetVector(EmissionColor);
+        var currentEmission = waspEyeClosed.GetColor(EmissionColor);
         var targetColor = waspEye.color;
-        var targetEmission = waspEye.GetVector(EmissionColor);
+        var targetEmission = waspEye.GetColor(EmissionColor);
 
-        yield return new WaitForSeconds(.8f);
         for (var i = 0f; i <= 1; i+=speed)
         {
             currentMaterial.color = Color.Lerp(currentColor, targetColor, i);
-            currentMaterial.SetVector(EmissionColor, Vector4.Lerp(currentEmission, targetEmission, i));
+            currentMaterial.SetColor(EmissionColor, Color.Lerp(currentEmission, targetEmission, i));
             yield return null;
         }
         renderer.sharedMaterial = waspEye;
+        yield return new WaitForSeconds(.8f);
     }
 
 
