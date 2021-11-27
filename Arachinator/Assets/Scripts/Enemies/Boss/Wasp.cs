@@ -24,8 +24,8 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     public Dictionary<WaspState, (int from, int to)> Actions =
         new Dictionary<WaspState, (int, int)>
     {
-        [WaspState.Seeking] = (0, 10),
-        [WaspState.RunningAway] = (10, 100),
+        [WaspState.Seeking] = (0, 50),
+        [WaspState.RunningAway] = (50, 100),
         [WaspState.RunningAwayAndShoot] = (0,0),
         [WaspState.Shoot] = (0,0),
     };
@@ -396,7 +396,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         audioSource.PlayOneShot(roar);
         roarShake.timeToShake = roar.length;
         CameraShaker.Instance.Shake(roarShake);
-        yield return new WaitForSeconds(roar.length);
+        yield return WaitLooking(roar.length);
     }
 
     public void StartFollow()
