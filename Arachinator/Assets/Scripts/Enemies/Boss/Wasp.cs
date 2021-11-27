@@ -203,7 +203,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     IEnumerator RunAwayCoroutine()
     {
         yield return TakeOff();
-        yield return WaitLooking(2f);
+        yield return WaitLooking(.5f);
         yield return GoToFarPoint();
         yield return WaitLooking(1f);
         yield return Land();
@@ -225,7 +225,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         shouldShake = false;
         zunido.Stop();
         var pos = transform.position;
-        var targetPos = new Vector3(pos.x, pos.y - flyOffset, pos.z);
+        var targetPos = new Vector3(pos.x, initialPos.y, pos.z);
         audioSource.PlayOneShot(takeOffSound);
         audioSource.PlayOneShot(takeOffWhoosh);
         for (var i = 0f; i < 1; i+=takeOffSpeed)
@@ -243,7 +243,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
         IEnumerator Looking()
         {
-            yield return new WaitForSeconds(.5f);
+            yield return new WaitForSeconds(.2f);
             var dir = (player.transform.position - transform.position).normalized;
             while (Vector3.Dot(transform.forward, dir) < .8f)
             {
