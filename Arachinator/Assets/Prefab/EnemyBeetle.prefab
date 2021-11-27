@@ -1762,7 +1762,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99b74faca78a0407bbcdf506fe40df6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deflectMaterial: {fileID: 2100000, guid: 2dc64c223575146c19b200c14e6ce475, type: 2}
+  material: {fileID: 2100000, guid: 2dc64c223575146c19b200c14e6ce475, type: 2}
 --- !u!1 &9160429943510424366
 GameObject:
   m_ObjectHideFlags: 0

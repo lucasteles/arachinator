@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Cuspe : MonoBehaviour
@@ -11,6 +8,7 @@ public class Cuspe : MonoBehaviour
     [SerializeField] float damage = 1f;
     [SerializeField] float force = 10f;
     [SerializeField] GameObject explosion;
+    [SerializeField] Pools pool = Pools.FireBall;
     Rigidbody bulletRigidbody;
     void Awake() => bulletRigidbody = GetComponent<Rigidbody>();
 
@@ -24,7 +22,7 @@ public class Cuspe : MonoBehaviour
     {
         if (!gameObject) return;
         bulletRigidbody.velocity = Vector3.zero;
-        ObjectPooling.GiveBack(Pools.Cuspe, gameObject);
+        ObjectPooling.GiveBack(pool, gameObject);
     }
 
     void OnCollisionEnter(Collision other)

@@ -7,20 +7,24 @@ using UnityEngine;
 
 public class EnemyEffects : MonoBehaviour
 {
-    [SerializeField]Material deflectMaterial;
+    [SerializeField]Material material;
+    [SerializeField]Material[] ignore;
 
     Renderer[] renderers;
     Dictionary<Renderer, Material> originalMaterials;
     Dictionary<Renderer, Material> deflectMaterialsCache;
     static readonly int FresnelLevel = Shader.PropertyToID("_FresnelLevel");
 
-    void Awake() => renderers = GetComponentsInChildren<Renderer>().ToArray();
+    void Awake() => renderers = GetComponentsInChildren<Renderer>()
+                .Where(x =>  !ignore.Contains(x.sharedMaterial))
+                .ToArray();
 
     void Start()
     {
-        deflectMaterialsCache = InstantiateMaterials(deflectMaterial);
+        deflectMaterialsCache = InstantiateMaterials(material);
         originalMaterials =
-            renderers.Select(r => (r, r.sharedMaterial))
+            renderers
+                .Select(r => (r, r.sharedMaterial))
                 .ToDictionary(x => x.r, x => x.sharedMaterial);
     }
 

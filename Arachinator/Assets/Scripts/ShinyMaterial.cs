@@ -27,11 +27,10 @@ public class ShinyMaterial : MonoBehaviour
     {
         var color = currentMaterial.GetVector(EmissionColor);
         currentMaterial.color = onColor;
-        float curve (float x) => 4 * (-Mathf.Pow(x, 2) + x);
         for (var k = 0; k < 3; k++)
         for (var i = 0f; i < 1; i+=step)
         {
-            currentMaterial.SetVector(EmissionColor, color * Mathf.Lerp(1, power, curve(i)));
+            currentMaterial.SetVector(EmissionColor, color * Mathf.Lerp(1, power, Utils.SimpleCurve(i)));
             yield return null;
         }
 
