@@ -13,6 +13,7 @@ public class Life : MonoBehaviour
 
     public event Action<Life> onDeath;
     public event Action<float, float> onLifeChange;
+    public event Action<float> onSubtract;
 
     void Start() => Reset();
 
@@ -37,6 +38,7 @@ public class Life : MonoBehaviour
     public void Subtract(float amount)
     {
         currentLife -= amount;
+        onSubtract?.Invoke(amount);
         InvokeEvent();
     }
 
