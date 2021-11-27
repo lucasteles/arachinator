@@ -36,6 +36,7 @@ public class Player : MonoBehaviour, IDamageble
     bool inDash = false;
     bool hasWebPistol = false;
 
+    public Movement Movement => movement;
     public bool IsInvincible {
         get => invincible;
         private set => invincible = value; }
@@ -127,6 +128,16 @@ public class Player : MonoBehaviour, IDamageble
         audioSource.PlayOneShot(hit);
         TakeDamage(amount);
     }
+
+
+    public void PushBack(Vector3 from, float force)
+    {
+        rb.velocity = Vector3.zero;
+        movement.Lock(damageTime);
+        var direction = (transform.position - from).normalized;
+        rb.AddForce(new Vector3(direction.x,0,direction.z) * force, ForceMode.Acceleration);
+    }
+
 
     IEnumerator DieAnimation()
     {

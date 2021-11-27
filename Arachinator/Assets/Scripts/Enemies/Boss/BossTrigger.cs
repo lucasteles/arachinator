@@ -22,7 +22,7 @@ public class BossTrigger : MonoBehaviour
     {
         var player = FindObjectOfType<Player>();
         playerLife = player.GetComponent<Life>();
-        playerMovement = player.GetComponent<Movement>();
+        playerMovement = player.Movement;
         originalMusic = musicSource.clip;
         playerLife.onDeath += PlayerDeath;
     }
