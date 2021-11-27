@@ -49,7 +49,7 @@ public class Player : MonoBehaviour, IDamageble
         audioSource = GetComponent<AudioSource>();
         life.onDeath += OnDeath;
         life.onLifeChange += OnLifeChange;
-        ui = GameObject.Find("PlayerLifeSlide").GetComponent<PlayerHealthPointsUi>();
+        ui = GameObject.Find("PlayerLifeSlide")?.GetComponent<PlayerHealthPointsUi>();
     }
 
     void OnLifeChange(float current, float max)
@@ -151,7 +151,7 @@ public class Player : MonoBehaviour, IDamageble
 
         audioSource.PlayOneShot(dieSound);
 
-        var dissolveStep = 0.0065f;
+        var dissolveStep = 0.01f;
         if (!IsInFall())
         {
             yield return DieJumpAnimation(aimLegCubes, dissolveStep);

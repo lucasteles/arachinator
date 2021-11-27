@@ -11,6 +11,7 @@ public class BossTrigger : MonoBehaviour
     [SerializeField] AudioClip bossMusic;
     [SerializeField] Wasp wasp;
     [SerializeField] CanvasGroup bossHeathBar;
+    [SerializeField] GameObject[] toDisable;
 
     AudioClip originalMusic;
     Life playerLife;
@@ -32,11 +33,14 @@ public class BossTrigger : MonoBehaviour
 
     IEnumerator Respawn()
     {
-        yield return new WaitUntil(() => playerLife.IsFull() && !playerMovement.IsLocked());
+        //yield return new WaitUntil(() => playerLife.IsFull() && !playerMovement.IsLocked());
+        yield return new WaitForSeconds(3);
         musicSource.clip = originalMusic;
         musicSource.Play();
         bossHeathBar.alpha = 0;
         wasp.Reset();
+        foreach (var obj in toDisable)
+            obj.SetActive(true);
 
         inBatle = false;
     }
@@ -54,6 +58,10 @@ public class BossTrigger : MonoBehaviour
         FindObjectOfType<Player>().RespawnPosition = respownPoint.position;
         wasp.AwakeBoss();
         musicSource.Stop();
+
+        foreach (var obj in toDisable)
+            obj.SetActive(false);
+
         yield return new WaitUntil(() => wasp.CurrentState != Wasp.WaspState.Sleep);
         StartBossMusic();
         for (var i = 0f; i < 1; i += .05f)

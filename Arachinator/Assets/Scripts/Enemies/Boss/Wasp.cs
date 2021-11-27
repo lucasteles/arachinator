@@ -84,6 +84,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     bool damageBlinking;
     bool deflectBlinking;
     bool invincible;
+    bool firstEncounter = true;
 
     public WaspState CurrentState => currentState;
     void Awake()
@@ -161,7 +162,16 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         ObjectPooling.Get(Pools.FireBall, shootPoint.position, transform.rotation);
     }
 
-    public void AwakeBoss() => StartCoroutine(Awakening());
+    public void AwakeBoss()
+    {
+        if (firstEncounter)
+        {
+            StartCoroutine(Awakening());
+            firstEncounter = false;
+        }
+        else
+            SetState(WaspState.Awake);
+    }
 
     IEnumerator Awakening()
     {
@@ -458,6 +468,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
     public void Reset()
     {
+        zunido.Stop();
         damageAcumulator = 0;
         transform.position = initialPos;
         transform.rotation = initialRot;

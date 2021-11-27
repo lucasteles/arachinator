@@ -16,7 +16,7 @@ As at 7 October 2019 <https://syntystore.com/pages/end-user-licence-agreement>
 
 ************************************************************************
  
-Artillery shell icon and Broken Heart icon assets Copyright (c) 2021 , Quoting and Lorc respectively  
+Artillery shell, Broken Heart and Mouse icon assets Copyright (c) 2021 , Quoting, Lorc and Delapouite respectively  
 Distributed under the terms of the Creative Commons Attribution License  
 version 3.0 (CC-BY 3.0) <https://creativecommons.org/licenses/by/3.0/legalcode>.
 
