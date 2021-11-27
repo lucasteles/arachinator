@@ -35,10 +35,14 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
     [SerializeField] AudioClip awake;
     [SerializeField] AudioClip roar;
+    [SerializeField] AudioClip hurt;
+    [SerializeField] AudioClip deflectSound;
     [SerializeField] CameraShakeData roarShake;
     [SerializeField] GameObject hitEffect;
     [SerializeField] AudioClip hitSound;
     [SerializeField] PlayerHealthPointsUi heathBar;
+    [SerializeField] EnemyEffects damageEffect;
+    [SerializeField] EnemyEffects reflectEffect;
 
     [Header("Fly")]
     [SerializeField] AnimationCurve takeOffCurve;
@@ -60,7 +64,9 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     [SerializeField] AudioClip projectileSound;
     [SerializeField] Transform shootPoint;
 
-
+    [Header("Wave")]
+    [SerializeField] WaveController wave;
+    [SerializeField] GameObject[] spawnPoints;
 
     WaspEffects waspEffects;
     AudioSource audioSource;
@@ -68,13 +74,16 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     Player player;
     Life playerLife;
     Vector3 initialPos;
+    Quaternion initialRot;
     Vector3 velocity;
     Rigidbody rb;
     Life life;
-    EnemyEffects enemyEffects;
+    float damageAcumulator;
     bool inFly;
     bool shouldShake;
-    bool blinking;
+    bool damageBlinking;
+    bool deflectBlinking;
+    bool invincible;
 
     public WaspState CurrentState => currentState;
     void Awake()
@@ -83,25 +92,52 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         audioSource = GetComponent<AudioSource>();
         player = FindObjectOfType<Player>();
         playerLife = player.GetComponent<Life>();
-        enemyEffects = GetComponent<EnemyEffects>();
         rb = GetComponent<Rigidbody>();
         life = GetComponent<Life>();
         life.onLifeChange += onLifeChange;
+        life.onSubtract += onLifeSubtract;
+        wave.OnWaveEnded += WaveOnOnWaveEnded;
     }
 
-    void OnDestroy() =>
+    void WaveOnOnWaveEnded()
+    {
+        if (currentState == WaspState.SpawnEnemies)
+            SetState(WaspState.Awake);
+
+        if (!wave.NextWave())
+            damageAcumulator = float.NegativeInfinity;
+    }
+
+    void onLifeSubtract(float damage)
+    {
+        damageAcumulator += damage;
+        if (damageAcumulator >= (.25 * life.MaxLife))
+        {
+            damageAcumulator = 0;
+            SetState(WaspState.SpawnEnemies);
+        }
+
+    }
+
+    void OnDestroy()
+    {
         life.onLifeChange -= onLifeChange;
+        life.onSubtract -= onLifeSubtract;
+    }
 
     void onLifeChange(float arg1, float arg2)
     {
         if (!heathBar) return;
         heathBar.SetMaxHealth(life.MaxLife);
         heathBar.SetHealth(life.CurrentLife);
+
     }
 
     void Start()
     {
         initialPos = transform.position;
+        initialRot = transform.rotation;
+        damageAcumulator = 0;
     }
 
     void Update()
@@ -134,7 +170,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
         var dir = (player.transform.position - transform.position).normalized;
         var rot = transform.rotation;
-        for (var i = 0f; i < 1; i+=.05f)
+        for (var i = 0f; i <= 1; i+=.05f)
         {
             transform.rotation = Quaternion.Lerp(rot, Quaternion.LookRotation(dir),i);
             yield return null;
@@ -147,7 +183,6 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
     void SetState(WaspState newState)
     {
-        print($"{currentState} -> {newState}");
         RestoreDefaults();
 
         switch (newState)
@@ -155,7 +190,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
             case WaspState.Sleep:
                 break;
             case WaspState.Awake:
-                LookAtPlayer();
+                LookingPlayer();
                 break;
             case WaspState.Seeking:
                 StartFollow();
@@ -163,17 +198,49 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
             case WaspState.RunningAway:
                 RunAway();
                 break;
+            case WaspState.SpawnEnemies:
+                StartWave();
+                break;
         }
 
+    }
+
+    void StartWave()
+    {
+        currentState = WaspState.SpawnEnemies;
+        invincible = true;
+        IEnumerator WaveIt()
+        {
+            audioSource.PlayOneShot(hurt);
+            if (inFly)
+                yield return Land();
+            yield return WaitLooking(1f);
+            yield return Roar();
+            var flyingAround = StartCoroutine(GoToFarPoint(true));
+
+            yield return wave.Spawn(spawnPoints, player.transform);
+
+            invincible = false;
+            yield return new WaitUntil(() => currentState != WaspState.SpawnEnemies);
+            StopCoroutine(flyingAround);
+        }
+
+        StartCoroutine(WaveIt());
     }
 
     private void RestoreDefaults()
     {
         StopAllCoroutines();
-        if (blinking)
+        if (damageBlinking)
         {
-            enemyEffects.RestoreMaterials();
-            blinking = false;
+            damageEffect.RestoreMaterials();
+            damageBlinking = false;
+        }
+
+        if (deflectBlinking)
+        {
+            reflectEffect.RestoreMaterials();
+            deflectBlinking = false;
         }
     }
 
@@ -192,10 +259,10 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         var targetPos = new Vector3(pos.x, pos.y + flyOffset, pos.z);
         audioSource.PlayOneShot(takeOffSound);
         audioSource.PlayOneShot(takeOffWhoosh);
-        for (var i = 0f; i < 1; i+=takeOffSpeed)
+        for (var i = 0f; i <= 1; i+=takeOffSpeed)
         {
             transform.position = Vector3.Lerp(pos, targetPos, takeOffCurve.Evaluate(i));
-            transform.LookAt(player.transform);
+            LookAtPlayer();
             yield return null;
         }
 
@@ -203,21 +270,23 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         zunido.Play();
     }
 
-    IEnumerator GoToFarPoint()
+
+    IEnumerator GoToFarPoint(bool forever = false)
     {
         var curveStrength = 2f;
         var numberOfSteps = Random.Range(1, maxAirMoveCount);
-        for (var j = 0; j < numberOfSteps; j++)
+        for (var j = 0; j <= numberOfSteps; j++)
         {
+            if (forever) j = 0;
             var point = GetFarPoint();
             var pos = transform.position;
 
             shouldShake = false;
-            for (var i = 0f; i < 1; i+=airMovementSpeed)
+            for (var i = 0f; i <= 1; i+=airMovementSpeed)
             {
                 var target = point + Utils.SimpleCurve(i) * curveStrength * Vector3.down;
                 transform.position = Vector3.Lerp(pos, target, moveCurve.Evaluate(i));
-                transform.LookAt(player.transform);
+                LookAtPlayer();
                 yield return null;
 
             }
@@ -245,7 +314,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         var rot = transform.rotation;
         while (Time.time <= t)
         {
-            transform.LookAt(player.transform);
+            LookAtPlayer();
             yield return null;
         }
         transform.rotation = rot;
@@ -279,16 +348,28 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         var targetPos = new Vector3(pos.x, initialPos.y, pos.z);
         audioSource.PlayOneShot(takeOffSound);
         audioSource.PlayOneShot(takeOffWhoosh);
-        for (var i = 0f; i < 1; i+=takeOffSpeed)
+        for (var i = 0f; i <= 1; i+=takeOffSpeed)
         {
             transform.position = Vector3.Lerp(pos, targetPos, takeOffCurve.Evaluate(i));
             yield return null;
         }
+        transform.position = targetPos;
         audioSource.PlayOneShot(landSound);
         inFly = false;
     }
 
-    public void LookAtPlayer()
+    void LookAtPlayer()
+    {
+        if (inFly)
+            transform.LookAt(player.transform);
+        else
+        {
+            var pos = player.transform.position;
+            transform.LookAt(new Vector3(pos.x, transform.position.y, pos.z));
+        }
+    }
+
+    public void LookingPlayer()
     {
         currentState = WaspState.Awake;
 
@@ -326,7 +407,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
             var timer = Time.time + timeToSeek;
             while (!playerLife.IsDead && Time.time <= timer)
             {
-                transform.LookAt(player.transform);
+                LookAtPlayer();
                 transform.position = (transform.position + transform.forward * seekSpeed * Time.deltaTime);
                 yield return null;
             }
@@ -338,11 +419,14 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
     public void SetConfiguration(EnemyConfiguration configuration) { }
 
-    public bool ShouldDeflect { get; } = false;
+    public bool ShouldDeflect => invincible || currentState == WaspState.Sleep;
 
     public void TakeHit(float amount, Vector3 @from, float force)
     {
-        if (currentState == WaspState.Sleep) return;
+        if (currentState == WaspState.Sleep || invincible)
+        {
+            return;
+        }
 
         TakeDamage(amount);
         if (Random.Range(-1,1) == 0)
@@ -352,20 +436,54 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         blood.transform.Rotate(Vector3.up,Random.rotation.eulerAngles.y);
         blood.transform.localScale *= 4f;
         Destroy(blood, 4);
-        StartCoroutine(Blink());
+        StartCoroutine(BlinkDamage());
     }
 
     public void TakeDamage(float amount) => life.Subtract(amount);
 
-    public void Reset() { }
-
-    IEnumerator Blink()
+    void OnCollisionEnter(Collision other)
     {
-        blinking = true;
-        enemyEffects.UseDeflectShader();
+        if (!ShouldDeflect) return;
+        if (!other.transform.CompareTag("Projectile")) return;
+
+        var bulletRb = other.transform.GetComponent<Rigidbody>();
+        var mag = bulletRb.velocity.magnitude;
+        var currentDir = (transform.position - other.transform.position).normalized;
+        var dir = Vector3.Reflect(currentDir, other.contacts[0].normal);
+        CameraAudioSource.Instance.AudioSource.PlayOneShot(deflectSound);
+        other.transform.rotation = Quaternion.LookRotation(dir);
+        bulletRb.velocity = new Vector3(dir.x, currentDir.y, dir.y) * mag;
+        StartCoroutine(BlinkReflect());
+    }
+
+    public void Reset()
+    {
+        damageAcumulator = 0;
+        transform.position = initialPos;
+        transform.rotation = initialRot;
+        wave.Reset();
+        life.Reset();
+        invincible = false;
+        inFly = shouldShake = damageBlinking = false;
+
+        SetState(WaspState.Sleep);
+    }
+
+    IEnumerator BlinkDamage()
+    {
+        damageBlinking = true;
+        damageEffect.UseDeflectShader();
         yield return new WaitForSeconds(.2f);
-        enemyEffects.RestoreMaterials();
-        blinking = false;
+        damageEffect.RestoreMaterials();
+        damageBlinking = false;
+    }
+    IEnumerator BlinkReflect()
+    {
+        deflectBlinking = true;
+        reflectEffect.UseDeflectShader();
+        yield return new WaitForSeconds(.2f);
+        reflectEffect.RestoreMaterials();
+        deflectBlinking = false;
     }
 
     WaspState GetRandomState()

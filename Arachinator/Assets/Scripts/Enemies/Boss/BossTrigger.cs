@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class BossTrigger : MonoBehaviour
 {
-
     [SerializeField] Transform respownPoint;
     [SerializeField] AudioClip onSight;
     [SerializeField] AudioSource musicSource;

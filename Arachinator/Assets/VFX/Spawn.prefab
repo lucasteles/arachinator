@@ -4752,7 +4752,7 @@ GameObject:
   - component: {fileID: 19951694}
   - component: {fileID: 19831394}
   m_Layer: 0
-  m_Name: TeleportFinish
+  m_Name: Spawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
