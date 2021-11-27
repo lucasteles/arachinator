@@ -3,9 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Cameras.Effects;
-using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(WaspEffects))]
@@ -37,6 +35,8 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     [SerializeField] AudioClip awake;
     [SerializeField] AudioClip roar;
     [SerializeField] CameraShakeData roarShake;
+    [SerializeField] GameObject hitEffect;
+    [SerializeField] AudioClip hitSound;
 
     [Header("Fly")]
     [SerializeField] AnimationCurve takeOffCurve;
@@ -58,14 +58,18 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     [SerializeField] AudioClip projectileSound;
     [SerializeField] Transform shootPoint;
 
+
+
     WaspEffects waspEffects;
     AudioSource audioSource;
     WaspState currentState = WaspState.Sleep;
     Player player;
     Life playerLife;
     Vector3 initialPos;
+    EnemyEffects enemyEffects;
     bool inFly;
     bool shouldShake;
+    bool blinking;
 
     public WaspState CurrentState => currentState;
     void Awake()
@@ -74,6 +78,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         audioSource = GetComponent<AudioSource>();
         player = FindObjectOfType<Player>();
         playerLife = player.GetComponent<Life>();
+        enemyEffects = GetComponent<EnemyEffects>();
     }
 
 
@@ -92,12 +97,12 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         if (inFly && airShootCooldown && Random.Range(-1,1) == 0)
         {
             airShootCooldown.Reset();
-            Shoot();
+            AirShoot();
         }
 
     }
 
-    void Shoot()
+    void AirShoot()
     {
         CameraAudioSource.Instance.AudioSource.PlayOneShot(projectileSound);
         ObjectPooling.Get(Pools.FireBall, shootPoint.position, transform.rotation);
@@ -126,7 +131,8 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     void SetState(WaspState newState)
     {
         print($"{currentState} -> {newState}");
-        StopAllCoroutines();
+        RestoreDefaults();
+
         switch (newState)
         {
             case WaspState.Sleep:
@@ -144,6 +150,16 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
         }
 
+    }
+
+    private void RestoreDefaults()
+    {
+        StopAllCoroutines();
+        if (blinking)
+        {
+            enemyEffects.RestoreMaterials();
+            blinking = false;
+        }
     }
 
     public void Shake()
@@ -309,12 +325,34 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     public void SetConfiguration(EnemyConfiguration configuration) { }
 
     public bool ShouldDeflect { get; } = false;
-    public void TakeHit(float amount, Vector3 @from, float force) { }
+
+    public void TakeHit(float amount, Vector3 @from, float force)
+    {
+        if (currentState == WaspState.Sleep) return;
+
+        TakeDamage(amount);
+        if (Random.Range(-1,1) == 0)
+            CameraAudioSource.Instance.AudioSource.PlayOneShot(hitSound);
+
+        var blood = Instantiate(hitEffect, @from, transform.rotation);
+        blood.transform.Rotate(Vector3.up,Random.rotation.eulerAngles.y);
+        blood.transform.localScale *= 3f;
+        Destroy(blood, 4);
+        StartCoroutine(Blink());
+    }
 
     public void TakeDamage(float amount) { }
 
     public void Reset() { }
 
+    IEnumerator Blink()
+    {
+        blinking = true;
+        enemyEffects.UseDeflectShader();
+        yield return new WaitForSeconds(.2f);
+        enemyEffects.RestoreMaterials();
+        blinking = false;
+    }
 
     WaspState GetRandomState()
     {

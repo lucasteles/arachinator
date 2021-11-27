@@ -14895,8 +14895,7 @@ GameObject:
   - component: {fileID: 408982268}
   - component: {fileID: 408982271}
   - component: {fileID: 408982270}
-  - component: {fileID: 408982269}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14918,20 +14917,6 @@ Transform:
   m_Father: {fileID: 803364422}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &408982269
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 408982267}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &408982270
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -30427,7 +30412,9 @@ GameObject:
   - component: {fileID: 803364423}
   - component: {fileID: 803364425}
   - component: {fileID: 803364426}
-  m_Layer: 0
+  - component: {fileID: 803364427}
+  - component: {fileID: 803364428}
+  m_Layer: 13
   m_Name: WaspEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30469,6 +30456,8 @@ MonoBehaviour:
   roarShake:
     timeToShake: 0
     magnitude: 0.3
+  hitEffect: {fileID: 7636614938515757400, guid: 3f91ef545a37049b588e3e2f62b4b5ec, type: 3}
+  hitSound: {fileID: 8300000, guid: f9f6061721f33477ca2e3dd35c04016b, type: 3}
   takeOffCurve:
     serializedVersion: 2
     m_Curve:
@@ -30767,6 +30756,33 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &803364427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803364421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99b74faca78a0407bbcdf506fe40df6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: ccb80f98308f643dca574f038fcfa73a, type: 2}
+--- !u!136 &803364428
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803364421}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &803718572
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -64643,7 +64659,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1766809973}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ShootPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68122,7 +68138,7 @@ GameObject:
   - component: {fileID: 1857581728}
   - component: {fileID: 1857581727}
   - component: {fileID: 1857581730}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}

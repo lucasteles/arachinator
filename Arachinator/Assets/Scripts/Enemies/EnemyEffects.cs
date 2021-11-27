@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class EnemyEffects : MonoBehaviour
 {
-    [SerializeField]Material deflectMaterial;
+    [SerializeField]Material material;
 
     Renderer[] renderers;
     Dictionary<Renderer, Material> originalMaterials;
@@ -18,7 +18,7 @@ public class EnemyEffects : MonoBehaviour
 
     void Start()
     {
-        deflectMaterialsCache = InstantiateMaterials(deflectMaterial);
+        deflectMaterialsCache = InstantiateMaterials(material);
         originalMaterials =
             renderers.Select(r => (r, r.sharedMaterial))
                 .ToDictionary(x => x.r, x => x.sharedMaterial);
