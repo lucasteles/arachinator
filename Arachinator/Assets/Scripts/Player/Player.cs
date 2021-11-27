@@ -49,7 +49,7 @@ public class Player : MonoBehaviour, IDamageble
         audioSource = GetComponent<AudioSource>();
         life.onDeath += OnDeath;
         life.onLifeChange += OnLifeChange;
-        ui = FindObjectOfType<PlayerHealthPointsUi>();
+        ui = GameObject.Find("PlayerLifeSlide").GetComponent<PlayerHealthPointsUi>();
     }
 
     void OnLifeChange(float current, float max)

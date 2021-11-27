@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Cameras.Effects;
+using Assets.Scripts.Ui.HealthPoints;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -37,6 +38,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     [SerializeField] CameraShakeData roarShake;
     [SerializeField] GameObject hitEffect;
     [SerializeField] AudioClip hitSound;
+    [SerializeField] PlayerHealthPointsUi heathBar;
 
     [Header("Fly")]
     [SerializeField] AnimationCurve takeOffCurve;
@@ -68,6 +70,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     Vector3 initialPos;
     Vector3 velocity;
     Rigidbody rb;
+    Life life;
     EnemyEffects enemyEffects;
     bool inFly;
     bool shouldShake;
@@ -82,8 +85,19 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         playerLife = player.GetComponent<Life>();
         enemyEffects = GetComponent<EnemyEffects>();
         rb = GetComponent<Rigidbody>();
+        life = GetComponent<Life>();
+        life.onLifeChange += onLifeChange;
     }
 
+    void OnDestroy() =>
+        life.onLifeChange -= onLifeChange;
+
+    void onLifeChange(float arg1, float arg2)
+    {
+        if (!heathBar) return;
+        heathBar.SetMaxHealth(life.MaxLife);
+        heathBar.SetHealth(life.CurrentLife);
+    }
 
     void Start()
     {
@@ -341,7 +355,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         StartCoroutine(Blink());
     }
 
-    public void TakeDamage(float amount) { }
+    public void TakeDamage(float amount) => life.Subtract(amount);
 
     public void Reset() { }
 
