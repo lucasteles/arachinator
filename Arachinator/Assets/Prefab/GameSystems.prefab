@@ -39,6 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 955813219331475366}
+  - component: {fileID: 1296255433}
   m_Layer: 0
   m_Name: GameSystems
   m_TagString: Untagged
@@ -63,6 +64,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1296255433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955813219331475365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d71bc8ef9e6d14e51832537580c564b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 32768
+  layerMaskIgnore:
+    serializedVersion: 2
+    m_Bits: 29696
+  tagsToIgnore:
+  - Item
+  material: {fileID: 2100000, guid: bbd07dbb5614c48c28dea004cacb6b1c, type: 2}
 --- !u!1 &955813219675699693
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,11 +139,14 @@ MonoBehaviour:
     numberOfObjects: 20
     theObject: {fileID: 5658046897136282605, guid: daa2f37172c94493b98309c1e22af35f, type: 3}
   - name: 3
-    numberOfObjects: 20
+    numberOfObjects: 100
     theObject: {fileID: 613433886817584986, guid: fe2b035b883004fb794e8f64945b371b, type: 3}
   - name: 4
     numberOfObjects: 80
     theObject: {fileID: 3327436750973728972, guid: f988ad5690d664df6b437ee1e2958f35, type: 3}
+  - name: 5
+    numberOfObjects: 30
+    theObject: {fileID: 6726437140723564850, guid: 114136c50afdb40c8a5b2c8909b65d47, type: 3}
 --- !u!1 &955813220643435689
 GameObject:
   m_ObjectHideFlags: 0

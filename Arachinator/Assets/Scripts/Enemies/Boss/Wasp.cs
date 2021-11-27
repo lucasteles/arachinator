@@ -24,8 +24,8 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     public Dictionary<WaspState, (int from, int to)> Actions =
         new Dictionary<WaspState, (int, int)>
     {
-        [WaspState.Seeking] = (0, 90),
-        [WaspState.RunningAway] = (90, 100),
+        [WaspState.Seeking] = (0, 10),
+        [WaspState.RunningAway] = (10, 100),
         [WaspState.RunningAwayAndShoot] = (0,0),
         [WaspState.Shoot] = (0,0),
     };
@@ -216,6 +216,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
                 yield return Land();
             yield return WaitLooking(1f);
             yield return Roar();
+            yield return TakeOff();
             var flyingAround = StartCoroutine(GoToFarPoint(true));
 
             yield return wave.Spawn(spawnPoints, player.transform);
@@ -256,7 +257,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     {
         airShootCooldown.Reset();
         var pos = transform.position;
-        var targetPos = new Vector3(pos.x, pos.y + flyOffset, pos.z);
+        var targetPos = new Vector3(pos.x, initialPos.y + flyOffset, pos.z);
         audioSource.PlayOneShot(takeOffSound);
         audioSource.PlayOneShot(takeOffWhoosh);
         for (var i = 0f; i <= 1; i+=takeOffSpeed)
@@ -284,8 +285,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
             shouldShake = false;
             for (var i = 0f; i <= 1; i+=airMovementSpeed)
             {
-                var target = point + Utils.SimpleCurve(i) * curveStrength * Vector3.down;
-                transform.position = Vector3.Lerp(pos, target, moveCurve.Evaluate(i));
+                transform.position = Vector3.Lerp(pos, point, moveCurve.Evaluate(i));
                 LookAtPlayer();
                 yield return null;
 
@@ -452,7 +452,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         var dir = Vector3.Reflect(currentDir, other.contacts[0].normal);
         CameraAudioSource.Instance.AudioSource.PlayOneShot(deflectSound);
         other.transform.rotation = Quaternion.LookRotation(dir);
-        bulletRb.velocity = new Vector3(dir.x, currentDir.y, dir.y) * mag;
+        bulletRb.velocity = dir * mag * 2;
         StartCoroutine(BlinkReflect());
     }
 

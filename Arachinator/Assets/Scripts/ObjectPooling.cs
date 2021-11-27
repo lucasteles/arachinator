@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -61,7 +62,10 @@ public class ObjectPooling : MonoBehaviour
     public GameObject GetObject(Pools name,Vector3 position, Quaternion rotation)
     {
         var queue = pool[name];
-        var obj = queue.Dequeue();
+        var obj =
+            (queue.Count > 0)
+            ? queue.Dequeue()
+            : Instantiate(poolingConfig.First(x => x.name == name).theObject, Vector3.zero, Quaternion.identity);
         obj.transform.SetParent(null);
         obj.transform.position = position;
         obj.transform.rotation = rotation;
