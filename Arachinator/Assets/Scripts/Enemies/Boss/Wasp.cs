@@ -23,8 +23,8 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     public Dictionary<WaspState, (int from, int to)> Actions =
         new Dictionary<WaspState, (int, int)>
     {
-        [WaspState.Seeking] = (0, 50),
-        [WaspState.RunningAway] = (50, 100),
+        [WaspState.Seeking] = (0, 90),
+        [WaspState.RunningAway] = (90, 100),
         [WaspState.RunningAwayAndShoot] = (0,0),
         [WaspState.Shoot] = (0,0),
     };
@@ -66,6 +66,8 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     Player player;
     Life playerLife;
     Vector3 initialPos;
+    Vector3 velocity;
+    Rigidbody rb;
     EnemyEffects enemyEffects;
     bool inFly;
     bool shouldShake;
@@ -79,6 +81,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         player = FindObjectOfType<Player>();
         playerLife = player.GetComponent<Life>();
         enemyEffects = GetComponent<EnemyEffects>();
+        rb = GetComponent<Rigidbody>();
     }
 
 
@@ -146,8 +149,6 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
             case WaspState.RunningAway:
                 RunAway();
                 break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
         }
 
     }
@@ -312,7 +313,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
             while (!playerLife.IsDead && Time.time <= timer)
             {
                 transform.LookAt(player.transform);
-                transform.position += transform.forward * seekSpeed * Time.deltaTime;
+                transform.position = (transform.position + transform.forward * seekSpeed * Time.deltaTime);
                 yield return null;
             }
             SetState(WaspState.Awake);
@@ -320,7 +321,6 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
         StartCoroutine(Follow());
     }
-
 
     public void SetConfiguration(EnemyConfiguration configuration) { }
 
@@ -336,7 +336,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
         var blood = Instantiate(hitEffect, @from, transform.rotation);
         blood.transform.Rotate(Vector3.up,Random.rotation.eulerAngles.y);
-        blood.transform.localScale *= 3f;
+        blood.transform.localScale *= 4f;
         Destroy(blood, 4);
         StartCoroutine(Blink());
     }
