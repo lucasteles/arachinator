@@ -190,7 +190,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
             case WaspState.Sleep:
                 break;
             case WaspState.Awake:
-                LookAtPlayer();
+                LookingPlayer();
                 break;
             case WaspState.Seeking:
                 StartFollow();
@@ -208,7 +208,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     void StartWave()
     {
         currentState = WaspState.SpawnEnemies;
-
+        invincible = true;
         IEnumerator WaveIt()
         {
             audioSource.PlayOneShot(hurt);
@@ -220,6 +220,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
             yield return wave.Spawn(spawnPoints, player.transform);
 
+            invincible = false;
             yield return new WaitUntil(() => currentState != WaspState.SpawnEnemies);
             StopCoroutine(flyingAround);
         }
@@ -261,13 +262,14 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         for (var i = 0f; i <= 1; i+=takeOffSpeed)
         {
             transform.position = Vector3.Lerp(pos, targetPos, takeOffCurve.Evaluate(i));
-            transform.LookAt(player.transform);
+            LookAtPlayer();
             yield return null;
         }
 
         inFly = shouldShake = true;
         zunido.Play();
     }
+
 
     IEnumerator GoToFarPoint(bool forever = false)
     {
@@ -284,7 +286,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
             {
                 var target = point + Utils.SimpleCurve(i) * curveStrength * Vector3.down;
                 transform.position = Vector3.Lerp(pos, target, moveCurve.Evaluate(i));
-                transform.LookAt(player.transform);
+                LookAtPlayer();
                 yield return null;
 
             }
@@ -312,7 +314,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         var rot = transform.rotation;
         while (Time.time <= t)
         {
-            transform.LookAt(player.transform);
+            LookAtPlayer();
             yield return null;
         }
         transform.rotation = rot;
@@ -356,7 +358,18 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         inFly = false;
     }
 
-    public void LookAtPlayer()
+    void LookAtPlayer()
+    {
+        if (inFly)
+            transform.LookAt(player.transform);
+        else
+        {
+            var pos = player.transform.position;
+            transform.LookAt(new Vector3(pos.x, transform.position.y, pos.z));
+        }
+    }
+
+    public void LookingPlayer()
     {
         currentState = WaspState.Awake;
 
@@ -394,7 +407,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
             var timer = Time.time + timeToSeek;
             while (!playerLife.IsDead && Time.time <= timer)
             {
-                transform.LookAt(player.transform);
+                LookAtPlayer();
                 transform.position = (transform.position + transform.forward * seekSpeed * Time.deltaTime);
                 yield return null;
             }
@@ -406,13 +419,12 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
     public void SetConfiguration(EnemyConfiguration configuration) { }
 
-    public bool ShouldDeflect => invincible;
+    public bool ShouldDeflect => invincible || currentState == WaspState.Sleep;
 
     public void TakeHit(float amount, Vector3 @from, float force)
     {
         if (currentState == WaspState.Sleep || invincible)
         {
-            CameraAudioSource.Instance.AudioSource.PlayOneShot(deflectSound);
             return;
         }
 
@@ -431,9 +443,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
     void OnCollisionEnter(Collision other)
     {
-        if (!invincible || currentState != WaspState.Sleep)
-            return;
-
+        if (!ShouldDeflect) return;
         if (!other.transform.CompareTag("Projectile")) return;
 
         var bulletRb = other.transform.GetComponent<Rigidbody>();
@@ -442,7 +452,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         var dir = Vector3.Reflect(currentDir, other.contacts[0].normal);
         CameraAudioSource.Instance.AudioSource.PlayOneShot(deflectSound);
         other.transform.rotation = Quaternion.LookRotation(dir);
-        bulletRb.velocity = new Vector3(dir.x, currentDir.y, dir.y) * mag + rb.velocity;
+        bulletRb.velocity = new Vector3(dir.x, currentDir.y, dir.y) * mag;
         StartCoroutine(BlinkReflect());
     }
 
