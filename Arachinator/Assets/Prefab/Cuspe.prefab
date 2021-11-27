@@ -239,3 +239,4 @@ MonoBehaviour:
   damage: 5
   force: 8
   explosion: {fileID: 6593487261413071833, guid: 8f418dbacefe94b9b9bdaeb92f0f1ebb, type: 3}
+  pool: 4

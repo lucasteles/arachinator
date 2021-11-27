@@ -9818,7 +9818,8 @@ MonoBehaviour:
   impact: {fileID: 8300000, guid: 030bd888482bd4d698384cd068297ae8, type: 3}
   damage: 3
   force: 10
-  explosion: {fileID: 613433886817584986, guid: fe2b035b883004fb794e8f64945b371b, type: 3}
+  explosion: {fileID: 613433886817584986, guid: 1d6fc8fb606bb44c5b6e9c2faad05af3, type: 3}
+  pool: 5
 --- !u!54 &1744604076
 Rigidbody:
   m_ObjectHideFlags: 0

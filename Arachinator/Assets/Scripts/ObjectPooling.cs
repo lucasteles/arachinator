@@ -10,7 +10,8 @@ public enum  Pools
     Bullet,
     MuzzleFlash,
     HitParticle,
-    Cuspe
+    Cuspe,
+    FireBall,
 }
 
 [Serializable]

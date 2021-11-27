@@ -53,6 +53,10 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     [SerializeField] float airMovementSpeed;
     [SerializeField] int maxAirMoveCount = 4;
 
+    [Header("Shooting")]
+    [SerializeField] Cooldown airShootCooldown;
+    [SerializeField] AudioClip projectileSound;
+    [SerializeField] Transform shootPoint;
 
     WaspEffects waspEffects;
     AudioSource audioSource;
@@ -85,6 +89,18 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         if (shouldShake && inFly)
             Shake();
 
+        if (inFly && airShootCooldown && Random.Range(-1,1) == 0)
+        {
+            airShootCooldown.Reset();
+            Shoot();
+        }
+
+    }
+
+    void Shoot()
+    {
+        CameraAudioSource.Instance.AudioSource.PlayOneShot(projectileSound);
+        ObjectPooling.Get(Pools.FireBall, shootPoint.position, transform.rotation);
     }
 
     public void AwakeBoss() => StartCoroutine(Awakening());
@@ -140,6 +156,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
     IEnumerator TakeOff()
     {
+        airShootCooldown.Reset();
         var pos = transform.position;
         var targetPos = new Vector3(pos.x, pos.y + flyOffset, pos.z);
         audioSource.PlayOneShot(takeOffSound);
@@ -171,7 +188,10 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
                 transform.position = Vector3.Lerp(pos, target, moveCurve.Evaluate(i));
                 transform.LookAt(player.transform);
                 yield return null;
+
             }
+            if (j < numberOfSteps - 1)
+                yield return WaitLooking(1);
             shouldShake = true;
         }
     }
