@@ -13,10 +13,15 @@ public class SpiderLegConstraint : MonoBehaviour
     [SerializeField] float distanceToClamp;
 
     Vector3 originalPosition; // the original position of this leg to keep the leg fixed to the ground
+    Vector3 originalLocalPosition; // the original position of this leg to keep the leg fixed to the ground
     bool isMoving; // to tell the oppsite leg if this one is moving or not
     bool moving; // for this leg to check if its moving or not
 
-    void Start() => originalPosition = transform.position; // to fix the leg to the ground when the game first launches
+    void Start()
+    {
+        originalPosition = transform.position;
+        originalLocalPosition = transform.localPosition;
+    }
 
     void Update()
     {
@@ -41,5 +46,10 @@ public class SpiderLegConstraint : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, originalPosition + new Vector3(0f, -0.3f, 0f), Time.deltaTime * legMoveSpeed * 3f); // to move the leg down a bit and make it look like walking instead of sliding
             isMoving = false; //to tell the oppiste leg that this leg is not moving
         }
+    }
+
+    public void Reset()
+    {
+        transform.localPosition = originalLocalPosition;
     }
 }

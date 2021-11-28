@@ -1763,6 +1763,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 2dc64c223575146c19b200c14e6ce475, type: 2}
+  ignore: []
 --- !u!1 &9160429943510424366
 GameObject:
   m_ObjectHideFlags: 0

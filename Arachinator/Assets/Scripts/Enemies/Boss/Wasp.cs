@@ -91,6 +91,8 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     bool firstEncounter = true;
     CapsuleCollider collider;
 
+    SpiderLegConstraint[] legConstraintCache;
+
     public WaspState CurrentState => currentState;
     void Awake()
     {
@@ -105,6 +107,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         life.onSubtract += onLifeSubtract;
         wave.OnWaveEnded += WaveOnOnWaveEnded;
         collider = GetComponent<CapsuleCollider>();
+        legConstraintCache = GetComponentsInChildren<SpiderLegConstraint>();
     }
 
     void WaveOnOnWaveEnded()
@@ -146,6 +149,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         initialPos = transform.position;
         initialRot = transform.rotation;
         damageAcumulator = 0;
+        DisableLeg();
     }
     void Update()
     {
@@ -186,11 +190,13 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         yield return waspEffects.OpenEyes();
         var dir = (player.transform.position - transform.position).normalized;
         var rot = transform.rotation;
+        EnableLeg();
         for (var i = 0f; i <= 1; i+=.04f)
         {
             transform.rotation = Quaternion.Lerp(rot, Quaternion.LookRotation(dir),i);
             yield return null;
         }
+        DisableLeg();
         yield return iddle;
         yield return Roar();
         SetState(WaspState.Awake);
@@ -453,6 +459,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         currentState = WaspState.Seeking;
         IEnumerator Follow()
         {
+            EnableLeg();
             var timer = Time.time + timeToSeek;
             while (!playerLife.IsDead && Time.time <= timer)
             {
@@ -460,6 +467,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
                 transform.position = (transform.position + transform.forward * seekSpeed * Time.deltaTime);
                 yield return null;
             }
+            DisableLeg();
             SetState(WaspState.Awake);
         }
 
@@ -547,6 +555,20 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
                 .Key;
 
         return action;
+    }
+
+    void DisableLeg()
+    {
+        foreach (var spiderLegConstraint in legConstraintCache)
+        {
+            spiderLegConstraint.Reset();
+            spiderLegConstraint.enabled = false;
+        }
+    }
+    void EnableLeg()
+    {
+        foreach (var spiderLegConstraint in legConstraintCache)
+            spiderLegConstraint.enabled = true;
     }
 
 }
