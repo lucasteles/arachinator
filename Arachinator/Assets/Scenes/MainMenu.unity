@@ -729,6 +729,7 @@ GameObject:
   - component: {fileID: 239930671}
   - component: {fileID: 239930675}
   - component: {fileID: 239930676}
+  - component: {fileID: 239930677}
   m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
@@ -851,6 +852,20 @@ MonoBehaviour:
   sfxMixer: {fileID: 24100000, guid: 7cfd2dc06bf584972a3023fe02ef2aa6, type: 2}
   musicSlider: {fileID: 1318561186}
   sfxSlider: {fileID: 1105216769}
+--- !u!114 &239930677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239930670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7d58fa1b8c18428dac82de635c07e76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hover: {fileID: 8300000, guid: 9545ce1bc59d0434ea717185b7b71c95, type: 3}
+  select: {fileID: 8300000, guid: b4df2e9987bf840e8a0d90f5d1487a93, type: 3}
 --- !u!1001 &270488299
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1009,7 +1024,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 239930676}
+      - m_Target: {fileID: 239930677}
         m_TargetAssemblyTypeName: MenuSfx, Assembly-CSharp
         m_MethodName: Select
         m_Mode: 1
@@ -1076,7 +1091,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 239930676}
+        - m_Target: {fileID: 239930677}
           m_TargetAssemblyTypeName: MenuSfx, Assembly-CSharp
           m_MethodName: Hover
           m_Mode: 1
@@ -1098,6 +1113,7 @@ GameObject:
   m_Component:
   - component: {fileID: 321653487}
   - component: {fileID: 321653488}
+  - component: {fileID: 321653489}
   m_Layer: 5
   m_Name: GraphicsSlider
   m_TagString: Untagged
@@ -1182,6 +1198,35 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &321653489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321653486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 239930677}
+          m_TargetAssemblyTypeName: MenuSfx, Assembly-CSharp
+          m_MethodName: Hover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &360969465
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1890,8 +1935,8 @@ RectTransform:
   m_Father: {fileID: 1605088118}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 0.6, y: 0}
+  m_AnchorMax: {x: 0.6, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2880,6 +2925,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1649225504, guid: 893916c3dd2145358ade1937ba0bb46e, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 84b5698a0877544149a0e867039b56c4, type: 3}
+    - target: {fileID: 1649225504, guid: 893916c3dd2145358ade1937ba0bb46e, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 24300002, guid: 753f36bf6ecf9430dae8ad125aa2405b, type: 2}
@@ -3159,6 +3208,7 @@ GameObject:
   - component: {fileID: 1041310971}
   - component: {fileID: 1041310970}
   - component: {fileID: 1041310969}
+  - component: {fileID: 1041310972}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -3254,6 +3304,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 239930677}
+        m_TargetAssemblyTypeName: MenuSfx, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1041310970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3292,6 +3354,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1041310967}
   m_CullTransparentMesh: 1
+--- !u!114 &1041310972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041310967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 239930677}
+          m_TargetAssemblyTypeName: MenuSfx, Assembly-CSharp
+          m_MethodName: Hover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1051051497
 GameObject:
   m_ObjectHideFlags: 0
@@ -3538,6 +3629,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1105216768}
   - component: {fileID: 1105216769}
+  - component: {fileID: 1105216770}
   m_Layer: 5
   m_Name: SfxVolumeSlider
   m_TagString: Untagged
@@ -3619,6 +3711,35 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1105216770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105216767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 239930677}
+          m_TargetAssemblyTypeName: MenuSfx, Assembly-CSharp
+          m_MethodName: Hover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1136258522
 GameObject:
   m_ObjectHideFlags: 0
@@ -4204,7 +4325,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 239930676}
+      - m_Target: {fileID: 239930677}
         m_TargetAssemblyTypeName: MenuSfx, Assembly-CSharp
         m_MethodName: Select
         m_Mode: 1
@@ -4283,7 +4404,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 239930676}
+        - m_Target: {fileID: 239930677}
           m_TargetAssemblyTypeName: MenuSfx, Assembly-CSharp
           m_MethodName: Hover
           m_Mode: 1
@@ -4305,6 +4426,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1318561185}
   - component: {fileID: 1318561186}
+  - component: {fileID: 1318561187}
   m_Layer: 5
   m_Name: MusicVolumeSlider
   m_TagString: Untagged
@@ -4386,6 +4508,35 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1318561187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1318561184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 239930677}
+          m_TargetAssemblyTypeName: MenuSfx, Assembly-CSharp
+          m_MethodName: Hover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1362288237
 GameObject:
   m_ObjectHideFlags: 0
@@ -4512,7 +4663,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0.7285714, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5119,7 +5270,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 239930676}
+      - m_Target: {fileID: 239930677}
         m_TargetAssemblyTypeName: MenuSfx, Assembly-CSharp
         m_MethodName: Select
         m_Mode: 1
@@ -5186,7 +5337,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 239930676}
+        - m_Target: {fileID: 239930677}
           m_TargetAssemblyTypeName: MenuSfx, Assembly-CSharp
           m_MethodName: Hover
           m_Mode: 1
@@ -5267,7 +5418,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0.6, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5766,8 +5917,8 @@ RectTransform:
   m_Father: {fileID: 430082228}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 0.7285714, y: 0}
+  m_AnchorMax: {x: 0.7285714, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

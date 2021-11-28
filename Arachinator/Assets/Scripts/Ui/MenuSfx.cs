@@ -11,6 +11,6 @@ public class MenuSfx : MonoBehaviour
     }
     public void Select()
     {
-        CameraAudioSource.Instance.AudioSource.PlayOneShot(hover);
+        CameraAudioSource.Instance.AudioSource.PlayOneShot(select);
     }
 }
