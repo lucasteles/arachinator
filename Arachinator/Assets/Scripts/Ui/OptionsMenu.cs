@@ -11,24 +11,31 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] Slider qualitySlider;
     Gun gun;
 
-    private void SetVolume(AudioMixer mixer, float volume, bool sfx)
+    void SetVolume(AudioMixer mixer, float volume, bool sfx)
     {
         mixer.SetFloat("MasterVolume", volume);
         if (sfx) gun.StartShoot();
     }
 
+    float GetVolume(AudioMixer mixer)
+    {
+        mixer.GetFloat("MasterVolume", out var volume);
+        return volume;
+    }
     private void Awake()
     {
         gun = FindObjectOfType<Gun>();
         gun.canShoot = false;
+    }
+
+    void Start()
+    {
+        qualitySlider.value = QualitySettings.GetQualityLevel();
+        musicSlider.value = GetVolume(musicMixer);
+        sfxSlider.value = GetVolume(sfxMixer);
+
         musicSlider.onValueChanged.AddListener(volume => SetVolume(musicMixer, volume, false));
         sfxSlider.onValueChanged.AddListener(volume => SetVolume(sfxMixer, volume, true));
         qualitySlider.onValueChanged.AddListener(value => QualitySettings.SetQualityLevel((int)value));
-    }
-
-    private void Start()
-    {
-        SetVolume(musicMixer, musicSlider.value, false);
-        SetVolume(sfxMixer, sfxSlider.value, false);
     }
 }
