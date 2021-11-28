@@ -23,3 +23,5 @@ MonoBehaviour:
   maxShoots: 3
   shootCooldownTime: 10
   shouldShoot: 0
+  drop: {fileID: 7055312742641880386, guid: e5249f249df0139438cce6546babb5e0, type: 3}
+  dropPercentFrom0to1: 0

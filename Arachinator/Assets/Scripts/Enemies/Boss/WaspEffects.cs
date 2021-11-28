@@ -9,6 +9,7 @@ public class WaspEffects : MonoBehaviour
     WaspEye[] eyes;
     [SerializeField] Material dissolveMaterial;
     [SerializeField] float dissolveSpeed = .01f;
+    [SerializeField] GameObject explosionPivot;
 
     void Awake()
     {
@@ -60,7 +61,7 @@ public class WaspEffects : MonoBehaviour
         while (true)
         {
             var offset = Utils.RandomVector3(-2f, 2f);
-            var blood = Instantiate(hitEffect, transform.transform.position+offset, transform.transform.rotation);
+            var blood = Instantiate(hitEffect, explosionPivot.transform.position+offset, transform.rotation);
             blood.transform.Rotate(Vector3.up,Random.rotation.eulerAngles.y);
             blood.transform.localScale *= 10f;
             Destroy(blood, 2);

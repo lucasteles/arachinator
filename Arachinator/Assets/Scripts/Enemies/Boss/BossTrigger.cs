@@ -64,7 +64,9 @@ public class BossTrigger : MonoBehaviour
         gun.StopShot();
 
         playerLife.GetComponentInChildren<WebPistol>().enabled = false;
-        FindObjectOfType<CameraFollow>().SetTarget(wasp.transform);
+        var cam = FindObjectOfType<CameraFollow>();
+        cam.SetTarget(wasp.transform);
+        cam.IsLocket = true;
         yield return new WaitUntil(() => wasp.CurrentState == Wasp.WaspState.Dead);
 
         for (var i = 0f; i < 1; i += .01f)

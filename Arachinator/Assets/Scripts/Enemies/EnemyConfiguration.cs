@@ -1,3 +1,4 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public enum State
@@ -29,7 +30,13 @@ public class EnemyConfiguration : ScriptableObject
     public void InstantiateDrop(Vector3 position, Quaternion rotation)
     {
         if (drop != null && Random.value <= dropPercentFrom0to1)
-            Instantiate(drop, new Vector3(position.x, 1f,position.z), rotation);
+        {
+            var y = position.y;
+            if (Physics.Raycast(position, Vector3.down, out var hit, 10, LayerMask.GetMask("Floor")))
+                y = hit.point.y;
+
+            Instantiate(drop, new Vector3(position.x, y,position.z), rotation);
+        }
     }
 
 }
