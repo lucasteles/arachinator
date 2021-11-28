@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class WaspAnimationManager : MonoBehaviour
@@ -17,6 +18,9 @@ public class WaspAnimationManager : MonoBehaviour
     static readonly int TakeOffTrigger = Animator.StringToHash("TakeOff");
     static readonly int LandTrigger = Animator.StringToHash("Land");
     static readonly int IddleTrigger = Animator.StringToHash("Iddle");
+    static readonly int ShootBool = Animator.StringToHash("Shoot");
+
+    public event Action onShoot;
 
     void Awake()
     {
@@ -59,6 +63,15 @@ public class WaspAnimationManager : MonoBehaviour
         yield return new WaitUntil(() => inFly);
     }
 
+    public void StartShooting()
+    {
+       animator.SetBool(ShootBool, true);
+    }
+    public void StopShooting()
+    {
+       animator.SetBool(ShootBool, false);
+    }
+
     public IEnumerator InGround()
     {
         yield return new WaitUntil(() => !inFly);
@@ -67,6 +80,7 @@ public class WaspAnimationManager : MonoBehaviour
     public void InFlyEvent() => inFly = true;
     public void IddleEndEvent() => iddleEnded = true;
     public void TakeOffEvent() => takeOff = true;
+    public void ShootEvent() => onShoot?.Invoke();
 
     public IEnumerator Iddle()
     {

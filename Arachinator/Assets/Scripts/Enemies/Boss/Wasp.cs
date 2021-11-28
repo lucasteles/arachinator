@@ -1,3 +1,5 @@
+using System.Linq;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +15,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     public enum WaspState
     {
         Sleep,
-        Awake,
+        Iddle,
         Seeking,
         RunningAway,
         RunningAwayAndShoot,
@@ -24,10 +26,10 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     public Dictionary<WaspState, (int from, int to)> Actions =
         new Dictionary<WaspState, (int, int)>
     {
-        [WaspState.Seeking] = (0, 50),
-        [WaspState.RunningAway] = (50, 100),
-        [WaspState.RunningAwayAndShoot] = (0,0),
-        [WaspState.Shoot] = (0,0),
+        [WaspState.Seeking] = (0, 30),
+        [WaspState.Shoot] = (30,40),
+        [WaspState.RunningAway] = (40, 50),
+        [WaspState.RunningAwayAndShoot] = (50,100),
     };
 
     [SerializeField] float timeToSeek = 5;
@@ -66,6 +68,11 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     [SerializeField] Cooldown airShootCooldown;
     [SerializeField] AudioClip projectileSound;
     [SerializeField] Transform shootPoint;
+    [SerializeField] Transform shootPointGrounded;
+    [SerializeField] float shootingArcDregrees = 45;
+    [SerializeField] float shootingArcSpeed = .1f;
+    [SerializeField] int maxShootingTimes = 3;
+    [SerializeField] float lastWaveShootCooldown = 10;
 
     [Header("Wave")]
     [SerializeField] WaveController wave;
@@ -102,18 +109,20 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         playerLife = player.GetComponent<Life>();
         rb = GetComponent<Rigidbody>();
         life = GetComponent<Life>();
+        collider = GetComponent<CapsuleCollider>();
+        legConstraintCache = GetComponentsInChildren<SpiderLegConstraint>();
         animationManager = GetComponentInChildren<WaspAnimationManager>();
+
         life.onLifeChange += onLifeChange;
         life.onSubtract += onLifeSubtract;
         wave.OnWaveEnded += WaveOnOnWaveEnded;
-        collider = GetComponent<CapsuleCollider>();
-        legConstraintCache = GetComponentsInChildren<SpiderLegConstraint>();
+        animationManager.onShoot += OnShoot;
     }
 
     void WaveOnOnWaveEnded()
     {
         if (currentState == WaspState.SpawnEnemies)
-            SetState(WaspState.Awake);
+            SetState(WaspState.Iddle);
 
         if (!wave.NextWave())
             damageAcumulator = float.NegativeInfinity;
@@ -168,7 +177,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     void AirShoot()
     {
         CameraAudioSource.Instance.AudioSource.PlayOneShot(projectileSound);
-        ObjectPooling.Get(Pools.FireBall, shootPoint.position, transform.rotation);
+        ObjectPooling.Get(Pools.FireBall, shootPoint.position, shootPoint.rotation);
     }
 
     public void AwakeBoss()
@@ -179,7 +188,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
             firstEncounter = false;
         }
         else
-            SetState(WaspState.Awake);
+            SetState(WaspState.Iddle);
     }
 
     IEnumerator Awakening()
@@ -199,7 +208,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         DisableLeg();
         yield return iddle;
         yield return Roar();
-        SetState(WaspState.Awake);
+        SetState(WaspState.Iddle);
     }
 
     void SetState(WaspState newState)
@@ -210,7 +219,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         {
             case WaspState.Sleep:
                 break;
-            case WaspState.Awake:
+            case WaspState.Iddle:
                 Iddle();
                 break;
             case WaspState.Seeking:
@@ -222,8 +231,93 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
             case WaspState.SpawnEnemies:
                 StartWave();
                 break;
+            case WaspState.Shoot:
+                StartShooting();
+                break;
+            case WaspState.RunningAwayAndShoot:
+                RunawyAndShoot();
+                break;
         }
 
+    }
+
+    void RunawyAndShoot()
+    {
+        currentState = WaspState.RunningAwayAndShoot;
+        IEnumerator action()
+        {
+            yield return TakeOff();
+            yield return GoToFarPoint();
+            yield return Land();
+            yield return MultiShooting();
+            SetState(WaspState.Iddle);
+        }
+
+        StartCoroutine(action());
+    }
+
+    IEnumerator Shooting()
+    {
+        var degrees = shootingArcDregrees;
+        var playerPos = player.transform.position;
+        var targetPos = new Vector3(playerPos.x, transform.position.y, playerPos.z);
+        var playerDirection = (targetPos - transform.position).normalized;
+        var left = Quaternion.AngleAxis(-degrees, Vector3.up) * playerDirection;
+        var right = Quaternion.AngleAxis(degrees, Vector3.up) * playerDirection;
+        var currentRot = transform.rotation;
+
+        // IEnumerator debug()
+        // {
+        //     while (true)
+        //     {
+        //         Debug.DrawLine(transform.position, transform.position + (playerDirection * 20), Color.green);
+        //         Debug.DrawLine(transform.position, transform.position + (left * 20), Color.yellow);
+        //         Debug.DrawLine(transform.position, transform.position + (right * 20), Color.yellow);
+        //         yield return null;
+        //     }
+        // }
+        //var d = StartCoroutine(debug());
+
+        EnableLeg();
+        var lookingLeft = Vector2.Dot(new Vector2(playerDirection.x, playerDirection.z),
+                                            new Vector2(transform.right.x,transform.right.z)) > 0;
+        var (from, to) = lookingLeft ? (left.normalized, right.normalized) : (right.normalized, left.normalized);
+        for (var i = 0f; i <= 1; i += .2f)
+        {
+            transform.rotation = Quaternion.Lerp(currentRot, Quaternion.LookRotation(from), i);
+            yield return null;
+        }
+
+        animationManager.StartShooting();
+        for (var i = 0f; i <= 1; i += shootingArcSpeed)
+        {
+            transform.rotation = Quaternion.Lerp(Quaternion.LookRotation(from), Quaternion.LookRotation(to), i);
+            yield return null;
+        }
+        animationManager.StopShooting();
+        DisableLeg();
+        //StopCoroutine(d);
+    }
+
+    IEnumerator MultiShooting()
+    {
+        var times = Random.Range(1, maxShootingTimes);
+        for (var i = 0; i < times; i++)
+        {
+            yield return Shooting();
+            yield return WaitLooking(.2f);
+        }
+    }
+
+    void StartShooting()
+    {
+        IEnumerator shoot()
+        {
+            yield return Shooting();
+            SetState(WaspState.Iddle);
+        }
+        currentState = WaspState.Shoot;
+        StartCoroutine(shoot());
     }
 
     void StartWave()
@@ -232,27 +326,58 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         invincible = true;
         IEnumerator WaveIt()
         {
+            print(1);
             audioSource.PlayOneShot(hurt);
             if (inFly)
                 yield return Land();
-            yield return WaitLooking(1f);
+            print(2);
+            yield return WaitLooking(.5f);
+            print(3);
             yield return Roar();
+            print(4);
             yield return TakeOff();
-            var flyingAround = StartCoroutine(GoToFarPoint(true));
+            print(5);
+            var flyingAround =
+                wave.Last()
+                ? StartCoroutine(FlyAroundAndGroundShootForever())
+                : StartCoroutine(GoToFarPoint(int.MaxValue));
 
+            print(6);
             yield return wave.Spawn(spawnPoints, player.transform);
 
-            invincible = false;
+            print(7);
             yield return new WaitUntil(() => currentState != WaspState.SpawnEnemies);
             StopCoroutine(flyingAround);
+            invincible = false;
         }
 
         StartCoroutine(WaveIt());
     }
 
-    private void RestoreDefaults()
+    IEnumerator FlyAroundAndGroundShootForever()
+    {
+        print("AQUI!");
+        var shootCooldown = new Cooldown(lastWaveShootCooldown);
+        invincible = true;
+        shootCooldown.Reset();
+        while (true)
+        {
+            yield return GoToFarPoint();
+            if (shootCooldown)
+            {
+                yield return Land();
+                yield return MultiShooting();
+                yield return TakeOff();
+            }
+            yield return WaitLooking(.5f);
+        }
+    }
+
+    void RestoreDefaults()
     {
         StopAllCoroutines();
+        animationManager.StopShooting();
+        invincible = false;
         collider.enabled = true;
         if (damageBlinking)
         {
@@ -298,13 +423,11 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     }
 
 
-    IEnumerator GoToFarPoint(bool forever = false)
+    IEnumerator GoToFarPoint(int qtd = 1)
     {
         var curveStrength = 2f;
-        var numberOfSteps = Random.Range(1, maxAirMoveCount);
-        for (var j = 0; j <= numberOfSteps; j++)
+        for (var j = 0; j <= qtd; j++)
         {
-            if (forever) j = 0;
             var point = GetFarPoint();
             var pos = transform.position;
 
@@ -316,7 +439,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
                 yield return null;
 
             }
-            if (j < numberOfSteps - 1)
+            if (j < qtd - 1)
                 yield return WaitLooking(1);
             shouldShake = true;
         }
@@ -346,21 +469,19 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         transform.rotation = rot;
     }
 
-    IEnumerator RunAwayCoroutine()
-    {
-        yield return TakeOff();
-        yield return WaitLooking(.5f);
-        yield return GoToFarPoint();
-        yield return WaitLooking(1f);
-        yield return Land();
-    }
     void RunAway()
     {
         IEnumerator routine()
         {
-            yield return RunAwayCoroutine();
+            yield return TakeOff();
+            yield return WaitLooking(.5f);
+            var numberOfSteps = Random.Range(1, maxAirMoveCount);
+            yield return GoToFarPoint(numberOfSteps);
             yield return WaitLooking(1f);
-            SetState(WaspState.Awake);
+            yield return Land();
+
+            yield return WaitLooking(1f);
+            SetState(WaspState.Iddle);
         }
         currentState = WaspState.RunningAway;
         StartCoroutine(routine());
@@ -403,12 +524,15 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
     public void Iddle()
     {
-        currentState = WaspState.Awake;
+        currentState = WaspState.Iddle;
 
         IEnumerator Looking()
         {
-            if (Random.Range(-1, 2) == 0)
-                 yield return animationManager.Iddle();
+            if (inFly)
+                yield return Land();
+
+            if (Random.Range(-1, 1) == 0)
+                 yield return IddleWait();
             else
                 yield return WaitLooking(.2f);
 
@@ -426,7 +550,14 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         StartCoroutine(Looking());
     }
 
-    #if UNITY_EDITOR
+    IEnumerator IddleWait()
+    {
+        var wait = StartCoroutine(WaitLooking(10));
+        yield return animationManager.Iddle();
+        StopCoroutine(wait);
+    }
+
+#if UNITY_EDITOR
     void OnDrawGizmos()
     {
         var c = Gizmos.color;
@@ -468,7 +599,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
                 yield return null;
             }
             DisableLeg();
-            SetState(WaspState.Awake);
+            SetState(WaspState.Iddle);
         }
 
         StartCoroutine(Follow());
@@ -481,9 +612,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     public void TakeHit(float amount, Vector3 @from, float force)
     {
         if (currentState == WaspState.Sleep || invincible)
-        {
             return;
-        }
 
         TakeDamage(amount);
         if (Random.Range(-1,1) == 0)
@@ -515,6 +644,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
     public void Reset()
     {
+        RestoreDefaults();
         zunido.Stop();
         damageAcumulator = 0;
         transform.position = initialPos;
@@ -561,7 +691,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     {
         foreach (var spiderLegConstraint in legConstraintCache)
         {
-            spiderLegConstraint.Reset();
+            //spiderLegConstraint.Reset();
             spiderLegConstraint.enabled = false;
         }
     }
@@ -571,4 +701,9 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
             spiderLegConstraint.enabled = true;
     }
 
+    void OnShoot()
+    {
+        CameraAudioSource.Instance.AudioSource.PlayOneShot(projectileSound);
+        ObjectPooling.Get(Pools.FireBall, shootPointGrounded.position, transform.rotation);
+    }
 }

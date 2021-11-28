@@ -168,6 +168,7 @@ public class Enemy : MonoBehaviour, IDamageble, IEnemy
         var blood = Instantiate(dieEffect, pos, transform.rotation);
         blood.transform.localScale *= Random.Range(1.5f, 2.5f);
         blood.transform.Rotate(Vector3.up,Random.Range(0f, 90f));
+        config.InstantiateDrop(transform.position, Quaternion.identity);
         Destroy(blood, 12);
         Destroy(gameObject);
     }

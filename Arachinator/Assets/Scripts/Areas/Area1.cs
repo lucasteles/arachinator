@@ -87,6 +87,8 @@ public class WaveController
         enemies.Clear();
         Interlocked.Add(ref enemyCount, -enemyCount);
     }
+
+    public bool Last() => currentWave >= Waves.Length - 1;
 }
 
 public class Area1 : MonoBehaviour

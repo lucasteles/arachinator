@@ -23,5 +23,14 @@ public class EnemyConfiguration : ScriptableObject
     public int maxShoots = 3;
     public float shootCooldownTime = 12;
     public bool shouldShoot = true;
+    public GameObject drop;
+    public float dropPercentFrom0to1;
+
+    public void InstantiateDrop(Vector3 position, Quaternion rotation)
+    {
+        if (drop != null && Random.value <= dropPercentFrom0to1)
+            Instantiate(drop, new Vector3(position.x, -3f,position.z), rotation);
+    }
+
 }
 

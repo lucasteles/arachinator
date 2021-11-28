@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c614fe697ea14789bd1a6759094207f, type: 3}
-  m_Name: BeetleEnemy
+  m_Name: BossBeetle
   m_EditorClassIdentifier: 
-  initialState: 1
+  initialState: 2
   speed: 3
-  maxLife: 12
+  maxLife: 10
   view: 0.6
   distanceToView: 50
   distanceAroundToSee: 5
   searchStep: 10
   minShootDistance: 3
   maxShoots: 5
-  shootCooldownTime: 8
+  shootCooldownTime: 15
   shouldShoot: 1
   drop: {fileID: 7055312742641880386, guid: e5249f249df0139438cce6546babb5e0, type: 3}
-  dropPercentFrom0to1: 0.4
+  dropPercentFrom0to1: 0.5
