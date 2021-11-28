@@ -658,6 +658,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     public void Reset()
     {
         RestoreDefaults();
+        invincible = true;
         zunido.Stop();
         damageAcumulator = 0;
         transform.position = initialPos;

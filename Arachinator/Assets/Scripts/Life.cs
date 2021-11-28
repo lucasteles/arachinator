@@ -47,7 +47,7 @@ public class Life : MonoBehaviour
         currentLife += amount;
         if (currentLife > maxLife)
             currentLife = maxLife;
-        
+
         InvokeEvent();
     }
 
