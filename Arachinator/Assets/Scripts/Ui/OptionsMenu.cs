@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class OptionsMenu : MonoBehaviour
@@ -10,11 +8,11 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] AudioMixer sfxMixer;
     [SerializeField] Slider musicSlider;
     [SerializeField] Slider sfxSlider;
+    [SerializeField] Slider qualitySlider;
     Gun gun;
 
     private void SetVolume(AudioMixer mixer, float volume, bool sfx)
     {
-        print(mixer.name + " " + volume);
         mixer.SetFloat("MasterVolume", volume);
         if (sfx) gun.StartShoot();
     }
@@ -25,6 +23,7 @@ public class OptionsMenu : MonoBehaviour
         gun.canShoot = false;
         musicSlider.onValueChanged.AddListener(volume => SetVolume(musicMixer, volume, false));
         sfxSlider.onValueChanged.AddListener(volume => SetVolume(sfxMixer, volume, true));
+        qualitySlider.onValueChanged.AddListener(value => QualitySettings.SetQualityLevel((int)value));
     }
 
     private void Start()
