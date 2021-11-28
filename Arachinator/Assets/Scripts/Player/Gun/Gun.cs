@@ -1,6 +1,7 @@
 using Assets.Scripts.Cameras.Effects;
 using UnityEngine;
 using Assets.Scripts.Ui.PlayerFireSpeedUI;
+using UnityEditor;
 
 public class Gun : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class Gun : MonoBehaviour
     [SerializeField] CameraShakeData shakeData;
     [SerializeField] Animator gunAnimator;
     [SerializeField] TurretAnimationEvents turretAnimationEvents;
+    public bool canShoot = true;
 
     Cooldown cooldown;
     public bool IsShooting { get; private set; }
@@ -39,12 +41,22 @@ public class Gun : MonoBehaviour
         cooldown = new Cooldown(fireSpeed);
     }
 
+    public void StartShoot()
+    {
+        gunAnimator.SetFloat("RateOfFire", fireSpeed);
+        gunAnimator.SetBool("Shooting", true);
+    }
+    
+    public void StopShot()
+    {
+        gunAnimator.SetBool("Shooting", false);
+    }
+
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && !gunAnimator.GetBool("Shooting"))
+        if (Input.GetButtonDown("Fire1") && !gunAnimator.GetBool("Shooting") && canShoot)
         {
-            gunAnimator.SetFloat("RateOfFire", fireSpeed);
-            gunAnimator.SetBool("Shooting", true);
+            StartShoot();
         }
         else if (Input.GetButtonUp("Fire1"))
         {
@@ -52,12 +64,6 @@ public class Gun : MonoBehaviour
         }
 
     }
-
-    public void StopShot()
-    {
-        gunAnimator.SetBool("Shooting", false);
-    }
-
     void ShotLeftEvent() => Shot(shotPointLeft, muzzleLeftPoint);
     void ShotRightEvent() => Shot(shotPointRight, muzzleRightPoint);
 
