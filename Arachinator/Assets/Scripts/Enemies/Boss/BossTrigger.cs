@@ -41,7 +41,7 @@ public class BossTrigger : MonoBehaviour
     {
         var player = FindObjectOfType<Player>();
         playerLife = player.GetComponent<Life>();
-        playerMovement = player.Movement;
+        playerMovement = player.GetComponent<Movement>();
         originalMusic = musicSource.clip;
         playerLife.onDeath += PlayerDeath;
         bossLife = wasp.GetComponent<Life>();
