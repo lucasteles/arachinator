@@ -14,7 +14,7 @@ namespace Assets.Scripts.Ui.WebTutorial
         void Update()
         {
             if (!canvas.enabled) return;
-            if (Input.anyKey)
+            if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2") || Input.GetKeyDown(KeyCode.Space))
                 canvas.enabled = false;
         }
     }

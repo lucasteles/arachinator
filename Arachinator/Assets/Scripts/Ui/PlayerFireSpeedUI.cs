@@ -7,13 +7,14 @@ namespace Assets.Scripts.Ui.PlayerFireSpeedUI
     public class PlayerFireSpeedUI : MonoBehaviour
     {
         [SerializeField] float currentSpeed;
+        float diffSpeed = 1.5f;
         RawImage[] speedIcons;
 
         private void UpdateIcons()
         {
             for (int i = 0; i < speedIcons.Length; i++)
             {
-                speedIcons[i].enabled = i < Mathf.RoundToInt(currentSpeed);
+                speedIcons[i].enabled = i < Mathf.RoundToInt(currentSpeed - diffSpeed);
             }
         }
     
