@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class BossTrigger : MonoBehaviour
 {
@@ -22,7 +24,7 @@ public class BossTrigger : MonoBehaviour
     {
         var player = FindObjectOfType<Player>();
         playerLife = player.GetComponent<Life>();
-        playerMovement = player.GetComponent<Movement>();
+        playerMovement = player.Movement;
         originalMusic = musicSource.clip;
         playerLife.onDeath += PlayerDeath;
     }
@@ -55,7 +57,8 @@ public class BossTrigger : MonoBehaviour
     IEnumerator AwakeBoss()
     {
         CameraAudioSource.Instance.AudioSource.PlayOneShot(onSight);
-        FindObjectOfType<Player>().RespawnPosition = respownPoint.position;
+        //FindObjectOfType<Player>().RespawnPosition = respownPoint.position;
+        ClearEnemies();
         wasp.AwakeBoss();
         musicSource.Stop();
 
@@ -75,6 +78,15 @@ public class BossTrigger : MonoBehaviour
     {
         musicSource.clip = bossMusic;
         musicSource.Play();
+    }
+
+    public void ClearEnemies()
+    {
+        var enemies =
+            FindObjectsOfType<Enemy>().Cast<MonoBehaviour>()
+            .Concat(FindObjectsOfType<Beetle>());
+        foreach (var enemy in enemies)
+            Destroy(enemy.gameObject);
     }
 
 }

@@ -43,6 +43,9 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     [SerializeField] PlayerHealthPointsUi heathBar;
     [SerializeField] EnemyEffects damageEffect;
     [SerializeField] EnemyEffects reflectEffect;
+    [SerializeField] ParticleSystem dust;
+    [SerializeField] float roarPushBack;
+    [SerializeField] float roarPushBackRadius;
 
     [Header("Fly")]
     [SerializeField] AnimationCurve takeOffCurve;
@@ -78,6 +81,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     Vector3 velocity;
     Rigidbody rb;
     Life life;
+    WaspAnimationManager animationManager;
     float damageAcumulator;
     bool inFly;
     bool shouldShake;
@@ -85,6 +89,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     bool deflectBlinking;
     bool invincible;
     bool firstEncounter = true;
+    CapsuleCollider collider;
 
     public WaspState CurrentState => currentState;
     void Awake()
@@ -95,9 +100,11 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         playerLife = player.GetComponent<Life>();
         rb = GetComponent<Rigidbody>();
         life = GetComponent<Life>();
+        animationManager = GetComponentInChildren<WaspAnimationManager>();
         life.onLifeChange += onLifeChange;
         life.onSubtract += onLifeSubtract;
         wave.OnWaveEnded += WaveOnOnWaveEnded;
+        collider = GetComponent<CapsuleCollider>();
     }
 
     void WaveOnOnWaveEnded()
@@ -140,11 +147,9 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         initialRot = transform.rotation;
         damageAcumulator = 0;
     }
-
     void Update()
     {
         if (currentState == WaspState.Sleep) return;
-
         if (shouldShake && inFly)
             Shake();
 
@@ -176,31 +181,31 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     IEnumerator Awakening()
     {
         audioSource.PlayOneShot(awake);
+        animationManager.OpenWings();
+        var iddle = StartCoroutine(animationManager.Iddle());
         yield return waspEffects.OpenEyes();
-
         var dir = (player.transform.position - transform.position).normalized;
         var rot = transform.rotation;
-        for (var i = 0f; i <= 1; i+=.05f)
+        for (var i = 0f; i <= 1; i+=.04f)
         {
             transform.rotation = Quaternion.Lerp(rot, Quaternion.LookRotation(dir),i);
             yield return null;
         }
-
+        yield return iddle;
         yield return Roar();
-
         SetState(WaspState.Awake);
     }
 
     void SetState(WaspState newState)
     {
         RestoreDefaults();
-
+        print($"{currentState} -> {newState}");
         switch (newState)
         {
             case WaspState.Sleep:
                 break;
             case WaspState.Awake:
-                LookingPlayer();
+                Iddle();
                 break;
             case WaspState.Seeking:
                 StartFollow();
@@ -242,6 +247,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     private void RestoreDefaults()
     {
         StopAllCoroutines();
+        collider.enabled = true;
         if (damageBlinking)
         {
             damageEffect.RestoreMaterials();
@@ -265,7 +271,9 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
     IEnumerator TakeOff()
     {
+        yield return animationManager.TakeOff();
         airShootCooldown.Reset();
+        collider.enabled = false;
         var pos = transform.position;
         var targetPos = new Vector3(pos.x, initialPos.y + flyOffset, pos.z);
         audioSource.PlayOneShot(takeOffSound);
@@ -279,6 +287,8 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
         inFly = shouldShake = true;
         zunido.Play();
+        yield return animationManager.InFly();
+        collider.enabled = true;
     }
 
 
@@ -353,7 +363,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     IEnumerator Land()
     {
         shouldShake = false;
-        zunido.Stop();
+        StartCoroutine(animationManager.Land());
         var pos = transform.position;
         var targetPos = new Vector3(pos.x, initialPos.y, pos.z);
         audioSource.PlayOneShot(takeOffSound);
@@ -363,29 +373,39 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
             transform.position = Vector3.Lerp(pos, targetPos, takeOffCurve.Evaluate(i));
             yield return null;
         }
+        inFly = false;
         transform.position = targetPos;
         audioSource.PlayOneShot(landSound);
-        inFly = false;
+        zunido.Stop();
     }
 
-    void LookAtPlayer()
+    void LookAtPlayer(bool fast = false)
     {
-        if (inFly)
-            transform.LookAt(player.transform);
+        var pos = player.transform.position;
+        var targetPos = inFly
+            ? player.transform.position
+            : new Vector3(pos.x, transform.position.y, pos.z);
+
+        if (fast)
+            transform.LookAt(targetPos);
         else
         {
-            var pos = player.transform.position;
-            transform.LookAt(new Vector3(pos.x, transform.position.y, pos.z));
+            var dir = (targetPos - transform.position).normalized;
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), .1f);
         }
     }
 
-    public void LookingPlayer()
+    public void Iddle()
     {
         currentState = WaspState.Awake;
 
         IEnumerator Looking()
         {
-            yield return new WaitForSeconds(.2f);
+            if (Random.Range(-1, 2) == 0)
+                 yield return animationManager.Iddle();
+            else
+                yield return WaitLooking(.2f);
+
             var dir = (player.transform.position - transform.position).normalized;
             while (Vector3.Dot(transform.forward, dir) < .8f)
             {
@@ -400,13 +420,32 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         StartCoroutine(Looking());
     }
 
+    #if UNITY_EDITOR
+    void OnDrawGizmos()
+    {
+        var c = Gizmos.color;
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, roarPushBackRadius);
+        Gizmos.color = c;
+    }
+#endif
 
     IEnumerator Roar()
     {
+        yield return animationManager.Taunt();
+        dust.Play();
         audioSource.PlayOneShot(roar);
         roarShake.timeToShake = roar.length;
         CameraShaker.Instance.Shake(roarShake);
-        yield return WaitLooking(roar.length);
+        var wait = StartCoroutine(WaitLooking(roar.length));
+        if (Physics.OverlapSphereNonAlloc(transform.position, roarPushBackRadius, new Collider[1], LayerMask.GetMask("Player")) > 0)
+            for (var i = 0; i <= 3; i++)
+            {
+                player.PushBack(transform.position, roarPushBack);
+                yield return new WaitForSeconds(.4f);
+            }
+        yield return wait;
+        dust.Stop();
     }
 
     public void StartFollow()
