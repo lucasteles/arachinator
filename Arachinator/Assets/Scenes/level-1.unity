@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 8900000, guid: d35bf078c68ff3462b55fc33cfd72d5c, type: 3}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.20492062, g: 0.19365463, b: 0.3388272, a: 1}
+  m_IndirectSpecularColor: {r: 0.2503972, g: 0.2005328, b: 0.34828022, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -19746,6 +19746,10 @@ PrefabInstance:
     - target: {fileID: 404011693475376452, guid: 893916c3dd2145358ade1937ba0bb46e, type: 3}
       propertyPath: wallClipOffset.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 404011693475376452, guid: 893916c3dd2145358ade1937ba0bb46e, type: 3}
+      propertyPath: maxCameraDistance
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 404011693475376452, guid: 893916c3dd2145358ade1937ba0bb46e, type: 3}
       propertyPath: currentCameraDistance
@@ -41536,7 +41540,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1572855933900552572, guid: 6a74672e3c25d494e9b9ebeb292f94a4, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1572855933900552573, guid: 6a74672e3c25d494e9b9ebeb292f94a4, type: 3}
       propertyPath: m_RootOrder
@@ -79793,7 +79797,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6186284579922734185, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
       propertyPath: maxLife
-      value: 1500
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 6186284579922734191, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
       propertyPath: dissolveSpeed
