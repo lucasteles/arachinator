@@ -447,7 +447,6 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
     IEnumerator GoToFarPoint(int qtd = 1)
     {
-        var curveStrength = 2f;
         for (var j = 0; j <= qtd; j++)
         {
             var point = GetFarPoint();

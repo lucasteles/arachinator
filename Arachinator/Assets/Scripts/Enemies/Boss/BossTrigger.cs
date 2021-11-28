@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class BossTrigger : MonoBehaviour
 {
@@ -12,14 +13,20 @@ public class BossTrigger : MonoBehaviour
     [SerializeField] AudioClip onSight;
     [SerializeField] AudioSource musicSource;
     [SerializeField] AudioClip bossMusic;
+    [SerializeField] AudioClip victoryMusic;
     [SerializeField] AudioClip defeatBossClip;
     [SerializeField] Wasp wasp;
     [SerializeField] CanvasGroup bossHeathBar;
     [SerializeField] GameObject[] toDisable;
     [SerializeField] CanvasGroup flashImg;
     [SerializeField] CanvasGroup fadeImg;
-    Life bossLife;
+    [SerializeField] CanvasGroup[] endItems;
 
+    [SerializeField] Image spiderzina;
+    [SerializeField] GameObject targetSpiderzin;
+    [SerializeField] AnimationCurve animationSpiderzin;
+
+    Life bossLife;
     AudioClip originalMusic;
     Life playerLife;
     Movement playerMovement;
@@ -35,6 +42,9 @@ public class BossTrigger : MonoBehaviour
         playerLife.onDeath += PlayerDeath;
         bossLife = wasp.GetComponent<Life>();
         bossLife.onDeath += BossLifeOnonDeath;
+
+        foreach (var g in endItems)
+            g.alpha = 0;
     }
 
 
@@ -71,20 +81,45 @@ public class BossTrigger : MonoBehaviour
         cam.IsLocket = true;
         yield return new WaitUntil(() => wasp.CurrentState == Wasp.WaspState.Dead);
 
+        musicSource.clip = victoryMusic;
+        musicSource.Play();
+
         for (var i = 0f; i < 1; i += .01f)
         {
             fadeImg.alpha = i;
             yield return null;
         }
 
+        StartCoroutine(SpiderIcon());
+        foreach (var item in endItems)
+        {
+            yield return new WaitForSeconds(.5f);
+            for (var i = 0f; i <= 1; i += .02f)
+            {
+                item.alpha = i;
+                yield return null;
+            }
+        }
+
         isDefeated = true;
     }
 
-    private void Update()
+    private IEnumerator SpiderIcon()
+    {
+        var spiderIconPos = spiderzina.transform.position;
+        var spiderPosTarget = targetSpiderzin.transform.position;
+        for (var i = 0f; i <= 1; i += .01f)
+        {
+            spiderzina.transform.position = Vector3.Lerp(spiderIconPos, spiderPosTarget, animationSpiderzin.Evaluate(i));
+            yield return null;
+        }
+    }
+
+    void Update()
     {
         if (!isDefeated) return;    
         if (Input.anyKey)
-            SceneManager.LoadSceneAsync("MainMenu");
+            SceneManager.LoadScene("MainMenu");
     }
 
     void OnDestroy() => playerLife.onDeath -= PlayerDeath;

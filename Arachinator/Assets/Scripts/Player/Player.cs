@@ -76,7 +76,7 @@ public class Player : MonoBehaviour, IDamageble
     {
         if (life.IsDead || inDash) return;
 
-        if (Input.GetKeyDown(KeyCode.Space) && dashCooldown)
+        if (Input.GetKeyDown(KeyCode.Space) && dashCooldown && !movement.IsLocked())
         {
             StartCoroutine(Dash());
         }

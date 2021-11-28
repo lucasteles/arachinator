@@ -10,8 +10,11 @@ public class EscMenu : MonoBehaviour
     void Awake() => canvas = GetComponent<Canvas>();
     void Update()
     {
+        if (!canvas.enabled && Time.timeScale < 1)
+            Time.timeScale = 1f;
         if (!Input.GetKeyDown(KeyCode.Escape)) return;
         canvas.enabled = !canvas.enabled;
+        Time.timeScale = .2f;
     }
     public void BackToMenu() => SceneManager.LoadSceneAsync("MainMenu");
 }
