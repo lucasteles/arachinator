@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 public class BossTrigger : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class BossTrigger : MonoBehaviour
     Life playerLife;
     Movement playerMovement;
     bool inBatle;
+    bool isDefeated;
 
     void Awake()
     {
@@ -75,7 +77,14 @@ public class BossTrigger : MonoBehaviour
             yield return null;
         }
 
-        print("ACABOU!!!!! CARREGA OUTRA CENA AI");
+        isDefeated = true;
+    }
+
+    private void Update()
+    {
+        if (!isDefeated) return;    
+        if (Input.anyKey)
+            SceneManager.LoadSceneAsync("MainMenu");
     }
 
     void OnDestroy() => playerLife.onDeath -= PlayerDeath;
@@ -133,7 +142,7 @@ public class BossTrigger : MonoBehaviour
     {
         var enemies =
             FindObjectsOfType<Enemy>().Cast<MonoBehaviour>()
-            .Concat(FindObjectsOfType<Beetle>());
+                .Concat(FindObjectsOfType<Beetle>());
         foreach (var enemy in enemies)
             Destroy(enemy.gameObject);
     }
