@@ -45,6 +45,9 @@ public class Life : MonoBehaviour
     public void Add(float amount)
     {
         currentLife += amount;
+        if (currentLife > maxLife)
+            currentLife = maxLife;
+        
         InvokeEvent();
     }
 
@@ -55,7 +58,7 @@ public class Life : MonoBehaviour
         InvokeEvent();
     }
 
-    public bool IsFull() => currentLife == maxLife;
+    public bool IsFull() => currentLife >= maxLife;
 
     public void Die()
     {
