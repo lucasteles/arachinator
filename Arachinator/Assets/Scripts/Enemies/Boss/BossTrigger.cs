@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -25,6 +26,9 @@ public class BossTrigger : MonoBehaviour
     [SerializeField] Image spiderzina;
     [SerializeField] GameObject targetSpiderzin;
     [SerializeField] AnimationCurve animationSpiderzin;
+
+    [SerializeField] TMP_Text deathCountText;
+    [SerializeField] TMP_Text clearTimeText;
 
     Life bossLife;
     AudioClip originalMusic;
@@ -80,6 +84,10 @@ public class BossTrigger : MonoBehaviour
         cam.SetTarget(wasp.transform);
         cam.IsLocket = true;
         yield return new WaitUntil(() => wasp.CurrentState == Wasp.WaspState.Dead);
+
+        var counter = FindObjectOfType<Counter>();
+        clearTimeText.text = "Clear Time: " + counter.TotalTime.ToString(@"hh\:mm\:ss");
+        deathCountText.text = "Death Count: " + counter.deathCount;
 
         musicSource.clip = victoryMusic;
         musicSource.Play();

@@ -12,13 +12,13 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     public enum WaspState
     {
         Sleep,
-        Iddle,
+        Idle,
         Seeking,
         RunningAway,
         RunningAwayAndShoot,
         SpawnEnemies,
         Shoot,
-        Diyng,
+        Dying,
         Dead,
     }
 
@@ -121,12 +121,12 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         animationManager.onShoot += OnShoot;
     }
 
-    void OnDeath(Life obj) => SetState(WaspState.Diyng);
+    void OnDeath(Life obj) => SetState(WaspState.Dying);
 
     void WaveOnOnWaveEnded()
     {
         if (currentState == WaspState.SpawnEnemies)
-            SetState(WaspState.Iddle);
+            SetState(WaspState.Idle);
 
         if (!wave.NextWave())
             damageAcumulator = float.NegativeInfinity;
@@ -135,7 +135,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     void onLifeSubtract(float damage)
     {
         damageAcumulator += damage;
-        if (spawnWaves && damageAcumulator >= (.25 * life.MaxLife))
+        if (spawnWaves && damageAcumulator >= ((1f/wave.Waves.Length) * life.MaxLife))
         {
             damageAcumulator = 0;
             SetState(WaspState.SpawnEnemies);
@@ -192,7 +192,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
             firstEncounter = false;
         }
         else
-            SetState(WaspState.Iddle);
+            SetState(WaspState.Idle);
     }
 
     IEnumerator Awakening()
@@ -200,7 +200,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         audioSource.PlayOneShot(awake);
         yield return new WaitForSeconds(.5f);
         animationManager.OpenWings();
-        var iddle = StartCoroutine(animationManager.Iddle());
+        var idle = StartCoroutine(animationManager.Idle());
         yield return waspEffects.OpenEyes();
         yield return new WaitForSeconds(.2f);
         var dir = (player.transform.position - transform.position).normalized;
@@ -212,21 +212,21 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
             yield return null;
         }
         DisableLeg();
-        yield return iddle;
+        yield return idle;
         yield return Roar();
-        SetState(WaspState.Iddle);
+        SetState(WaspState.Idle);
     }
 
     void SetState(WaspState newState)
     {
         RestoreDefaults();
-        print($"{currentState} -> {newState}");
+        //print($"{currentState} -> {newState}");
         switch (newState)
         {
             case WaspState.Sleep:
                 break;
-            case WaspState.Iddle:
-                Iddle();
+            case WaspState.Idle:
+                Idle();
                 break;
             case WaspState.Seeking:
                 StartFollow();
@@ -243,7 +243,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
             case WaspState.RunningAwayAndShoot:
                 RunawyAndShoot();
                 break;
-            case WaspState.Diyng:
+            case WaspState.Dying:
                 BeginDeath();
                 break;
         }
@@ -251,7 +251,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     }
     void BeginDeath()
     {
-        currentState = WaspState.Diyng;
+        currentState = WaspState.Dying;
 
         IEnumerator action()
         {
@@ -278,7 +278,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
             yield return GoToFarPoint();
             yield return Land();
             yield return MultiShooting();
-            SetState(WaspState.Iddle);
+            SetState(WaspState.Idle);
         }
 
         StartCoroutine(action());
@@ -342,7 +342,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         IEnumerator shoot()
         {
             yield return Shooting();
-            SetState(WaspState.Iddle);
+            SetState(WaspState.Idle);
         }
         currentState = WaspState.Shoot;
         StartCoroutine(shoot());
@@ -354,23 +354,17 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         invincible = true;
         IEnumerator WaveIt()
         {
-            print(1);
             audioSource.PlayOneShot(hurt);
             if (inFly)
                 yield return Land();
-            print(2);
             yield return WaitLooking(.5f);
-            print(3);
             yield return Roar();
-            print(5);
             yield return TakeOff();
-            print(6);
             var flyingAround =
                 wave.Last()
                 ? StartCoroutine(FlyAroundAndGroundShootForever())
                 : StartCoroutine(GoToFarPoint(int.MaxValue));
 
-            print(7);
             yield return wave.Spawn(spawnPoints, player.transform);
             yield return new WaitUntil(() => currentState != WaspState.SpawnEnemies);
             StopCoroutine(flyingAround);
@@ -382,7 +376,6 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
     IEnumerator FlyAroundAndGroundShootForever()
     {
-        print("AQUI!");
         var shootCooldown = new Cooldown(lastWaveShootCooldown);
         invincible = true;
         shootCooldown.Reset();
@@ -502,7 +495,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
             yield return Land();
 
             yield return WaitLooking(1f);
-            SetState(WaspState.Iddle);
+            SetState(WaspState.Idle);
         }
         currentState = WaspState.RunningAway;
         StartCoroutine(routine());
@@ -543,9 +536,9 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         }
     }
 
-    public void Iddle()
+    public void Idle()
     {
-        currentState = WaspState.Iddle;
+        currentState = WaspState.Idle;
 
         IEnumerator Looking()
         {
@@ -553,7 +546,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
                 yield return Land();
 
             if (Random.Range(-1, 1) == 0)
-                 yield return IddleWait();
+                 yield return IdleWait();
             else
                 yield return WaitLooking(.2f);
 
@@ -571,10 +564,10 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         StartCoroutine(Looking());
     }
 
-    IEnumerator IddleWait()
+    IEnumerator IdleWait()
     {
         var wait = StartCoroutine(WaitLooking(10));
-        yield return animationManager.Iddle();
+        yield return animationManager.Idle();
         StopCoroutine(wait);
     }
 
@@ -620,7 +613,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
                 yield return null;
             }
             DisableLeg();
-            SetState(WaspState.Iddle);
+            SetState(WaspState.Idle);
         }
 
         StartCoroutine(Follow());

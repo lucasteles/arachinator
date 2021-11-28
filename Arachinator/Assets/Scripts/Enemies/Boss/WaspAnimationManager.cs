@@ -94,7 +94,7 @@ public class WaspAnimationManager : MonoBehaviour
     public void TakeOffEvent() => takeOff = true;
     public void ShootEvent() => onShoot?.Invoke();
 
-    public IEnumerator Iddle()
+    public IEnumerator Idle()
     {
         iddleEnded = false;
         animator.SetTrigger(IddleTrigger);

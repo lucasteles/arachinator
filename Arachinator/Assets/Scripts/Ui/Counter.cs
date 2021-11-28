@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -7,7 +8,9 @@ public class Counter : MonoBehaviour
     
     Life playerLife;
     public int deathCount;
-    public float totalTime;
+    float totalTime;
+
+    public TimeSpan TotalTime => TimeSpan.FromSeconds(totalTime);
 
     void Update () => totalTime += Time.deltaTime;
 
