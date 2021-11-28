@@ -158,7 +158,7 @@ public class BossTrigger : MonoBehaviour
     IEnumerator AwakeBoss()
     {
         CameraAudioSource.Instance.AudioSource.PlayOneShot(onSight);
-        FindObjectOfType<Player>().RespawnPosition = respownPoint.position;
+        //FindObjectOfType<Player>().RespawnPosition = respownPoint.position;
         ClearEnemies();
         wasp.AwakeBoss();
         musicSource.Stop();
