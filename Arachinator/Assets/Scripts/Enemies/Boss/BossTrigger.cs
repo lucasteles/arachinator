@@ -112,7 +112,7 @@ public class BossTrigger : MonoBehaviour
         isDefeated = true;
     }
 
-    private IEnumerator SpiderIcon()
+    IEnumerator SpiderIcon()
     {
         var spiderIconPos = spiderzina.transform.position;
         var spiderPosTarget = targetSpiderzin.transform.position;
@@ -158,7 +158,7 @@ public class BossTrigger : MonoBehaviour
     IEnumerator AwakeBoss()
     {
         CameraAudioSource.Instance.AudioSource.PlayOneShot(onSight);
-        //FindObjectOfType<Player>().RespawnPosition = respownPoint.position;
+        FindObjectOfType<Player>().RespawnPosition = respownPoint.position;
         ClearEnemies();
         wasp.AwakeBoss();
         musicSource.Stop();

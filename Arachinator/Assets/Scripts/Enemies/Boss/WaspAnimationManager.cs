@@ -20,6 +20,7 @@ public class WaspAnimationManager : MonoBehaviour
     static readonly int IddleTrigger = Animator.StringToHash("Iddle");
     static readonly int ShootBool = Animator.StringToHash("Shoot");
     static readonly int DeathTrigger = Animator.StringToHash("Death");
+    static readonly int ResetTrigger = Animator.StringToHash("Reset");
 
     [Header("Death")]
     [SerializeField] AudioSource audioSource;
@@ -122,4 +123,13 @@ public class WaspAnimationManager : MonoBehaviour
     public void DeathLastBreath() => audioSource.PlayOneShot(deathLastBreath);
 
     public void DeathEnd() => deathEnded = true;
+
+    public void Reset()
+    {
+        startTaunt = true;
+        inFly = false;
+        takeOff = true;
+        iddleEnded = true;
+        animator.SetTrigger(ResetTrigger);
+    }
 }

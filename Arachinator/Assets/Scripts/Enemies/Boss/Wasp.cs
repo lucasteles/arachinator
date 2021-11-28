@@ -665,6 +665,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         wave.Reset();
         life.Reset();
         invincible = false;
+        animationManager.Reset();
         inFly = shouldShake = damageBlinking = false;
 
         SetState(WaspState.Sleep);
