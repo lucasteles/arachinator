@@ -1,5 +1,5 @@
 # Arachinator
-![image](https://user-images.githubusercontent.com/1683898/143724839-65e99903-5b63-4a59-9203-242c64526854.png)
+![image](https://user-images.githubusercontent.com/1683898/143776854-f4dcae58-dd08-4aea-b22e-89c75a8c7fb2.png)
 The wasps are zombifying the bugs to dominate the world! Try to destroy all monsters with our cute hero MATT (Multi-utility Arachnoid Turret Transport).
 
 ## About
