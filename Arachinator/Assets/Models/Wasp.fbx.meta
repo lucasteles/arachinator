@@ -18,6 +18,9 @@ ModelImporter:
   - first:
       74: -4942450423639501754
     second: Wasp|Taunt
+  - first:
+      74: -3828477286603895141
+    second: Wasp|Death
   externalObjects:
   - first:
       type: UnityEngine:Material
