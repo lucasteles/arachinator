@@ -38,4 +38,13 @@ public static class Utils
         (layerMask.value & (1 << obj.layer)) > 0;
 
     public static float SimpleCurve(float x) => 4 * (-Mathf.Pow(x, 2) + x);
+
+    public static Vector3 RandomVector3(float from, float to)
+    {
+        var x = Random.Range(from, to);
+        var y = Random.Range(from, to);
+        var z = Random.Range(from, to);
+        return new Vector3(x, y, z);
+    }
+
 }

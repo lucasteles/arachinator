@@ -13,6 +13,7 @@ public class TriggerEvent : MonoBehaviour
     [SerializeField]bool selfDestruct = true;
     [SerializeField]bool runOnce = true;
     bool done;
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))

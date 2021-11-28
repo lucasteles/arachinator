@@ -1,9 +1,6 @@
 using System.Linq;
-
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Assets.Scripts.Cameras.Effects;
 using Assets.Scripts.Ui.HealthPoints;
 using UnityEngine;
@@ -21,6 +18,8 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         RunningAwayAndShoot,
         SpawnEnemies,
         Shoot,
+        Diyng,
+        Dead,
     }
 
     public Dictionary<WaspState, (int from, int to)> Actions =
@@ -63,6 +62,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     [SerializeField] AnimationCurve moveCurve;
     [SerializeField] float airMovementSpeed;
     [SerializeField] int maxAirMoveCount = 4;
+    [SerializeField] float timeBetweenDeathExplosions =.5f;
 
     [Header("Shooting")]
     [SerializeField] Cooldown airShootCooldown;
@@ -75,6 +75,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     [SerializeField] float lastWaveShootCooldown = 10;
 
     [Header("Wave")]
+    [SerializeField] bool spawnWaves = true;
     [SerializeField] WaveController wave;
     [SerializeField] GameObject[] spawnPoints;
 
@@ -115,9 +116,12 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
         life.onLifeChange += onLifeChange;
         life.onSubtract += onLifeSubtract;
+        life.onDeath += OnDeath;
         wave.OnWaveEnded += WaveOnOnWaveEnded;
         animationManager.onShoot += OnShoot;
     }
+
+    void OnDeath(Life obj) => SetState(WaspState.Diyng);
 
     void WaveOnOnWaveEnded()
     {
@@ -131,7 +135,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     void onLifeSubtract(float damage)
     {
         damageAcumulator += damage;
-        if (damageAcumulator >= (.25 * life.MaxLife))
+        if (spawnWaves && damageAcumulator >= (.25 * life.MaxLife))
         {
             damageAcumulator = 0;
             SetState(WaspState.SpawnEnemies);
@@ -194,13 +198,15 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     IEnumerator Awakening()
     {
         audioSource.PlayOneShot(awake);
+        yield return new WaitForSeconds(.5f);
         animationManager.OpenWings();
         var iddle = StartCoroutine(animationManager.Iddle());
         yield return waspEffects.OpenEyes();
+        yield return new WaitForSeconds(.2f);
         var dir = (player.transform.position - transform.position).normalized;
         var rot = transform.rotation;
         EnableLeg();
-        for (var i = 0f; i <= 1; i+=.04f)
+        for (var i = 0f; i <= 1; i+=.02f)
         {
             transform.rotation = Quaternion.Lerp(rot, Quaternion.LookRotation(dir),i);
             yield return null;
@@ -237,9 +243,30 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
             case WaspState.RunningAwayAndShoot:
                 RunawyAndShoot();
                 break;
+            case WaspState.Diyng:
+                BeginDeath();
+                break;
         }
 
     }
+    void BeginDeath()
+    {
+        currentState = WaspState.Diyng;
+        IEnumerator action()
+        {
+            DisableLeg();
+            collider.enabled = false;
+            if (inFly) yield return Land();
+            var bloodExplodins = StartCoroutine(waspEffects.BloodExplosions(hitEffect, timeBetweenDeathExplosions));
+            yield return animationManager.BeginDeath();
+            yield return waspEffects.CloseEyes();
+            StopCoroutine(bloodExplodins);
+            yield return waspEffects.Dissolve();
+            currentState = WaspState.Dead;
+        }
+        StartCoroutine(action());
+    }
+
 
     void RunawyAndShoot()
     {
@@ -334,18 +361,16 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
             yield return WaitLooking(.5f);
             print(3);
             yield return Roar();
-            print(4);
-            yield return TakeOff();
             print(5);
+            yield return TakeOff();
+            print(6);
             var flyingAround =
                 wave.Last()
                 ? StartCoroutine(FlyAroundAndGroundShootForever())
                 : StartCoroutine(GoToFarPoint(int.MaxValue));
 
-            print(6);
-            yield return wave.Spawn(spawnPoints, player.transform);
-
             print(7);
+            yield return wave.Spawn(spawnPoints, player.transform);
             yield return new WaitUntil(() => currentState != WaspState.SpawnEnemies);
             StopCoroutine(flyingAround);
             invincible = false;
@@ -392,13 +417,9 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         }
     }
 
-    public void Shake()
-    {
-        var x = Random.Range(-1, 2) * airShakeSize;
-        var y = Random.Range(-1, 2) * airShakeSize;
-        var z = Random.Range(-1, 2) * airShakeSize;
-        body.transform.localPosition = new Vector3(x, y, z);
-    }
+
+    void Shake() =>
+        body.transform.localPosition = Utils.RandomVector3(-1, 2) * airShakeSize;
 
     IEnumerator TakeOff()
     {

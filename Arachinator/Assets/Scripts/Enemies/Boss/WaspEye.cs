@@ -37,4 +37,20 @@ public class WaspEye : MonoBehaviour
     }
 
 
+    public IEnumerator CloseEyes()
+    {
+        var currentColor = waspEye.color;
+        var currentEmission = waspEye.GetColor(EmissionColor);
+        var targetColor = waspEyeClosed.color;
+        var targetEmission = waspEyeClosed.GetColor(EmissionColor);
+
+        for (var i = 0f; i <= 1; i+=speed)
+        {
+            currentMaterial.color = Color.Lerp(currentColor, targetColor, i);
+            currentMaterial.SetColor(EmissionColor, Color.Lerp(currentEmission, targetEmission, i));
+            yield return null;
+        }
+        renderer.sharedMaterial = waspEyeClosed;
+        yield return new WaitForSeconds(.8f);
+    }
 }

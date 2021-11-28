@@ -18,6 +18,8 @@ public class CameraFollow : MonoBehaviour
     Vector3 velocity = Vector3.zero;
 
     LookAtMouse player;
+    public bool IsLocket { get; set; }
+
     void Awake()
     {
         myCamera = GetComponentInChildren<Camera>();
@@ -44,7 +46,7 @@ public class CameraFollow : MonoBehaviour
         var cameraDistance = Vector3.up * currentCameraDistance;
         var targetPosition = target.position;
 
-        if (Input.GetButton("Fire1"))
+        if (Input.GetButton("Fire1") && !IsLocket)
         {
             var mouseAimOffset = (player.CurrentMousePosition - target.position) / 2f;
             if (Vector3.SqrMagnitude(mouseAimOffset) >= Math.Pow(maxLook, 2))
@@ -67,4 +69,5 @@ public class CameraFollow : MonoBehaviour
         currentCameraDistance = Mathf.Clamp(currentCameraDistance, 0, maxCameraDistance);
         transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, smoothTime);
     }
+    public void SetTarget(Transform target) => this.target = target;
 }

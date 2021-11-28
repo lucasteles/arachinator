@@ -29,7 +29,7 @@ public class EnemyConfiguration : ScriptableObject
     public void InstantiateDrop(Vector3 position, Quaternion rotation)
     {
         if (drop != null && Random.value <= dropPercentFrom0to1)
-            Instantiate(drop, new Vector3(position.x, -3f,position.z), rotation);
+            Instantiate(drop, new Vector3(position.x, 1f,position.z), rotation);
     }
 
 }

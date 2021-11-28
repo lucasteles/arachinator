@@ -11,22 +11,11 @@ public class Shell : MonoBehaviour
    [SerializeField] float forceMax;
    [SerializeField] float lifeTime = 4;
    [SerializeField] float fadeTime = 2;
-   [SerializeField] AudioClip dropAudioClip;
 
    Rigidbody rb;
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-    }
-
-    void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.CompareTag("Floor"))
-        {
-            var audioSource = GetComponent<AudioSource>();
-            audioSource.pitch = Random.Range(1f, 2f);
-            audioSource.PlayOneShot(dropAudioClip);
-        }
     }
 
     void OnEnable()

@@ -11,9 +11,13 @@ public class BossTrigger : MonoBehaviour
     [SerializeField] AudioClip onSight;
     [SerializeField] AudioSource musicSource;
     [SerializeField] AudioClip bossMusic;
+    [SerializeField] AudioClip defeatBossClip;
     [SerializeField] Wasp wasp;
     [SerializeField] CanvasGroup bossHeathBar;
     [SerializeField] GameObject[] toDisable;
+    [SerializeField] CanvasGroup flashImg;
+    [SerializeField] CanvasGroup fadeImg;
+    Life bossLife;
 
     AudioClip originalMusic;
     Life playerLife;
@@ -27,6 +31,49 @@ public class BossTrigger : MonoBehaviour
         playerMovement = player.Movement;
         originalMusic = musicSource.clip;
         playerLife.onDeath += PlayerDeath;
+        bossLife = wasp.GetComponent<Life>();
+        bossLife.onDeath += BossLifeOnonDeath;
+    }
+
+
+    void BossLifeOnonDeath(Life obj)
+    {
+        musicSource.Stop();
+        CameraAudioSource.Instance.AudioSource.PlayOneShot(defeatBossClip);
+        StartCoroutine(Deafeated());
+    }
+
+    IEnumerator Deafeated()
+    {
+        for (var i = 0f; i <= 1; i += .1f)
+        {
+            flashImg.alpha = i;
+            yield return null;
+        }
+
+        for (var i = 1f; i >= 0; i -= .1f)
+        {
+            flashImg.alpha = i;
+            yield return null;
+        }
+        flashImg.alpha = 0;
+
+        playerMovement.Lock(50);
+        var gun  = playerLife.GetComponentInChildren<Gun>();
+        gun.enabled = false;
+        gun.StopShot();
+
+        playerLife.GetComponentInChildren<WebPistol>().enabled = false;
+        FindObjectOfType<CameraFollow>().SetTarget(wasp.transform);
+        yield return new WaitUntil(() => wasp.CurrentState == Wasp.WaspState.Dead);
+
+        for (var i = 0f; i < 1; i += .01f)
+        {
+            fadeImg.alpha = i;
+            yield return null;
+        }
+
+        print("ACABOU!!!!! CARREGA OUTRA CENA AI");
     }
 
     void OnDestroy() => playerLife.onDeath -= PlayerDeath;
@@ -36,7 +83,7 @@ public class BossTrigger : MonoBehaviour
     IEnumerator Respawn()
     {
         //yield return new WaitUntil(() => playerLife.IsFull() && !playerMovement.IsLocked());
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(3f);
         musicSource.clip = originalMusic;
         musicSource.Play();
         bossHeathBar.alpha = 0;
