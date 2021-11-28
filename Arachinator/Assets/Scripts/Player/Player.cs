@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Linq;
-using Assets.Scripts.Ui.HealthPoints;
 using UnityEngine;
 
 public class Player : MonoBehaviour, IDamageble
@@ -228,5 +227,4 @@ public class Player : MonoBehaviour, IDamageble
 
     public bool IsMaxHealth() => life.IsFull();
     public void AddLife(float amount) => life.Add(amount);
-
 }

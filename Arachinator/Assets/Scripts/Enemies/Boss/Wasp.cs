@@ -2,7 +2,6 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Cameras.Effects;
-using Assets.Scripts.Ui.HealthPoints;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
