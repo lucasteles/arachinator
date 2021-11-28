@@ -728,6 +728,7 @@ GameObject:
   - component: {fileID: 239930672}
   - component: {fileID: 239930671}
   - component: {fileID: 239930675}
+  - component: {fileID: 239930676}
   m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
@@ -834,6 +835,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LoadingScreen: {fileID: 1089610894}
   LoadingText: {fileID: 427369843}
+--- !u!114 &239930676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239930670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7d58fa1b8c18428dac82de635c07e76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hover: {fileID: 8300000, guid: 9545ce1bc59d0434ea717185b7b71c95, type: 3}
+  select: {fileID: 8300000, guid: b4df2e9987bf840e8a0d90f5d1487a93, type: 3}
 --- !u!1001 &270488299
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -908,6 +923,7 @@ GameObject:
   - component: {fileID: 297082937}
   - component: {fileID: 297082936}
   - component: {fileID: 297082935}
+  - component: {fileID: 297082938}
   m_Layer: 5
   m_Name: QuitButton
   m_TagString: Untagged
@@ -991,6 +1007,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 239930676}
+        m_TargetAssemblyTypeName: MenuSfx, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &297082936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1029,6 +1057,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 297082933}
   m_CullTransparentMesh: 1
+--- !u!114 &297082938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297082933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 239930676}
+          m_TargetAssemblyTypeName: MenuSfx, Assembly-CSharp
+          m_MethodName: Hover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &321653486
 GameObject:
   m_ObjectHideFlags: 0
@@ -2820,6 +2877,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1649225504, guid: 893916c3dd2145358ade1937ba0bb46e, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 84b5698a0877544149a0e867039b56c4, type: 3}
     - target: {fileID: 404011693475376452, guid: 893916c3dd2145358ade1937ba0bb46e, type: 3}
       propertyPath: target
       value: 
@@ -4057,6 +4118,7 @@ GameObject:
   - component: {fileID: 1299870471}
   - component: {fileID: 1299870470}
   - component: {fileID: 1299870469}
+  - component: {fileID: 1299870472}
   m_Layer: 5
   m_Name: OptionsButton
   m_TagString: Untagged
@@ -4140,6 +4202,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 239930676}
+        m_TargetAssemblyTypeName: MenuSfx, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
       - m_Target: {fileID: 156813203}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -4190,6 +4264,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1299870467}
   m_CullTransparentMesh: 1
+--- !u!114 &1299870472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299870467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 239930676}
+          m_TargetAssemblyTypeName: MenuSfx, Assembly-CSharp
+          m_MethodName: Hover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1318561184
 GameObject:
   m_ObjectHideFlags: 0
@@ -4843,8 +4946,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: ArachinatoR
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 1ac42e39b0cb3c036815305045bc8eda, type: 2}
-  m_sharedMaterial: {fileID: 4440831020198425577, guid: 1ac42e39b0cb3c036815305045bc8eda, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fbef8452c366a4c3bbb4ef393ceac65e, type: 2}
+  m_sharedMaterial: {fileID: -2863169931778328968, guid: fbef8452c366a4c3bbb4ef393ceac65e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4930,6 +5033,7 @@ GameObject:
   - component: {fileID: 1583186280}
   - component: {fileID: 1583186279}
   - component: {fileID: 1583186278}
+  - component: {fileID: 1583186281}
   m_Layer: 5
   m_Name: PlayButton
   m_TagString: Untagged
@@ -5013,6 +5117,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 239930676}
+        m_TargetAssemblyTypeName: MenuSfx, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1583186279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5051,6 +5167,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1583186276}
   m_CullTransparentMesh: 1
+--- !u!114 &1583186281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583186276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 239930676}
+          m_TargetAssemblyTypeName: MenuSfx, Assembly-CSharp
+          m_MethodName: Hover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1605088117
 GameObject:
   m_ObjectHideFlags: 0
