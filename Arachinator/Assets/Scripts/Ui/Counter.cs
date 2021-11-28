@@ -1,15 +1,15 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class DeathCount : MonoBehaviour
+public class Counter : MonoBehaviour
 {
     [SerializeField] TMP_Text text;
-
-    int deathCount;
+    
     Life playerLife;
+    public int deathCount;
+    public float totalTime;
+
+    void Update () => totalTime += Time.deltaTime;
 
     void Awake()
     {
@@ -30,8 +30,4 @@ public class DeathCount : MonoBehaviour
         text.text = deathCount.ToString();
 
     void Start() => UpdateText();
-
-
-
-
 }
