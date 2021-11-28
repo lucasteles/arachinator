@@ -1,6 +1,6 @@
 # Arachinator
 ![image](https://user-images.githubusercontent.com/1683898/143724839-65e99903-5b63-4a59-9203-242c64526854.png)
-The wasps are zombifying the bugs to dominate the world, destroy all zombie bugs with your BTS (big turret spider).
+The wasps are zombifying the bugs to dominate the world! Try to destroy all monsters with our cute hero MATT (Multi-utility Arachnoid Turret Transport).
 
 ## About
 
