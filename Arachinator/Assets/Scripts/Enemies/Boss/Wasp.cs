@@ -57,7 +57,6 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     [SerializeField] AudioClip landSound;
     [SerializeField] AudioSource zunido;
     [SerializeField] GameObject body;
-    [SerializeField] GameObject explosionPivot;
     [SerializeField] Transform[] flyPoints;
     [SerializeField] float airShakeSize;
     [SerializeField] AnimationCurve moveCurve;
@@ -254,24 +253,11 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     {
         currentState = WaspState.Diyng;
 
-        IEnumerator lookAtCamera()
-        {
-            var mainCam = Camera.main;
-            var targetRot = Quaternion.LookRotation((mainCam.transform.position - transform.position).normalized);
-            var currentRot = transform.rotation;
-            for (var i = 0f; i <= 1; i += .01f)
-            {
-                transform.rotation = Quaternion.Lerp(currentRot, targetRot, i);
-                yield return null;
-            }
-        }
-
         IEnumerator action()
         {
             DisableLeg();
             collider.enabled = false;
             if (inFly) yield return Land();
-            StartCoroutine(lookAtCamera());
             var bloodExplodins = StartCoroutine(waspEffects.BloodExplosions(hitEffect, timeBetweenDeathExplosions));
             yield return animationManager.BeginDeath();
             yield return waspEffects.CloseEyes();

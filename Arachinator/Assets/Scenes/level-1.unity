@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 8900000, guid: d35bf078c68ff3462b55fc33cfd72d5c, type: 3}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.2503972, g: 0.2005328, b: 0.34828022, a: 1}
+  m_IndirectSpecularColor: {r: 0.20492062, g: 0.19365463, b: 0.3388272, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -16699,6 +16699,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4598619291932250, guid: 4cc5d69a469edd745b7b2ed11748a238, type: 3}
   m_PrefabInstance: {fileID: 445236351}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &445744338 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6755830166871461447, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
+  m_PrefabInstance: {fileID: 6186284580667339303}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &445937176 stripped
 Transform:
@@ -79165,6 +79170,10 @@ PrefabInstance:
       propertyPath: dissolveSpeed
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 6186284579922734191, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
+      propertyPath: explosionPivot
+      value: 
+      objectReference: {fileID: 445744338}
     - target: {fileID: 6186284580016113185, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
       propertyPath: speed
       value: 0.02
