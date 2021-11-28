@@ -14,7 +14,7 @@ namespace Assets.Scripts.Ui.WebTutorial
         void Update()
         {
             if (!canvas.enabled) return;
-            if (Input.GetButton("Fire1") || Input.GetButton("Fire2"))
+            if (Input.anyKey)
                 canvas.enabled = false;
         }
     }
