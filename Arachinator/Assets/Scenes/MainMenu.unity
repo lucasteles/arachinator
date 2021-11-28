@@ -728,6 +728,7 @@ GameObject:
   - component: {fileID: 239930672}
   - component: {fileID: 239930671}
   - component: {fileID: 239930675}
+  - component: {fileID: 239930676}
   m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
@@ -834,6 +835,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LoadingScreen: {fileID: 1089610894}
   LoadingText: {fileID: 427369843}
+--- !u!114 &239930676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239930670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bff5f132dc33d9603b664543cbdd830e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicMixer: {fileID: 24100000, guid: 753f36bf6ecf9430dae8ad125aa2405b, type: 2}
+  sfxMixer: {fileID: 24100000, guid: 7cfd2dc06bf584972a3023fe02ef2aa6, type: 2}
+  musicSlider: {fileID: 1318561186}
+  sfxSlider: {fileID: 1105216769}
 --- !u!1001 &270488299
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2820,6 +2837,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1649225504, guid: 893916c3dd2145358ade1937ba0bb46e, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 753f36bf6ecf9430dae8ad125aa2405b, type: 2}
     - target: {fileID: 404011693475376452, guid: 893916c3dd2145358ade1937ba0bb46e, type: 3}
       propertyPath: target
       value: 
@@ -3549,10 +3570,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1373196242}
   m_HandleRect: {fileID: 1839872570}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: -60
+  m_MaxValue: 10
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: -9
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -4274,10 +4295,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1644065832}
   m_HandleRect: {fileID: 593270363}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: -60
+  m_MaxValue: 10
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: -18
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -5821,7 +5842,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1048413615391392966, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1048413615541081984, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: speed
