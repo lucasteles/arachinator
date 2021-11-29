@@ -24,10 +24,10 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     public Dictionary<WaspState, (int from, int to)> Actions =
         new Dictionary<WaspState, (int, int)>
     {
-        [WaspState.Seeking] = (0, 30),
-        [WaspState.Shoot] = (30,40),
-        [WaspState.RunningAway] = (40, 50),
-        [WaspState.RunningAwayAndShoot] = (50,100),
+        [WaspState.Seeking] = (0, 40),
+        [WaspState.Shoot] = (40,50),
+        [WaspState.RunningAway] = (50, 60),
+        [WaspState.RunningAwayAndShoot] = (60,100),
     };
 
     [SerializeField] float timeToSeek = 5;
@@ -70,8 +70,15 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     [SerializeField] Transform shootPointGrounded;
     [SerializeField] float shootingArcDregrees = 45;
     [SerializeField] float shootingArcSpeed = .1f;
+    [SerializeField] float shootingArcSpeedCenter = .1f;
     [SerializeField] int maxShootingTimes = 3;
     [SerializeField] float lastWaveShootCooldown = 10;
+    [SerializeField] Transform centerPoint;
+    [SerializeField] float centerPointRadiusToShootSlow;
+
+
+    [Header("Attack")]
+    [SerializeField] float distanceToAttackWhileSeeking = 3;
 
     [Header("Wave")]
     [SerializeField] bool spawnWaves = true;
@@ -315,8 +322,16 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
             yield return null;
         }
 
+        var arcSpeed =
+            (Vector3.Distance(new Vector2(transform.position.x, transform.position.z),
+                                new Vector2(centerPoint.position.x, centerPoint.position.z)) <= centerPointRadiusToShootSlow)
+                ? shootingArcSpeedCenter
+                : shootingArcSpeed;
+
+        print(arcSpeed);
+
         animationManager.StartShooting();
-        for (var i = 0f; i <= 1; i += shootingArcSpeed)
+        for (var i = 0f; i <= 1; i += arcSpeed)
         {
             transform.rotation = Quaternion.Lerp(Quaternion.LookRotation(from), Quaternion.LookRotation(to), i);
             yield return null;
@@ -464,7 +479,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         var all = flyPoints
             .Select(x => (position: x.position, distance: Vector3.Distance(x.position, playerPos)))
             .OrderByDescending(x => x.distance)
-            .Take(4)
+            .Take(6)
             .ToArray();
         var point = all[Random.Range(0, all.Length)];
         return new Vector3(point.position.x, transform.position.y, point.position.z);
@@ -576,6 +591,8 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         var c = Gizmos.color;
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, roarPushBackRadius);
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(new Vector3(centerPoint.position.x, transform.position.y, centerPoint.position.z), centerPointRadiusToShootSlow);
         Gizmos.color = c;
     }
 #endif
@@ -605,12 +622,22 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         {
             EnableLeg();
             var timer = Time.time + timeToSeek;
+            var attacked = false;
             while (!playerLife.IsDead && Time.time <= timer)
             {
                 LookAtPlayer();
                 transform.position = (transform.position + transform.forward * seekSpeed * Time.deltaTime);
+                if (Vector3.Distance(transform.position, player.transform.position) <= distanceToAttackWhileSeeking)
+                {
+                    attacked = true;
+                    print("Attack");
+                }
                 yield return null;
             }
+
+            if (!playerLife.IsDead && (!attacked || Random.Range(-1,1)==0))
+                yield return Shooting();
+
             DisableLeg();
             SetState(WaspState.Idle);
         }
