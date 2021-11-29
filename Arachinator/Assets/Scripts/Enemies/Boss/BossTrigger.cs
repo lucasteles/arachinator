@@ -41,7 +41,7 @@ public class BossTrigger : MonoBehaviour
     {
         var player = FindObjectOfType<Player>();
         playerLife = player.GetComponent<Life>();
-        playerMovement = player.Movement;
+        playerMovement = player.GetComponent<Movement>();
         originalMusic = musicSource.clip;
         playerLife.onDeath += PlayerDeath;
         bossLife = wasp.GetComponent<Life>();
@@ -126,7 +126,7 @@ public class BossTrigger : MonoBehaviour
     void Update()
     {
         if (!isDefeated) return;    
-        if (Input.anyKey)
+        if (Input.GetKeyDown(KeyCode.Space))
             SceneManager.LoadScene("MainMenu");
     }
 
