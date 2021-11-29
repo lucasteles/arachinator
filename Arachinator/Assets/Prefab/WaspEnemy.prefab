@@ -623,12 +623,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveCube: {fileID: 242913101}
-  legMoveSpeed: 7
-  moveDistance: 1
+  legMoveSpeed: 10
+  moveDistance: 1.3
   moveStoppingDistance: 0.4
   upPosition: 0.3
   oppsiteLeg: {fileID: 1494261985}
-  distanceToClamp: 2
+  distanceToClamp: 5
 --- !u!1 &6186284579922734178
 GameObject:
   m_ObjectHideFlags: 0
@@ -684,7 +684,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dissolveMaterial: {fileID: 2100000, guid: 638f6f93f7b78423aabc74504876f84e, type: 2}
-  dissolveSpeed: 0.002
+  dissolveSpeed: 0.01
+  explosionPivot: {fileID: 6755830166871461447}
 --- !u!114 &6186284579922734176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -777,6 +778,16 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   airShakeSize: 0.02
   moveCurve:
     serializedVersion: 2
@@ -811,9 +822,14 @@ MonoBehaviour:
   shootPoint: {fileID: 6186284581091038034}
   shootPointGrounded: {fileID: 665698658}
   shootingArcDregrees: 55
-  shootingArcSpeed: 0.003
+  shootingArcSpeed: 0.008
+  shootingArcSpeedCenter: 0.015
   maxShootingTimes: 5
   lastWaveShootCooldown: 5
+  centerPoint: {fileID: 0}
+  centerPointRadiusToShootSlow: 7.44
+  distanceToAttackWhileSeeking: 3
+  spawnWaves: 1
   wave:
     currentWave: 0
     enemyCount: 0
@@ -843,6 +859,19 @@ MonoBehaviour:
       - Enemy: {fileID: 8527039263426274505, guid: 3f38622346a1d9746812f298bc08ff41, type: 3}
         Configuration: {fileID: 11400000, guid: 41f75680b769e41fa808a75119defacc, type: 2}
         Quantity: 1
+      - Enemy: {fileID: 358611280729302148, guid: 185716b3677ce7648859c98b44509606, type: 3}
+        Configuration: {fileID: 11400000, guid: 0a846119b3f2e49f1ab071fe52d78ffe, type: 2}
+        Quantity: 2
+      - Enemy: {fileID: 8527039263426274505, guid: 3f38622346a1d9746812f298bc08ff41, type: 3}
+        Configuration: {fileID: 11400000, guid: 41f75680b769e41fa808a75119defacc, type: 2}
+        Quantity: 2
+    - Waves:
+      - Enemy: {fileID: 358611280729302148, guid: 185716b3677ce7648859c98b44509606, type: 3}
+        Configuration: {fileID: 11400000, guid: 0a846119b3f2e49f1ab071fe52d78ffe, type: 2}
+        Quantity: 3
+      - Enemy: {fileID: 8527039263426274505, guid: 3f38622346a1d9746812f298bc08ff41, type: 3}
+        Configuration: {fileID: 11400000, guid: 41f75680b769e41fa808a75119defacc, type: 2}
+        Quantity: 2
       - Enemy: {fileID: 358611280729302148, guid: 185716b3677ce7648859c98b44509606, type: 3}
         Configuration: {fileID: 11400000, guid: 0a846119b3f2e49f1ab071fe52d78ffe, type: 2}
         Quantity: 2
@@ -1114,7 +1143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddf1186f3e18f4edbb4e921bcdbd2add, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLife: 10
+  maxLife: 1000
 --- !u!114 &6186284579922734184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1296,12 +1325,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveCube: {fileID: 1025155906}
-  legMoveSpeed: 7
-  moveDistance: 1
+  legMoveSpeed: 10
+  moveDistance: 1.3
   moveStoppingDistance: 0.4
   upPosition: 0.3
   oppsiteLeg: {fileID: 1801759390}
-  distanceToClamp: 2
+  distanceToClamp: 5
 --- !u!1 &6186284581055076540
 GameObject:
   m_ObjectHideFlags: 0
@@ -1373,12 +1402,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveCube: {fileID: 1305933321}
-  legMoveSpeed: 7
-  moveDistance: 1
+  legMoveSpeed: 10
+  moveDistance: 1.3
   moveStoppingDistance: 0.4
   upPosition: 0.3
   oppsiteLeg: {fileID: 1825879301}
-  distanceToClamp: 2
+  distanceToClamp: 5
 --- !u!1 &6186284581091038035
 GameObject:
   m_ObjectHideFlags: 0
@@ -1403,7 +1432,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6186284581091038035}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.05, y: 2.32, z: 4.374}
+  m_LocalPosition: {x: 0.05, y: 4.9, z: 0.43}
   m_LocalScale: {x: 1.6666667, y: 1.6666667, z: 1.6666667}
   m_Children: []
   m_Father: {fileID: 5931417119632412283}
@@ -1480,12 +1509,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveCube: {fileID: 1037699252}
-  legMoveSpeed: 7
-  moveDistance: 1
+  legMoveSpeed: 10
+  moveDistance: 1.3
   moveStoppingDistance: 0.4
   upPosition: 0.3
   oppsiteLeg: {fileID: 1358481886}
-  distanceToClamp: 2
+  distanceToClamp: 5
 --- !u!1 &6186284581356278471
 GameObject:
   m_ObjectHideFlags: 0
@@ -1557,12 +1586,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveCube: {fileID: 1565369615}
-  legMoveSpeed: 7
-  moveDistance: 1
+  legMoveSpeed: 10
+  moveDistance: 1.3
   moveStoppingDistance: 0.4
   upPosition: 0.3
   oppsiteLeg: {fileID: 932184437}
-  distanceToClamp: 2
+  distanceToClamp: 5
 --- !u!1 &6186284581484755962
 GameObject:
   m_ObjectHideFlags: 0
@@ -1634,12 +1663,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveCube: {fileID: 556468266}
-  legMoveSpeed: 7
-  moveDistance: 1
+  legMoveSpeed: 10
+  moveDistance: 1.3
   moveStoppingDistance: 0.4
   upPosition: 0.3
   oppsiteLeg: {fileID: 1607360707}
-  distanceToClamp: 2
+  distanceToClamp: 5
 --- !u!1 &8743284802646054409
 GameObject:
   m_ObjectHideFlags: 0
@@ -2058,8 +2087,24 @@ PrefabInstance:
       value: -159.88026
       objectReference: {fileID: 0}
     - target: {fileID: -1699439838687945536, guid: a38bb2563e13be6428d8ed14a089a3cd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9939331
+      objectReference: {fileID: 0}
+    - target: {fileID: -1699439838687945536, guid: a38bb2563e13be6428d8ed14a089a3cd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.10990681
+      objectReference: {fileID: 0}
+    - target: {fileID: -1699439838687945536, guid: a38bb2563e13be6428d8ed14a089a3cd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.0041633784
+      objectReference: {fileID: 0}
+    - target: {fileID: -1699439838687945536, guid: a38bb2563e13be6428d8ed14a089a3cd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.0004603767
+      objectReference: {fileID: 0}
+    - target: {fileID: -1699439838687945536, guid: a38bb2563e13be6428d8ed14a089a3cd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -19.286884
+      value: 12.62
       objectReference: {fileID: 0}
     - target: {fileID: -1699439838687945536, guid: a38bb2563e13be6428d8ed14a089a3cd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -2534,6 +2579,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1182280935277089498, guid: a38bb2563e13be6428d8ed14a089a3cd, type: 3}
   m_PrefabInstance: {fileID: 6186284580713081232}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6755830166871461447 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8639136968881674281, guid: a38bb2563e13be6428d8ed14a089a3cd, type: 3}
+  m_PrefabInstance: {fileID: 6186284580713081232}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8186362551057602809 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2612602704059986281, guid: a38bb2563e13be6428d8ed14a089a3cd, type: 3}
@@ -2588,7 +2638,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waspEye: {fileID: 2100000, guid: 99ec4d2cff7eb440d84ccd2dd24d740f, type: 2}
   waspEyeClosed: {fileID: 2100000, guid: 441bd2564a8544729b6479b8935c21fb, type: 2}
-  speed: 0.01
+  speed: 0.02
 --- !u!95 &6186284580069410710
 Animator:
   serializedVersion: 3
@@ -2641,4 +2691,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waspEye: {fileID: 2100000, guid: 99ec4d2cff7eb440d84ccd2dd24d740f, type: 2}
   waspEyeClosed: {fileID: 2100000, guid: 441bd2564a8544729b6479b8935c21fb, type: 2}
-  speed: 0.01
+  speed: 0.02
