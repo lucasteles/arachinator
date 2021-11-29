@@ -314,7 +314,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
         EnableLeg();
         var lookingLeft = Vector2.Dot(new Vector2(playerDirection.x, playerDirection.z),
-                                            new Vector2(transform.right.x,transform.right.z)) > 0;
+            new Vector2(transform.right.x, transform.right.z)) > 0;
         var (from, to) = lookingLeft ? (left.normalized, right.normalized) : (right.normalized, left.normalized);
         for (var i = 0f; i <= 1; i += .2f)
         {
@@ -324,11 +324,9 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
         var arcSpeed =
             (Vector3.Distance(new Vector2(transform.position.x, transform.position.z),
-                                new Vector2(centerPoint.position.x, centerPoint.position.z)) <= centerPointRadiusToShootSlow)
+                new Vector2(centerPoint.position.x, centerPoint.position.z)) <= centerPointRadiusToShootSlow)
                 ? shootingArcSpeedCenter
                 : shootingArcSpeed;
-
-        print(arcSpeed);
 
         animationManager.StartShooting();
         for (var i = 0f; i <= 1; i += arcSpeed)
@@ -336,6 +334,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
             transform.rotation = Quaternion.Lerp(Quaternion.LookRotation(from), Quaternion.LookRotation(to), i);
             yield return null;
         }
+
         animationManager.StopShooting();
         DisableLeg();
         //StopCoroutine(d);
