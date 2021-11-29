@@ -25,9 +25,9 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         new Dictionary<WaspState, (int, int)>
     {
         [WaspState.Seeking] = (0, 40),
-        [WaspState.Shoot] = (40,50),
-        [WaspState.RunningAway] = (50, 60),
-        [WaspState.RunningAwayAndShoot] = (60,100),
+        [WaspState.RunningAwayAndShoot] = (40,80),
+        [WaspState.Shoot] = (80,90),
+        [WaspState.RunningAway] = (90, 100),
     };
 
     [SerializeField] float timeToSeek = 5;
@@ -81,6 +81,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     [SerializeField] float distanceToAttackWhileSeeking = 3;
     [SerializeField] float attackForwardDistance = 3;
     [SerializeField] float attackForwardSpeed = .1f;
+    [SerializeField] Cooldown attackCoodown;
 
     [Header("Wave")]
     [SerializeField] bool spawnWaves = true;
@@ -133,11 +134,10 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
     void AnimationManagerOnonAttack()
     {
-         var pos = transform.position;
-         var targetPos = (player.transform.position - transform.position).normalized * attackForwardDistance;
-         print(1);
          IEnumerator action()
          {
+             var pos = transform.position;
+             var targetPos = pos + (player.transform.position - transform.position).normalized * attackForwardDistance;
              for (var i = 0f; i <= 1; i += attackForwardSpeed)
              {
                  transform.position = Vector3.Lerp(pos, targetPos, i);
@@ -240,8 +240,15 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         DisableLeg();
         yield return idle;
         yield return Roar();
-        yield return animationManager.BeginAttack();
         SetState(WaspState.Idle);
+    }
+
+    IEnumerator Attack()
+    {
+        EnableLeg();
+        yield return animationManager.BeginAttack();
+        //collider.enabled = true;
+        DisableLeg();
     }
 
     void SetState(WaspState newState)
@@ -412,7 +419,6 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     {
         var shootCooldown = new Cooldown(lastWaveShootCooldown);
         invincible = true;
-        shootCooldown.Reset();
         while (true)
         {
             yield return GoToFarPoint();
@@ -609,10 +615,18 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     void OnDrawGizmos()
     {
         var c = Gizmos.color;
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, roarPushBackRadius);
         Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(transform.position, roarPushBackRadius);
+        Gizmos.color = Color.gray;
         Gizmos.DrawWireSphere(new Vector3(centerPoint.position.x, transform.position.y, centerPoint.position.z), centerPointRadiusToShootSlow);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, distanceToAttackWhileSeeking);
+
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + transform.forward * attackForwardDistance);
+
         Gizmos.color = c;
     }
 #endif
@@ -647,10 +661,11 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
             {
                 LookAtPlayer();
                 transform.position = (transform.position + transform.forward * seekSpeed * Time.deltaTime);
-                if (Vector3.Distance(transform.position, player.transform.position) <= distanceToAttackWhileSeeking)
+                if (attackCoodown && Vector3.Distance(transform.position, player.transform.position) <= distanceToAttackWhileSeeking)
                 {
                     attacked = true;
-                    yield return animationManager.BeginAttack();
+                    attackCoodown.Reset();
+                    yield return Attack();
                 }
                 yield return null;
             }
@@ -712,7 +727,6 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         transform.rotation = initialRot;
         wave.Reset();
         life.Reset();
-        invincible = false;
         animationManager.Reset();
         inFly = shouldShake = damageBlinking = false;
 

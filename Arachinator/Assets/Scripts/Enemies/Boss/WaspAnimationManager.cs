@@ -89,10 +89,8 @@ public class WaspAnimationManager : MonoBehaviour
     {
        endAttack = false;
        animator.SetTrigger(AttackTrigger);
-       trailRenderer.emitting = true;
        attackFowardCollider.enabled = true;
        yield return new WaitUntil(() => endAttack);
-       print("AttackEnded");
     }
 
     public void StopShooting()
@@ -109,6 +107,7 @@ public class WaspAnimationManager : MonoBehaviour
     public void InFlyEvent() => inFly = true;
     public void AttackEnd()
     {
+        print("Attack end");
         trailRenderer.emitting = false;
         attackFowardCollider.enabled = false;
         endAttack = true;

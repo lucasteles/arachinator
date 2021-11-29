@@ -19789,9 +19789,9 @@ GameObject:
   m_Component:
   - component: {fileID: 514243260}
   - component: {fileID: 514243261}
-  - component: {fileID: 514243264}
   - component: {fileID: 514243263}
   - component: {fileID: 514243262}
+  - component: {fileID: 514243264}
   m_Layer: 0
   m_Name: Attack
   m_TagString: Untagged
@@ -19932,8 +19932,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba406d07007caa24f97d4bc182ed26c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 7.5
-  force: 25
+  damage: 7
+  force: 30
 --- !u!54 &514243263
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -19950,19 +19950,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 3
---- !u!65 &514243264
-BoxCollider:
+--- !u!136 &514243264
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 514243259}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: ee0beb316abb44b8cbb804ab1f745352, type: 2}
   m_IsTrigger: 0
   m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 0.016366545, y: 0.02995023, z: 0.022805357}
-  m_Center: {x: 0.0006798888, y: -0.011985812, z: -0.001630662}
+  m_Radius: 0.010279864
+  m_Height: 0.058866125
+  m_Direction: 1
+  m_Center: {x: 0.0036433875, y: -0.01567777, z: -0.009999894}
 --- !u!1001 &515505204
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79979,7 +79980,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 10184931, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
       propertyPath: force
-      value: 15
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 19285182658976084, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -80470,16 +80471,36 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 774709232}
     - target: {fileID: 6186284579922734176, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
+      propertyPath: seekSpeed
+      value: 6.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6186284579922734176, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
+      propertyPath: timeToSeek
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6186284579922734176, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
       propertyPath: centerPoint
       value: 
       objectReference: {fileID: 1159016463}
     - target: {fileID: 6186284579922734176, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
+      propertyPath: maxShootingTimes
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6186284579922734176, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
       propertyPath: attackForwardSpeed
-      value: 0.01
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6186284579922734176, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
+      propertyPath: roarPushBackRadius
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6186284579922734176, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
       propertyPath: attackForwardDistance
-      value: 0.2
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6186284579922734176, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
+      propertyPath: lastWaveShootCooldown
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6186284579922734176, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
       propertyPath: flyPoints.Array.data[0]
@@ -80614,9 +80635,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1283534600}
     - target: {fileID: 6186284579922734176, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
+      propertyPath: attackCoodown.cooldownTime
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6186284579922734176, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
       propertyPath: spawnPoints.Array.data[10]
       value: 
       objectReference: {fileID: 1334166943}
+    - target: {fileID: 6186284579922734176, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
+      propertyPath: distanceToAttackWhileSeeking
+      value: 6.41
+      objectReference: {fileID: 0}
     - target: {fileID: 6186284579922734177, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -80665,6 +80694,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: WaspEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 6186284579922734184, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
+      propertyPath: ignore.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6186284579922734184, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
+      propertyPath: ignore.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: a1a4a8b018f6d4808a74c93129f8941f, type: 2}
+    - target: {fileID: 6186284579922734187, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
+      propertyPath: m_Height
+      value: 4.527755
+      objectReference: {fileID: 0}
+    - target: {fileID: 6186284579922734187, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
+      propertyPath: m_Center.y
+      value: 0.00999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 6186284579922734187, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
+      propertyPath: m_Center.z
+      value: -0.2938773
+      objectReference: {fileID: 0}
+    - target: {fileID: 6186284579922734188, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
+      propertyPath: ignore.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6186284579922734188, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
+      propertyPath: ignore.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: a1a4a8b018f6d4808a74c93129f8941f, type: 2}
     - target: {fileID: 6186284580069410709, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
       propertyPath: fastAtack
       value: 
