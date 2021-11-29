@@ -13,7 +13,7 @@ namespace Assets.Scripts.Enemies
              if (other.CompareTag("Player") && other.GetComponent<IDamageble>() is { } damageble)
                  damageble.TakeHit(
                      damage,
-                     collision.collider.ClosestPoint(transform.position),
+                     collision.contacts[0].point,
                      force);
         }
     }

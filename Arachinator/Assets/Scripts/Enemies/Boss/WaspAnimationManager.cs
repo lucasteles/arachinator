@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
 
 public class WaspAnimationManager : MonoBehaviour
@@ -12,6 +10,8 @@ public class WaspAnimationManager : MonoBehaviour
     bool inFly;
     bool takeOff;
     bool iddleEnded;
+    bool deathEnded;
+    bool endAttack;
 
     static readonly int TauntTrigger = Animator.StringToHash("Taunt");
     static readonly int CloseWingsBool = Animator.StringToHash("CloseWings");
@@ -21,6 +21,7 @@ public class WaspAnimationManager : MonoBehaviour
     static readonly int ShootBool = Animator.StringToHash("Shoot");
     static readonly int DeathTrigger = Animator.StringToHash("Death");
     static readonly int ResetTrigger = Animator.StringToHash("Reset");
+    static readonly int AttackTrigger = Animator.StringToHash("Attack");
 
     [Header("Death")]
     [SerializeField] AudioSource audioSource;
@@ -29,15 +30,19 @@ public class WaspAnimationManager : MonoBehaviour
     [SerializeField] AudioClip deathScream;
     [SerializeField] AudioClip deathDrop;
     [SerializeField] AudioClip deathFly;
+    [SerializeField] AudioClip fastAtack;
     [SerializeField] AudioClip deathFly2;
     [SerializeField] AudioClip deathLastBreath;
-    private bool deathEnded;
+    [SerializeField] Collider attackFowardCollider;
 
+    [SerializeField] TrailRenderer trailRenderer;
     public event Action onShoot;
+    public event Action onAttack;
 
     void Awake()
     {
         animator = GetComponent<Animator>();
+       attackFowardCollider.enabled = false;
     }
 
     public IEnumerator Taunt()
@@ -79,6 +84,17 @@ public class WaspAnimationManager : MonoBehaviour
     {
        animator.SetBool(ShootBool, true);
     }
+
+    public IEnumerator BeginAttack()
+    {
+       endAttack = false;
+       animator.SetTrigger(AttackTrigger);
+       trailRenderer.emitting = true;
+       attackFowardCollider.enabled = true;
+       yield return new WaitUntil(() => endAttack);
+       print("AttackEnded");
+    }
+
     public void StopShooting()
     {
        animator.SetBool(ShootBool, false);
@@ -91,6 +107,13 @@ public class WaspAnimationManager : MonoBehaviour
     public void StartTauntEvent() => startTaunt = true;
     public void InGroundEvent() => inFly = false;
     public void InFlyEvent() => inFly = true;
+    public void AttackEnd()
+    {
+        trailRenderer.emitting = false;
+        attackFowardCollider.enabled = false;
+        endAttack = true;
+    }
+
     public void IddleEndEvent() => iddleEnded = true;
     public void TakeOffEvent() => takeOff = true;
     public void ShootEvent() => onShoot?.Invoke();
@@ -120,6 +143,14 @@ public class WaspAnimationManager : MonoBehaviour
         zunidoAudioSource.Stop();
         audioSource.PlayOneShot(deathDrop);
     }
+
+    public void BeginGroundAttackEvent()
+    {
+        trailRenderer.emitting = true;
+        audioSource.PlayOneShot(fastAtack);
+        onAttack?.Invoke();
+    }
+
     public void DeathLastBreath() => audioSource.PlayOneShot(deathLastBreath);
 
     public void DeathEnd() => deathEnded = true;
@@ -130,6 +161,7 @@ public class WaspAnimationManager : MonoBehaviour
         inFly = false;
         takeOff = true;
         iddleEnded = true;
+        endAttack = true;
         animator.SetTrigger(ResetTrigger);
     }
 }

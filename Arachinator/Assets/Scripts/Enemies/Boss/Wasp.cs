@@ -79,6 +79,8 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
     [Header("Attack")]
     [SerializeField] float distanceToAttackWhileSeeking = 3;
+    [SerializeField] float attackForwardDistance = 3;
+    [SerializeField] float attackForwardSpeed = .1f;
 
     [Header("Wave")]
     [SerializeField] bool spawnWaves = true;
@@ -125,6 +127,24 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         life.onDeath += OnDeath;
         wave.OnWaveEnded += WaveOnOnWaveEnded;
         animationManager.onShoot += OnShoot;
+        animationManager.onAttack += AnimationManagerOnonAttack;
+
+    }
+
+    void AnimationManagerOnonAttack()
+    {
+         var pos = transform.position;
+         var targetPos = (player.transform.position - transform.position).normalized * attackForwardDistance;
+         print(1);
+         IEnumerator action()
+         {
+             for (var i = 0f; i <= 1; i += attackForwardSpeed)
+             {
+                 transform.position = Vector3.Lerp(pos, targetPos, i);
+                 yield return null;
+             }
+         }
+        StartCoroutine(action());
     }
 
     void OnDeath(Life obj) => SetState(WaspState.Dying);
@@ -220,6 +240,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         DisableLeg();
         yield return idle;
         yield return Roar();
+        yield return animationManager.BeginAttack();
         SetState(WaspState.Idle);
     }
 
@@ -629,7 +650,7 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
                 if (Vector3.Distance(transform.position, player.transform.position) <= distanceToAttackWhileSeeking)
                 {
                     attacked = true;
-                    print("Attack");
+                    yield return animationManager.BeginAttack();
                 }
                 yield return null;
             }
