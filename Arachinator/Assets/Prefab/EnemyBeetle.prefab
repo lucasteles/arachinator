@@ -1581,7 +1581,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8527039263426274505}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1614,7 +1614,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 2.5
+  m_Time: 0.3
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -1623,7 +1623,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.29999924
+        value: 0.4132042
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -1631,22 +1631,13 @@ TrailRenderer:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.6031459
-        value: 0.015005494
-        inSlope: 0.121195115
-        outSlope: 0.121195115
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.22368427
-        outWeight: 0.48859492
-      - serializedVersion: 3
-        time: 0.78182983
+        time: 1
         value: 0
-        inSlope: 0.26935962
-        outSlope: 0.26935962
+        inSlope: 0
+        outSlope: 0
         tangentMode: 0
         weightedMode: 0
-        inWeight: 1
+        inWeight: 0
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -1688,7 +1679,7 @@ TrailRenderer:
     generateLightingData: 0
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
-  m_Emitting: 1
+  m_Emitting: 0
 --- !u!195 &749355622
 NavMeshAgent:
   m_ObjectHideFlags: 0

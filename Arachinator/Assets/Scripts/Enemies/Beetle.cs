@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
-using Assets.Scripts.Enemies;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.PlayerLoop;
 using Random = UnityEngine.Random;
 
 public class Beetle : MonoBehaviour, IDamageble, IEnemy
@@ -276,7 +274,7 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
         rb.isKinematic = false;
         animator.SetBool(IsShooting, false);
         var time = 0f;
-        trailRenderer.enabled = true;
+        trailRenderer.emitting = true;
         var playedWoosh = false;
         var originalPos = transform.position;
         rb.constraints |= RigidbodyConstraints.FreezePositionY;
@@ -312,7 +310,7 @@ public class Beetle : MonoBehaviour, IDamageble, IEnemy
         foreach (var spiderLegConstraint in GetComponentsInChildren<SpiderLegConstraint>())
             spiderLegConstraint.enabled = true;
 
-        trailRenderer.enabled = false;
+        trailRenderer.emitting = false;
         myCollider.enabled = true;
         hitCollider.enabled = false;
         damage.damage /= 2;

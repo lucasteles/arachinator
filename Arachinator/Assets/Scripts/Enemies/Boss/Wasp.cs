@@ -82,6 +82,8 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     [SerializeField] float attackForwardDistance = 3;
     [SerializeField] float attackForwardSpeed = .1f;
     [SerializeField] Cooldown attackCoodown;
+    [SerializeField] EnemyDamageDealer basicDamageDealer;
+
 
     [Header("Wave")]
     [SerializeField] bool spawnWaves = true;
@@ -245,9 +247,11 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
 
     IEnumerator Attack()
     {
+        basicDamageDealer.active = false;
         EnableLeg();
         yield return animationManager.BeginAttack();
         //collider.enabled = true;
+        basicDamageDealer.active = true;
         DisableLeg();
     }
 
@@ -720,7 +724,6 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
     public void Reset()
     {
         RestoreDefaults();
-        invincible = true;
         zunido.Stop();
         damageAcumulator = 0;
         transform.position = initialPos;
@@ -729,8 +732,8 @@ public class Wasp : MonoBehaviour, IEnemy, IDamageble
         life.Reset();
         animationManager.Reset();
         inFly = shouldShake = damageBlinking = false;
-
         SetState(WaspState.Sleep);
+        invincible = true;
     }
 
     IEnumerator BlinkDamage()

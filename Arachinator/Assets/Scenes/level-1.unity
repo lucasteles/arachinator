@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 8900000, guid: d35bf078c68ff3462b55fc33cfd72d5c, type: 3}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.2503972, g: 0.2005328, b: 0.34828022, a: 1}
+  m_IndirectSpecularColor: {r: 0.20492062, g: 0.19365463, b: 0.3388272, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -36716,6 +36716,17 @@ Transform:
   m_Father: {fileID: 1183740673}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &986974147 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 10184931, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
+  m_PrefabInstance: {fileID: 6186284580667339303}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba406d07007caa24f97d4bc182ed26c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &988384271
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -56538,7 +56549,7 @@ PrefabInstance:
       objectReference: {fileID: 920972797}
     - target: {fileID: 1048413615772019486, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_RootOrder
@@ -56546,7 +56557,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.48
+      value: 11.8
       objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -56554,7 +56565,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.89
+      value: 9.7
       objectReference: {fileID: 0}
     - target: {fileID: 5829961857069224065, guid: ecbbd3886b3ab45b4bdbda5bf5420aa1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -79843,6 +79854,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2119541402}
     m_Modifications:
+    - target: {fileID: 514243262, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
+      propertyPath: force
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 514243262, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
+      propertyPath: damage
+      value: 5.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 514243264, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
+      propertyPath: m_Height
+      value: 0.075189576
+      objectReference: {fileID: 0}
+    - target: {fileID: 514243264, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
+      propertyPath: m_Radius
+      value: 0.022709293
+      objectReference: {fileID: 0}
+    - target: {fileID: 514243264, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
+      propertyPath: m_Center.x
+      value: -0.00032955265
+      objectReference: {fileID: 0}
+    - target: {fileID: 514243264, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
+      propertyPath: m_Center.y
+      value: -0.027372522
+      objectReference: {fileID: 0}
+    - target: {fileID: 514243264, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
+      propertyPath: m_Center.z
+      value: -0.0043304055
+      objectReference: {fileID: 0}
     - target: {fileID: 6186284579922734176, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
       propertyPath: heathBar
       value: 
@@ -79851,6 +79890,10 @@ PrefabInstance:
       propertyPath: centerPoint
       value: 
       objectReference: {fileID: 1159016463}
+    - target: {fileID: 6186284579922734176, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
+      propertyPath: basicDamageDealer
+      value: 
+      objectReference: {fileID: 986974147}
     - target: {fileID: 6186284579922734176, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
       propertyPath: flyPoints.Array.data[0]
       value: 
@@ -79983,6 +80026,10 @@ PrefabInstance:
       propertyPath: spawnPoints.Array.data[9]
       value: 
       objectReference: {fileID: 1283534600}
+    - target: {fileID: 6186284579922734176, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
+      propertyPath: attackCoodown.cooldownTime
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6186284579922734176, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
       propertyPath: spawnPoints.Array.data[10]
       value: 
