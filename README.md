@@ -4,7 +4,8 @@ The wasps are zombifying the bugs to dominate the world! Try to destroy all mons
 
 ## About
 
-This game was made in 30 days for [Game Off 2021](https://itch.io/jam/game-off-2021)
+This game was made in 30 days for [Game Off 2021](https://itch.io/jam/game-off-2021)  
+Check out the [Trailer](https://www.youtube.com/watch?v=d-G1wppmyJQ)
 
 ## License
 
