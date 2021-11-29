@@ -79976,5 +79976,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: WaspEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 6186284580069410709, guid: 42bad64693a874dab9106c992adee2c7, type: 3}
+      propertyPath: startAttack
+      value: 
+      objectReference: {fileID: 8300000, guid: ad907b0964df947978d74f6dc00d0afe, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42bad64693a874dab9106c992adee2c7, type: 3}

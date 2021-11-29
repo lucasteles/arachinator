@@ -31,6 +31,7 @@ public class WaspAnimationManager : MonoBehaviour
     [SerializeField] AudioClip deathDrop;
     [SerializeField] AudioClip deathFly;
     [SerializeField] AudioClip fastAtack;
+    [SerializeField] AudioClip startAttack;
     [SerializeField] AudioClip deathFly2;
     [SerializeField] AudioClip deathLastBreath;
     [SerializeField] Collider attackFowardCollider;
@@ -87,6 +88,7 @@ public class WaspAnimationManager : MonoBehaviour
 
     public IEnumerator BeginAttack()
     {
+       audioSource.PlayOneShot(startAttack);
        endAttack = false;
        animator.SetTrigger(AttackTrigger);
        attackFowardCollider.enabled = true;
