@@ -18,6 +18,13 @@ Movement  | WASD
 Dash      | Space
 Zoom      | Mouse Wheel
 
+## Acknowledgements
+This game was made infinitely better by the help of the following people
+- [Gustavo Passos](https://github.com/theGusPassos): For helping with the player HUD
+- [Adriano Sudário](https://github.com/adriano-sudario): For helping with the game design at the start of the jam
+- [Lucas Bertin](https://github.com/lucascebertin/): For countless hours of playtesting, debugging and speedrunning the game
+- [Filipe Morais](https://github.com/flipps): For playtesting and some QoL suggestions
+
 ## License
 
 See [LICENSE.md](LICENSE.md) for details.
