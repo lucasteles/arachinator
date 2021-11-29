@@ -107,7 +107,6 @@ public class WaspAnimationManager : MonoBehaviour
     public void InFlyEvent() => inFly = true;
     public void AttackEnd()
     {
-        print("Attack end");
         trailRenderer.emitting = false;
         attackFowardCollider.enabled = false;
         endAttack = true;
