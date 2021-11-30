@@ -9,7 +9,7 @@ public class Movement : MonoBehaviour
     Vector3 velocity = Vector3.zero;
 
     HashSet<object> locks = new HashSet<object>();
-	void Start () => rb = GetComponent<Rigidbody>();
+    void Start () => rb = GetComponent<Rigidbody>();
 
     public Vector3 Direction => velocity.normalized;
     public bool IsLocked()
@@ -20,14 +20,14 @@ public class Movement : MonoBehaviour
         return false;
     }
 
-	void FixedUpdate ()
+    void FixedUpdate ()
     {
         if (IsLocked()) return;
 
         rb.MovePosition(transform.position + velocity * Time.fixedDeltaTime);
     }
 
-	public void Move(Vector3 velocity) => this.velocity = velocity;
+    public void Move(Vector3 velocity) => this.velocity = velocity;
 
     public void LookAt(Vector3 point)
     {

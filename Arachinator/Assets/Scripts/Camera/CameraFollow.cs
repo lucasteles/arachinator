@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CameraFollow : MonoBehaviour
 {
@@ -16,6 +17,13 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] Vector3 wallClipOffset;
     Camera myCamera;
     Vector3 velocity = Vector3.zero;
+
+    bool isShooting;
+
+    public void Shoot(InputAction.CallbackContext context)
+    {
+        isShooting = context.started;
+    }
 
     LookAtMouse player;
     public bool IsLocket { get; set; }
@@ -46,7 +54,7 @@ public class CameraFollow : MonoBehaviour
         var cameraDistance = Vector3.up * currentCameraDistance;
         var targetPosition = target.position;
 
-        if (Input.GetButton("Fire1") && !IsLocket)
+        if (isShooting && !IsLocket)
         {
             var mouseAimOffset = (player.CurrentMousePosition - target.position) / 2f;
             if (Vector3.SqrMagnitude(mouseAimOffset) >= Math.Pow(maxLook, 2))
@@ -57,15 +65,7 @@ public class CameraFollow : MonoBehaviour
 
         var desiredPosition = targetPosition + (targetPosition - screenCenterOffset) + offset + cameraDistance;
 
-        // if (Physics.Linecast(transform.position, target.position, out var hitwall))
-        // {
-        //     if (hitwall.collider.gameObject != target.gameObject)
-        //     {
-        //         desiredPosition = hitwall.point + wallClipOffset;
-        //     }
-        // }
-
-        currentCameraDistance -= Input.mouseScrollDelta.y * zoomSpeed;
+        //currentCameraDistance -= Input.mouseScrollDelta.y * zoomSpeed;
         currentCameraDistance = Mathf.Clamp(currentCameraDistance, 0, maxCameraDistance);
         transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, smoothTime);
     }

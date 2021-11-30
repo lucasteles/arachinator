@@ -2,6 +2,7 @@ using Assets.Scripts.Cameras.Effects;
 using UnityEngine;
 using Assets.Scripts.Ui.PlayerFireSpeedUI;
 using UnityEditor;
+using UnityEngine.InputSystem;
 
 public class Gun : MonoBehaviour
 {
@@ -22,6 +23,13 @@ public class Gun : MonoBehaviour
     Cooldown cooldown;
     public bool IsShooting { get; private set; }
     PlayerFireSpeedUI uiFireSpeed;
+
+    bool pressingShootButton, releasedShootButton;
+    public void Shoot(InputAction.CallbackContext context)
+    {
+        pressingShootButton = context.started || context.performed;
+        releasedShootButton = context.canceled;
+    }
 
     void Awake()
     {
@@ -46,7 +54,7 @@ public class Gun : MonoBehaviour
         gunAnimator.SetFloat("RateOfFire", fireSpeed);
         gunAnimator.SetBool("Shooting", true);
     }
-    
+
     public void StopShot()
     {
         gunAnimator.SetBool("Shooting", false);
@@ -54,11 +62,11 @@ public class Gun : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && !gunAnimator.GetBool("Shooting") && canShoot)
+        if (pressingShootButton && !gunAnimator.GetBool("Shooting") && canShoot)
         {
             StartShoot();
         }
-        else if (Input.GetButtonUp("Fire1"))
+        else if (releasedShootButton)
         {
             StopShot();
         }
@@ -91,7 +99,7 @@ public class Gun : MonoBehaviour
     public void IncreaseFireSpeed(float amount)
     {
         fireSpeed += amount;
-        
+
         if (!uiFireSpeed) return;
         uiFireSpeed.SetCurrentSpeed(fireSpeed);
     }

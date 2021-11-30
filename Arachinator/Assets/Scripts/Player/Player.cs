@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour, IDamageble
 {
@@ -34,8 +35,20 @@ public class Player : MonoBehaviour, IDamageble
     Coroutine currentDamageCoroutine;
     bool inDash = false;
     bool hasWebPistol = false;
+    bool dashButtonClicked = false;
+    Vector3 movementDelta;
 
     public Movement Movement => movement;
+
+    public void OnDash(InputAction.CallbackContext context) => dashButtonClicked = context.started || context.performed;
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        var movement = context.ReadValue<Vector2>();
+        movementDelta = new Vector3(movement.x, 0, movement.y);
+
+    }
+
     public bool IsInvincible {
         get => invincible;
         private set => invincible = value; }
@@ -75,14 +88,14 @@ public class Player : MonoBehaviour, IDamageble
     {
         if (life.IsDead || inDash) return;
 
-        if (Input.GetKeyDown(KeyCode.Space) && dashCooldown && !movement.IsLocked())
+        if (dashButtonClicked && dashCooldown && !movement.IsLocked())
         {
             StartCoroutine(Dash());
         }
 
 
-        var input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-        movement.Move(input.normalized * speed);
+        //var input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        movement.Move(movementDelta.normalized * speed);
     }
 
     IEnumerator Dash()

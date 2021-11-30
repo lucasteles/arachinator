@@ -1,6 +1,8 @@
 using System.Collections;
+using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
@@ -20,15 +22,16 @@ public class MainMenu : MonoBehaviour
         yield return null;
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync("level-1");
         asyncOperation.allowSceneActivation = false;
-        
+
         while (!asyncOperation.isDone)
         {
             LoadingText.text = "Loading progress: " + Mathf.Round(asyncOperation.progress * 100) + "%";
             if (asyncOperation.progress >= 0.9f)
             {
                 LoadingText.text = "Press any key to start";
-                if (Input.anyKey)
-                    asyncOperation.allowSceneActivation = true;
+                var myAction = new InputAction(binding: "/*/<button>");
+                myAction.performed += (context) => asyncOperation.allowSceneActivation = true;
+                myAction.Enable();
             }
             yield return null;
         }
@@ -36,10 +39,10 @@ public class MainMenu : MonoBehaviour
 
     public void CloseGame()
     {
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #else
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
             Application.Quit();
-        #endif
+#endif
     }
 }
