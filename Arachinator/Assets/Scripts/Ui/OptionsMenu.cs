@@ -16,16 +16,18 @@ public class OptionsMenu : MonoBehaviour
 
     Resolution[] resolutions;
 
-    void SetVolume(AudioMixer mixer, float volume, bool sfx)
-    {
+    void SetVolume(AudioMixer mixer, float volume, bool sfx) => 
         mixer.SetFloat("MasterVolume", volume);
-        if (sfx) gun.StartShoot();
-    }
 
     float GetVolume(AudioMixer mixer)
     {
         mixer.GetFloat("MasterVolume", out var volume);
         return volume;
+    }
+    
+    public void StartShoot()
+    {
+        gun.StartShoot();
     }
     
     public void StopShoot()
