@@ -78,7 +78,7 @@ public class Gun : MonoBehaviour
     {
         if (Enviroment.IsMobile && firestick!=null)
             return !Utils.PressedJoyStick(firestick);
-        return pressingShootButton;
+        return releasedShootButton;
     }
 
 
@@ -86,7 +86,7 @@ public class Gun : MonoBehaviour
     {
         if (Enviroment.IsMobile && firestick!=null)
             return Utils.PressedJoyStick(firestick);
-        return releasedShootButton;
+        return pressingShootButton;
     }
     void ShotLeftEvent() => Shot(shotPointLeft, muzzleLeftPoint);
     void ShotRightEvent() => Shot(shotPointRight, muzzleRightPoint);
