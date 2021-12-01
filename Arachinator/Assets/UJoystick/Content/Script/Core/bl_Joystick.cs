@@ -48,6 +48,8 @@ public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         StopAllCoroutines();
         isFree = false;
         lastId = -2;
+        StickRect.localScale = Vector3.one;
+        StickRect.position = DeathArea;
     }
 
     /// <summary>
@@ -188,7 +190,8 @@ public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         while (time < Duration)
         {
             StickRect.localScale = Vector3.Lerp(
-                StickRect.localScale, increase
+                StickRect.localScale,
+                increase
                     ? PressScaleVector
                     : Vector3.one, time / Duration);
 
