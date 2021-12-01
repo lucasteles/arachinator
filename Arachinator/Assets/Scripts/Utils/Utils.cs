@@ -82,5 +82,5 @@ public static class Utils
     }
 
     public static bool PressedJoyStick(bl_Joystick firestick) =>
-        !Mathf.Approximately(firestick.Horizontal + firestick.Vertical, 0);
+        !Mathf.Approximately(Mathf.Round(firestick.Horizontal) + Mathf.Round(firestick.Vertical), 0);
 }

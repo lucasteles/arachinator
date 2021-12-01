@@ -42,8 +42,8 @@ public class LookAtMouse : MonoBehaviour
 
         if (Environment.IsMobile && firestick!=null)
         {
-            var h = Mathf.Round(firestick.Horizontal);
-            var v = Mathf.Round(firestick.Vertical);
+            var h = (firestick.Horizontal);
+            var v = (firestick.Vertical);
             var dir = new Vector3(h, 0, v).normalized;
             var lookPoint = transform.position + dir * 2;
             movement.LookAt(lookPoint);
