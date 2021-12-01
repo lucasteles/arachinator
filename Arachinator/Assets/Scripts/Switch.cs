@@ -24,13 +24,15 @@ public class Switch : MonoBehaviour
 
     void Update ()
     {
-        if (!canBeUsed) return;
-        if ((Input.GetKeyDown(KeyCode.E) || ActivateButtom.Instance.Pressed) && !pushed )
+        if (Input.GetKeyDown(KeyCode.E) || ActivateButtom.Instance.Pressed)
             PushSwitch();
     }
     
     public void PushSwitch()
     {
+        if (pushed) return;
+        if (!canBeUsed) return;
+        
         pushed = true;
         transform.parent.GetComponentInChildren<SwitchText>().gameObject.SetActive(false);
         door.GetComponent<Door>().OpenDoor();
