@@ -102,6 +102,7 @@ public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (!isFree)
             return;
 
+        if (Mathf.Abs(lastId) > 100f) Reset();
         //Return to default position with a smooth movement
         StickRect.position = Vector3.SmoothDamp(StickRect.position, DeathArea, ref currentVelocity, smoothTime);
         //When is in default position, we not need continue update this
