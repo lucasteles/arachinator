@@ -2,9 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public static class Utils
 {
+    static Camera mainCamera;
+
+    static Utils()
+    {
+        mainCamera = Camera.main;
+    }
+
     public static bool SeeTargetInFront(float view, float distanceToView, Transform transform,  Life target)
     {
         var looking = new Vector2(transform.forward.x, transform.forward.z);
@@ -47,4 +55,32 @@ public static class Utils
         return new Vector3(x, y, z);
     }
 
+    public static bool IsTouching()
+    {
+        if (Input.touchCount == 0)
+            return false;
+
+        for (var i = 0; i < Input.touchCount; i++)
+            if (Input.GetTouch(i) is var t && !IsPointerOverUIObject(t.position) && t.pressure > 0)
+                return true;
+
+        return false;
+    }
+
+    public static bool IsPointerOverUIObject(Vector2 position) {
+         var eventDataCurrentPosition = new PointerEventData(EventSystem.current)
+         {
+             position = position,
+         };
+         var results = new List<RaycastResult>();
+         EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+         foreach (var item in results)
+             if (IsInLayerMask(item.gameObject, LayerMask.GetMask("MobileUI")))
+                 return true;
+
+         return false;
+    }
+
+    public static bool PressedJoyStick(bl_Joystick firestick) =>
+        !Mathf.Approximately(firestick.Horizontal + firestick.Vertical, 0);
 }

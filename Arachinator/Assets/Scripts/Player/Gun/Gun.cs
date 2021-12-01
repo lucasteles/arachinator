@@ -17,6 +17,7 @@ public class Gun : MonoBehaviour
     [SerializeField] float fireSpeed;
     [SerializeField] CameraShakeData shakeData;
     [SerializeField] Animator gunAnimator;
+    [SerializeField] bl_Joystick firestick;
     [SerializeField] TurretAnimationEvents turretAnimationEvents;
     public bool canShoot = true;
 
@@ -62,15 +63,30 @@ public class Gun : MonoBehaviour
 
     void Update()
     {
-        if (pressingShootButton && !gunAnimator.GetBool("Shooting") && canShoot)
+        if (Pressed() && !gunAnimator.GetBool("Shooting") && canShoot)
         {
             StartShoot();
         }
-        else if (releasedShootButton)
+        else if (IsReleased())
         {
             StopShot();
         }
 
+    }
+
+    bool IsReleased()
+    {
+        if (Enviroment.IsMobile && firestick!=null)
+            return !Utils.PressedJoyStick(firestick);
+        return pressingShootButton;
+    }
+
+
+    bool Pressed()
+    {
+        if (Enviroment.IsMobile && firestick!=null)
+            return Utils.PressedJoyStick(firestick);
+        return pressingShootButton;
     }
     void ShotLeftEvent() => Shot(shotPointLeft, muzzleLeftPoint);
     void ShotRightEvent() => Shot(shotPointRight, muzzleRightPoint);

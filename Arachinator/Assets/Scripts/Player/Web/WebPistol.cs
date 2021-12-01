@@ -25,6 +25,8 @@ public class WebPistol : MonoBehaviour
     public Vector3 ShotPoint => shotPoint.position;
     public Vector3? Target => hitPosition;
 
+
+    bool shotWeb;
     Movement movement;
     Player player;
 
@@ -41,9 +43,21 @@ public class WebPistol : MonoBehaviour
         butPos = butTransform.localPosition;
     }
 
+    bool PressedButton()
+    {
+        if (Enviroment.IsMobile)
+        {
+            var should = shotWeb;
+            shotWeb = false;
+            return should;
+        }
+
+        return Input.GetButtonDown("Fire2");
+    }
+
     void Update()
     {
-        if (Input.GetButtonDown("Fire2") && cooldown)
+        if (PressedButton() && cooldown)
         {
             ThrowWeb();
             cooldown.Reset();
@@ -51,6 +65,11 @@ public class WebPistol : MonoBehaviour
     }
 
     void DisableInvincible() => player.DisableInvicible();
+
+    public void ShotWeb()
+    {
+        shotWeb = true;
+    }
 
     void ThrowWeb()
     {

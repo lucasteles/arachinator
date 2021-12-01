@@ -14,7 +14,7 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] float zoomSpeed = 1;
     [SerializeField] float currentCameraDistance = 0;
     [SerializeField] float maxLook = 6;
-    [SerializeField] Vector3 wallClipOffset;
+    [SerializeField] bl_Joystick firestick;
     Camera myCamera;
     Vector3 velocity = Vector3.zero;
 
@@ -33,6 +33,11 @@ public class CameraFollow : MonoBehaviour
         myCamera = GetComponentInChildren<Camera>();
         player = target.GetComponent<LookAtMouse>();
     }
+
+    float mobileZoonSeed = 0;
+    public void StartZoonIn() => mobileZoonSeed = -zoomSpeed;
+    public void StartZoonOut() => mobileZoonSeed = zoomSpeed;
+    public void StopZoon() => mobileZoonSeed = 0;
 
     void FixedUpdate()
     {
@@ -54,7 +59,7 @@ public class CameraFollow : MonoBehaviour
         var cameraDistance = Vector3.up * currentCameraDistance;
         var targetPosition = target.position;
 
-        if (isShooting && !IsLocket)
+        if (Pressed() && !IsLocket)
         {
             var mouseAimOffset = (player.CurrentMousePosition - target.position) / 2f;
             if (Vector3.SqrMagnitude(mouseAimOffset) >= Math.Pow(maxLook, 2))
@@ -63,9 +68,24 @@ public class CameraFollow : MonoBehaviour
 
         }
 
+        bool Pressed()
+        {
+            if (Enviroment.IsMobile && firestick != null)
+                return Utils.PressedJoyStick(firestick);
+            return isShooting;
+        }
+
         var desiredPosition = targetPosition + (targetPosition - screenCenterOffset) + offset + cameraDistance;
 
-        //currentCameraDistance -= Input.mouseScrollDelta.y * zoomSpeed;
+        if (Enviroment.IsMobile && mobileZoonSeed != 0)
+        {
+            currentCameraDistance += mobileZoonSeed * Time.deltaTime * 2.5f;
+        }
+        else
+        {
+          //  currentCameraDistance -= Input.mouseScrollDelta.y * zoomSpeed;
+        }
+
         currentCameraDistance = Mathf.Clamp(currentCameraDistance, 0, maxCameraDistance);
         transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, smoothTime);
     }

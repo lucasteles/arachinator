@@ -6,16 +6,30 @@ namespace Assets.Scripts.Ui.WebTutorial
     public class WebTutorial : MonoBehaviour
     {
         Canvas canvas;
-        void Awake() => canvas = GetComponent<Canvas>();
+        void Awake()
+        {
+            canvas = GetComponent<Canvas>();
+        }
 
-        public void Show() =>
+        public void Show()
+        {
             canvas.enabled = true;
+            if (Enviroment.IsMobile)
+                ActivateButtom.Instance.Show("OK!");
+        }
 
         void Update()
         {
             if (!canvas.enabled) return;
-            if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2") || Input.GetKeyDown(KeyCode.Space))
+            if (Enviroment.IsMobile)
+            {
+                if (!ActivateButtom.Instance.Pressed) return;
+                ActivateButtom.Instance.Hide();
                 canvas.enabled = false;
+            }
+            else
+                if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2") || Input.GetKeyDown(KeyCode.Space) || Input.touchCount > 0)
+                    canvas.enabled = false;
         }
     }
 }

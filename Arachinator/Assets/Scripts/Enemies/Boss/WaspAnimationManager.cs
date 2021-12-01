@@ -161,6 +161,7 @@ public class WaspAnimationManager : MonoBehaviour
         inFly = false;
         takeOff = true;
         iddleEnded = true;
+        trailRenderer.emitting = false;
         endAttack = true;
         animator.SetTrigger(ResetTrigger);
     }

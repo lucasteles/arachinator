@@ -20,7 +20,7 @@ public class MainMenu : MonoBehaviour
     IEnumerator LoadScene()
     {
         yield return null;
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync("level-1");
+        var asyncOperation = SceneManager.LoadSceneAsync("level-1");
         asyncOperation.allowSceneActivation = false;
 
         while (!asyncOperation.isDone)
@@ -28,10 +28,15 @@ public class MainMenu : MonoBehaviour
             LoadingText.text = "Loading progress: " + Mathf.Round(asyncOperation.progress * 100) + "%";
             if (asyncOperation.progress >= 0.9f)
             {
-                LoadingText.text = "Press any key to start";
-                var myAction = new InputAction(binding: "/*/<button>");
-                myAction.performed += (context) => asyncOperation.allowSceneActivation = true;
-                myAction.Enable();
+                if (Enviroment.IsMobile)
+                    asyncOperation.allowSceneActivation = true;
+                else
+                {
+                    LoadingText.text = "Press any key to start";
+                    var myAction = new InputAction(binding: "/*/<button>");
+                    myAction.performed += (context) => asyncOperation.allowSceneActivation = true;
+                    myAction.Enable();
+                }
             }
             yield return null;
         }

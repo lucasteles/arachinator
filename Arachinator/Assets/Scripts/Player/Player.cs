@@ -24,6 +24,8 @@ public class Player : MonoBehaviour, IDamageble
     [SerializeField]AudioClip dashSound;
     [SerializeField]ParticleSystem dashParticle;
 
+    [SerializeField] bl_Joystick joystick;
+
     public Vector3 RespawnPosition { get; set; }
     PlayerHealthPointsUi ui;
 
@@ -38,16 +40,15 @@ public class Player : MonoBehaviour, IDamageble
     bool dashButtonClicked = false;
     Vector3 movementDelta;
 
-    public Movement Movement => movement;
-
     public void OnDash(InputAction.CallbackContext context) => dashButtonClicked = context.started || context.performed;
 
     public void OnMove(InputAction.CallbackContext context)
     {
         var movement = context.ReadValue<Vector2>();
         movementDelta = new Vector3(movement.x, 0, movement.y);
-
     }
+
+    bool pressedDashButtom;
 
     public bool IsInvincible {
         get => invincible;
@@ -84,18 +85,31 @@ public class Player : MonoBehaviour, IDamageble
         RespawnPosition = startPosition.position;
     }
 
+    bool PressedDash()
+    {   var result = dashButtonClicked || pressedDashButtom;
+        pressedDashButtom = false;
+        return result;
+    }
+
+    public void PressDash() => pressedDashButtom = true;
+    public void ReleaseDash() => pressedDashButtom = false;
+
     void Update ()
     {
         if (life.IsDead || inDash) return;
 
-        if (dashButtonClicked && dashCooldown && !movement.IsLocked())
+        if (PressedDash() && dashCooldown && !movement.IsLocked())
         {
             StartCoroutine(Dash());
         }
 
+        Vector3 input;
+        if (Enviroment.IsMobile && joystick != null)
+            input = new Vector3(Mathf.Round(joystick.Horizontal), 0, Mathf.Round(joystick.Vertical));
+        else
+            input = movementDelta;
 
-        //var input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-        movement.Move(movementDelta.normalized * speed);
+        movement.Move(input.normalized * speed);
     }
 
     IEnumerator Dash()

@@ -126,7 +126,7 @@ public class BossTrigger : MonoBehaviour
     void Update()
     {
         if (!isDefeated) return;    
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.touchCount > 0)
             SceneManager.LoadScene("MainMenu");
     }
 

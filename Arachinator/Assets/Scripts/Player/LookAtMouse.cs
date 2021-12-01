@@ -6,6 +6,7 @@ public class LookAtMouse : MonoBehaviour
     Camera mainCamera;
     [SerializeField]Transform gunPoint;
     [SerializeField] GameObject aim;
+    [SerializeField] bl_Joystick firestick;
     Movement movement;
     Life life;
     Vector3 mousePosition;
@@ -26,13 +27,26 @@ public class LookAtMouse : MonoBehaviour
     {
         mainCamera = Camera.main;
         movement = GetComponent<Movement>();
-        life = GetComponent<Life>();
+        if (Enviroment.IsMobile)
+            aim.SetActive(false);
     }
 
     void Update()
     {
-        if (life is { } l && l.IsDead) return;
+        if (life is { IsDead: true }) return;
+
+        if (Enviroment.IsMobile && firestick!=null)
+        {
+            var h = Mathf.Round(firestick.Horizontal);
+            var v = Mathf.Round(firestick.Vertical);
+            var dir = new Vector3(h, 0, v).normalized;
+            var lookPoint = transform.position + dir * 2;
+            movement.LookAt(lookPoint);
+            return;
+        }
+
         var ray = mainCamera.ScreenPointToRay(mousePosition);
+
         var plan = new Plane(Vector3.up, Vector3.up * gunPoint.position.y);
 
         if (!plan.Raycast(ray, out var dist)) return;
@@ -44,7 +58,6 @@ public class LookAtMouse : MonoBehaviour
         if(usingMouse)
         {
             aim.transform.position = point;
-            aim.SetActive(true);
         }
         else
             aim.SetActive(false);

@@ -7,6 +7,7 @@ using UnityEngine;
 public class EnableWebPistol : MonoBehaviour
 {
     [SerializeField] AudioClip audio;
+    [SerializeField] GameObject mobileButton;
     WebTutorial tutorialUI;
 
     private void Awake() =>
@@ -17,6 +18,9 @@ public class EnableWebPistol : MonoBehaviour
         if (!other.CompareTag("Player")) return;
         
         tutorialUI.Show();
+
+        if (Enviroment.IsMobile && mobileButton!=null)
+            mobileButton.SetActive(true);
         other.GetComponentInChildren<WebPistol>().enabled = true;
         CameraAudioSource.Instance.AudioSource.PlayOneShot(audio);
         Destroy(gameObject);
