@@ -10542,6 +10542,10 @@ MonoBehaviour:
     m_ActionId: 0ddbacad-2cbb-4c61-a221-18d6871b3ea1
     m_ActionName: Player/Interact[/Keyboard/e]
   - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 96be9cf7-d8eb-4e4f-8c5b-d693b0e3c59e
+    m_ActionName: Player/TouchPoint[/Touchscreen/position]
+  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1300851144}
         m_TargetAssemblyTypeName: bl_Joystick, Assembly-CSharp
@@ -10555,8 +10559,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 96be9cf7-d8eb-4e4f-8c5b-d693b0e3c59e
-    m_ActionName: Player/TouchPoint[/Touchscreen/position]
+    m_ActionId: d2f6a368-a2f9-4fd8-b236-80bf8cdc3f7a
+    m_ActionName: Player/TouchShot[/Touchscreen/position]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -34900,6 +34904,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 96be9cf7-d8eb-4e4f-8c5b-d693b0e3c59e
     m_ActionName: Player/TouchPoint[/Touchscreen/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d2f6a368-a2f9-4fd8-b236-80bf8cdc3f7a
+    m_ActionName: Player/TouchShot[/Touchscreen/position]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
