@@ -28,7 +28,7 @@ public class MainMenu : MonoBehaviour
             LoadingText.text = "Loading progress: " + Mathf.Round(asyncOperation.progress * 100) + "%";
             if (asyncOperation.progress >= 0.9f)
             {
-                if (Enviroment.IsMobile)
+                if (Environment.IsMobile)
                     asyncOperation.allowSceneActivation = true;
                 else
                 {

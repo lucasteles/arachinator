@@ -46,10 +46,10 @@
                     "interactions": ""
                 },
                 {
-                    "name": "TouchPoint",
-                    "type": "PassThrough",
-                    "id": "e37017cf-1cd3-4196-81be-a45ff761730c",
-                    "expectedControlType": "Vector2",
+                    "name": "ShootWeb",
+                    "type": "Button",
+                    "id": "29322304-f86c-4a01-b7c8-ecb23a8c6bb8",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 }
@@ -321,12 +321,23 @@
                 },
                 {
                     "name": "",
-                    "id": "a96e7085-9e12-443e-a4ad-b8db82280e3e",
-                    "path": "<Touchscreen>/primaryTouch/position",
+                    "id": "212964fc-8bbb-466b-9799-cb13b4e3aecd",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "TouchPoint",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ShootWeb",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c7f4a21b-832a-487a-99aa-835b54c30511",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "ShootWeb",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -76,7 +76,7 @@ public class Gun : MonoBehaviour
 
     bool IsReleased()
     {
-        if (Enviroment.IsMobile && firestick!=null)
+        if (Environment.IsMobile && firestick!=null)
             return !Utils.PressedJoyStick(firestick);
         return releasedShootButton;
     }
@@ -84,7 +84,7 @@ public class Gun : MonoBehaviour
 
     bool Pressed()
     {
-        if (Enviroment.IsMobile && firestick!=null)
+        if (Environment.IsMobile && firestick!=null)
             return Utils.PressedJoyStick(firestick);
         return pressingShootButton;
     }

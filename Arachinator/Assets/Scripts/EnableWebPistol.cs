@@ -19,7 +19,7 @@ public class EnableWebPistol : MonoBehaviour
         
         tutorialUI.Show();
 
-        if (Enviroment.IsMobile && mobileButton!=null)
+        if (Environment.IsMobile && mobileButton!=null)
             mobileButton.SetActive(true);
         other.GetComponentInChildren<WebPistol>().enabled = true;
         CameraAudioSource.Instance.AudioSource.PlayOneShot(audio);

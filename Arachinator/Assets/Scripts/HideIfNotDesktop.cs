@@ -7,7 +7,7 @@ public class HideIfNotDesktop : MonoBehaviour
 {
     void Awake()
     {
-        if (Enviroment.IsMobile)
+        if (Environment.IsMobile)
             gameObject.SetActive(false);
     }
 }

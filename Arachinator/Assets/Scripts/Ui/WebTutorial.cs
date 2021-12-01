@@ -14,14 +14,14 @@ namespace Assets.Scripts.Ui.WebTutorial
         public void Show()
         {
             canvas.enabled = true;
-            if (Enviroment.IsMobile)
+            if (Environment.IsMobile)
                 ActivateButtom.Instance.Show("OK!");
         }
 
         void Update()
         {
             if (!canvas.enabled) return;
-            if (Enviroment.IsMobile)
+            if (Environment.IsMobile)
             {
                 if (!ActivateButtom.Instance.Pressed) return;
                 ActivateButtom.Instance.Hide();
