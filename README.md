@@ -11,12 +11,14 @@ Check out the gameplay [Trailer](https://www.youtube.com/watch?v=d-G1wppmyJQ)
 
 ## Controls
 
-Action    | Keys
-----------| ---------
-Shoot     | Left Click
-Movement  | WASD
-Dash      | Space
-Zoom      | Mouse Wheel
+Action    | Keys         | Playstation      | Xbox
+----------| -------------| -----------------| -----
+Shoot     | Left Click   | R2               | RT
+Movement  | WASD         | Right Thumbstick | Right Thumbstick
+Aim       | Mouse        | Left Thumbstick  | Left Thumbstick
+Dash      | Space        | L2               | LT
+Zoom      | Mouse Wheel  | DPad             | DPad
+*Locked*  | *Righ Click* | *L1*             | *LB*
 
 ## Acknowledgements
 This game was made infinitely better by the help of the following people
