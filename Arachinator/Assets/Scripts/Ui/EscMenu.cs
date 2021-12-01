@@ -11,9 +11,9 @@ public class EscMenu : MonoBehaviour
 
     public void OnTriggerMenu()
     {
-        NoButton.Select();
         canvas.enabled = !canvas.enabled;
         Time.timeScale = 0f;
+        NoButton.Select();
     }
     void Awake() => canvas = GetComponent<Canvas>();
     void Update()

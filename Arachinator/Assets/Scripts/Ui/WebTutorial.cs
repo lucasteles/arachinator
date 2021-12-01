@@ -18,6 +18,12 @@ namespace Assets.Scripts.Ui.WebTutorial
                 ActivateButtom.Instance.Show("OK!");
         }
 
+        public void Hide()
+        {
+            if (!canvas.enabled) return;
+            canvas.enabled = false;
+        }
+
         void Update()
         {
             if (!canvas.enabled) return;
@@ -27,9 +33,6 @@ namespace Assets.Scripts.Ui.WebTutorial
                 ActivateButtom.Instance.Hide();
                 canvas.enabled = false;
             }
-            else
-                if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2") || Input.GetKeyDown(KeyCode.Space) || Input.touchCount > 0)
-                    canvas.enabled = false;
         }
     }
 }
