@@ -13,9 +13,9 @@ Check out the gameplay [Trailer](https://www.youtube.com/watch?v=d-G1wppmyJQ)
 
 Action    | Keys         | Playstation      | Xbox
 ----------| -------------| -----------------| -----
-Shoot     | Left Click   | R2               | RT
 Movement  | WASD         | Right Thumbstick | Right Thumbstick
 Aim       | Mouse        | Left Thumbstick  | Left Thumbstick
+Shoot     | Left Click   | R2               | RT
 Dash      | Space        | L2               | LT
 Zoom      | Mouse Wheel  | DPad             | DPad
 Interact  | E            | O                | B
