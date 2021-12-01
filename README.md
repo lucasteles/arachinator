@@ -18,6 +18,7 @@ Movement  | WASD         | Right Thumbstick | Right Thumbstick
 Aim       | Mouse        | Left Thumbstick  | Left Thumbstick
 Dash      | Space        | L2               | LT
 Zoom      | Mouse Wheel  | DPad             | DPad
+Interact  | E            | O                | B
 *Locked*  | *Righ Click* | *L1*             | *LB*
 
 ## Acknowledgements
