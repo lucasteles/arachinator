@@ -7,13 +7,14 @@ public class EscMenu : MonoBehaviour
 {
     Canvas canvas;
     [SerializeField] private Button NoButton;
-    public void OnTriggerMenu(InputAction.CallbackContext context)
+    public void OnTriggerMenu(InputAction.CallbackContext context) => OnTriggerMenu();
+
+    public void OnTriggerMenu()
     {
         NoButton.Select();
         canvas.enabled = !canvas.enabled;
-        Time.timeScale = .2f;
+        Time.timeScale = 0f;
     }
-
     void Awake() => canvas = GetComponent<Canvas>();
     void Update()
     {

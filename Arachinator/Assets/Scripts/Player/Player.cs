@@ -134,11 +134,8 @@ public class Player : MonoBehaviour, IDamageble
 
     public void DisableInvicible() => IsInvincible = false;
     public void EnableInvicible() => IsInvincible = true;
+    public void TakeDamage(float amount) => life.Subtract(amount);
 
-    public void TakeDamage(float amount)
-    {
-        life.Subtract(amount);
-    }
     public void TakeHit(float amount, Vector3 from, float force)
     {
         if (IsInvincible || life.IsDead) return;

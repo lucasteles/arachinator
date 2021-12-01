@@ -19,7 +19,7 @@ public class LookAtMouse : MonoBehaviour
     public void OnLook(InputAction.CallbackContext context)
     {
         var lookVector = context.ReadValue<Vector2>();
-        if(lookVector.magnitude < sensitivity) return;
+        if(lookVector.sqrMagnitude < Mathf.Pow(sensitivity,2)) return;
 
         usingMouse = context.control.device == Mouse.current;
         if(usingMouse)

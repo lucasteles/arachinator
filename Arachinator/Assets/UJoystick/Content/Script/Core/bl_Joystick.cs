@@ -1,10 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections;
-using UnityEngine.InputSystem;
-using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
-using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 
 public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
@@ -21,8 +19,6 @@ public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     [SerializeField]private RectTransform StickRect;//The middle joystick UI
     [SerializeField] private RectTransform CenterReference;
 
-    Vector3 mousePosition;
-
     //Privates
     private Vector3 DeathArea;
     private Vector3 currentVelocity;
@@ -33,6 +29,26 @@ public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private Canvas m_Canvas;
     private float diff;
     public Vector3 PressScaleVector;
+
+    Life playerLife;
+    void Awake()
+    {
+        if (FindObjectOfType<Player>() is { } player)
+        {
+            playerLife = player.GetComponent<Life>();
+            playerLife.onDeath += PlayerLifeOnonDeath;
+        }
+    }
+    void OnDestroy() => playerLife.onDeath -= PlayerLifeOnonDeath;
+
+    void PlayerLifeOnonDeath(Life obj) => Reset();
+
+    void Reset()
+    {
+        StopAllCoroutines();
+        isFree = false;
+        lastId = -2;
+    }
 
     /// <summary>
     /// 
@@ -100,25 +116,21 @@ public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     /// <param name="data"></param>
     public void OnPointerDown(PointerEventData data)
     {
+        //strange bug with huge lastIds
+        if (Mathf.Abs(lastId) > 100f) Reset();
         //Detect if is the default touchID
-        if (lastId == -2)
-        {
-            //then get the current id of the current touch.
-            //this for avoid that other touch can take effect in the drag position event.
-            //we only need get the position of this touch
+        if (lastId != -2) return;
 
-            lastId = data.pointerId;
-            //var x = Touch.activeTouches[0].finger;
-            mousePosition = data.position;
-            StopAllCoroutines();
-            StartCoroutine(ScaleJoysctick(true));
-            OnDrag(data);
-            if (backImage != null)
-            {
-                backImage.CrossFadeColor(PressColor, Duration, true, true);
-                stickImage.CrossFadeColor(PressColor, Duration, true, true);
-            }
-        }
+        //then get the current id of the current touch.
+        //this for avoid that other touch can take effect in the drag position event.
+        //we only need get the position of this touch
+        lastId = data.pointerId;
+        StopAllCoroutines();
+        StartCoroutine(ScaleJoysctick(true));
+        OnDrag(data);
+        if (backImage == null) return;
+        backImage.CrossFadeColor(PressColor, Duration, true, true);
+        stickImage.CrossFadeColor(PressColor, Duration, true, true);
     }
 
 
@@ -129,21 +141,20 @@ public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void OnDrag(PointerEventData data)
     {
         //If this touch id is the first touch in the event
-        if (data.pointerId == lastId)
-        {
-            isFree = false;
-            //Get Position of current touch
-            Vector3 position = bl_JoystickUtils.TouchPosition(m_Canvas, data.position, GetTouchID);
+        if (data.pointerId != lastId) return;
 
-            //Rotate into the area circumferential of joystick
-            if (Vector2.Distance(DeathArea, position) < radio)
-            {
-                StickRect.position = position;
-            }
-            else
-            {
-                StickRect.position = DeathArea + (position - DeathArea).normalized * radio;
-            }
+        isFree = false;
+        //Get Position of current touch
+        var position = bl_JoystickUtils.TouchPosition(m_Canvas, data.position);
+
+        //Rotate into the area circumferential of joystick
+        if (Vector2.Distance(DeathArea, position) < radio)
+        {
+            StickRect.position = position;
+        }
+        else
+        {
+            StickRect.position = DeathArea + (position - DeathArea).normalized * radio;
         }
     }
 
@@ -156,18 +167,15 @@ public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         isFree = true;
         currentVelocity = Vector3.zero;
         //leave the default id again
-        if (data.pointerId == lastId)
-        {
-            //-2 due -1 is the first touch id
-            lastId = -2;
-            StopAllCoroutines();
-            StartCoroutine(ScaleJoysctick(false));
-            if (backImage != null)
-            {
-                backImage.CrossFadeColor(NormalColor, Duration, true, true);
-                stickImage.CrossFadeColor(NormalColor, Duration, true, true);
-            }
-        }
+        if (data.pointerId != lastId) return;
+
+        //-2 due -1 is the first touch id
+        lastId = -2;
+        StopAllCoroutines();
+        StartCoroutine(ScaleJoysctick(false));
+        if (backImage == null) return;
+        backImage.CrossFadeColor(NormalColor, Duration, true, true);
+        stickImage.CrossFadeColor(NormalColor, Duration, true, true);
     }
 
     /// <summary>
@@ -176,69 +184,31 @@ public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     /// <returns></returns>
     IEnumerator ScaleJoysctick(bool increase)
     {
-        float _time = 0;
-
-            while (_time < Duration)
-            {
-                Vector3 v = StickRect.localScale;
-            if (increase)
-            {
-                v = Vector3.Lerp(StickRect.localScale, PressScaleVector, (_time / Duration));
-            }
-            else
-            {
-                v = Vector3.Lerp(StickRect.localScale, Vector3.one, (_time / Duration));
-            }
-            StickRect.localScale = v;
-                _time += Time.deltaTime;
-                yield return null;
-            }
-    }
-    
-
-    /// <summary>
-    /// Get the touch by the store touchID 
-    /// </summary>
-    public int GetTouchID
-    {
-        get
+        float time = 0;
+        while (time < Duration)
         {
-            //find in all touches
-            for (int i = 0; i < Input.touches.Length; i++)
-            {
-                if (Input.touches[i].fingerId == lastId)
-                {
-                    return i;
-                }
-            }
-            return -1;
+            StickRect.localScale = Vector3.Lerp(
+                StickRect.localScale, increase
+                    ? PressScaleVector
+                    : Vector3.one, time / Duration);
+
+            time += Time.deltaTime;
+            yield return null;
         }
     }
-
-    private float radio { get { return (Radio * 5 + Mathf.Abs((diff - CenterReference.position.magnitude))); } }
-    private float smoothTime { get { return (1 - (SmoothTime)); } }
+    
+    float radio => Radio * 5 + Mathf.Abs(diff - CenterReference.position.magnitude);
+    float smoothTime => 1 - SmoothTime;
 
     /// <summary>
     /// Value Horizontal of the Joystick
     /// Get this for get the horizontal value of joystick
     /// </summary>
-    public float Horizontal
-    {
-        get
-        {
-            return (StickRect.position.x - DeathArea.x) / Radio;
-        }
-    }
+    public float Horizontal => (StickRect.position.x - DeathArea.x) / Radio;
 
     /// <summary>
     /// Value Vertical of the Joystick
     /// Get this for get the vertical value of joystick
     /// </summary>
-    public float Vertical
-    {
-        get
-        {
-            return (StickRect.position.y - DeathArea.y) / Radio;
-        }
-    }
+    public float Vertical => (StickRect.position.y - DeathArea.y) / Radio;
 }

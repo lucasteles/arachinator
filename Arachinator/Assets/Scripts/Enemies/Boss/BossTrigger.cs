@@ -109,6 +109,8 @@ public class BossTrigger : MonoBehaviour
             }
         }
 
+        if (Environment.IsMobile)
+            ActivateButtom.Instance.Show("OK");
         isDefeated = true;
     }
 
@@ -126,7 +128,7 @@ public class BossTrigger : MonoBehaviour
     void Update()
     {
         if (!isDefeated) return;    
-        if (Input.GetKeyDown(KeyCode.Space) || Input.touchCount > 0)
+        if (Input.GetKeyDown(KeyCode.Space) || (Environment.IsMobile && ActivateButtom.Instance.Pressed))
             SceneManager.LoadScene("MainMenu");
     }
 
