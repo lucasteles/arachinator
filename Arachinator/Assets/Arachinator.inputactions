@@ -66,7 +66,7 @@
                     "type": "Value",
                     "id": "a9bbb92e-e4bb-4a00-a7a2-b7971e47e684",
                     "expectedControlType": "Vector2",
-                    "processors": "",
+                    "processors": "NormalizeVector2",
                     "interactions": ""
                 }
             ],
@@ -397,6 +397,17 @@
                     "interactions": "Hold(duration=0.1,pressPoint=0.1)",
                     "processors": "NormalizeVector2",
                     "groups": "Gamepad",
+                    "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dcd28f54-75f5-4f12-9d49-6a3315bf5682",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Zoom",
                     "isComposite": false,
                     "isPartOfComposite": false
