@@ -32,7 +32,7 @@ public class LookAtMouse : MonoBehaviour
     {
         mainCamera = Camera.main;
         movement = GetComponent<Movement>();
-        if (Enviroment.IsMobile)
+        if (Environment.IsMobile)
             aim.SetActive(false);
     }
 
@@ -40,7 +40,7 @@ public class LookAtMouse : MonoBehaviour
     {
         if (life is { IsDead: true }) return;
 
-        if (Enviroment.IsMobile && firestick!=null)
+        if (Environment.IsMobile && firestick!=null)
         {
             var h = Mathf.Round(firestick.Horizontal);
             var v = Mathf.Round(firestick.Vertical);

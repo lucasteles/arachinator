@@ -104,7 +104,7 @@ public class Player : MonoBehaviour, IDamageble
         }
 
         Vector3 input;
-        if (Enviroment.IsMobile && joystick != null)
+        if (Environment.IsMobile && joystick != null)
             input = new Vector3(Mathf.Round(joystick.Horizontal), 0, Mathf.Round(joystick.Vertical));
         else
             input = movementDelta;

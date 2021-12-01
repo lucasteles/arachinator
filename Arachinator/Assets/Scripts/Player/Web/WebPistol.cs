@@ -2,24 +2,25 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 
 public class WebPistol : MonoBehaviour
 {
-    [SerializeField]Transform shotPoint;
-    [SerializeField]float maxDistance;
-    [SerializeField]float coodownTime;
-    [SerializeField]Rigidbody rigidybody;
-    [SerializeField]AudioSource audioSource;
-    [SerializeField]AudioClip shotClip;
-    [SerializeField]AudioClip hitClip;
-    [SerializeField]float simpleBackdash;
-    [SerializeField]float upForce;
-    [SerializeField]float upBackDashForce;
-    [SerializeField]GameObject webPrefab;
-    [SerializeField]Transform butTransform;
-    [SerializeField]AnimationCurve butScaleCurve;
-    [SerializeField]LayerMask layerMask;
+    [SerializeField] Transform shotPoint;
+    [SerializeField] float maxDistance;
+    [SerializeField] float coodownTime;
+    [SerializeField] Rigidbody rigidybody;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip shotClip;
+    [SerializeField] AudioClip hitClip;
+    [SerializeField] float simpleBackdash;
+    [SerializeField] float upForce;
+    [SerializeField] float upBackDashForce;
+    [SerializeField] GameObject webPrefab;
+    [SerializeField] Transform butTransform;
+    [SerializeField] AnimationCurve butScaleCurve;
+    [SerializeField] LayerMask layerMask;
     Cooldown cooldown;
     Vector3? hitPosition = null;
     public Vector3 ShotPoint => shotPoint.position;
@@ -29,6 +30,7 @@ public class WebPistol : MonoBehaviour
     bool shotWeb;
     Movement movement;
     Player player;
+    bool shootingWeb;
 
     void Awake()
     {
@@ -43,21 +45,27 @@ public class WebPistol : MonoBehaviour
         butPos = butTransform.localPosition;
     }
 
+    public void ShootWeb(InputAction.CallbackContext context)
+    {
+        //shootingWeb = context.started || context.performed;
+        //shootingWeb = context.canceled;
+        if (cooldown)
+        {
+            ThrowWeb();
+            cooldown.Reset();
+        }
+    }
+
     bool PressedButton()
     {
-        if (Enviroment.IsMobile)
-        {
-            var should = shotWeb;
-            shotWeb = false;
-            return should;
-        }
-
-        return Input.GetButtonDown("Fire2");
+        var should = shotWeb;
+        shotWeb = false;
+        return should;
     }
 
     void Update()
     {
-        if (PressedButton() && cooldown)
+        if (Environment.IsMobile && PressedButton() && cooldown)
         {
             ThrowWeb();
             cooldown.Reset();
@@ -123,8 +131,8 @@ public class WebPistol : MonoBehaviour
 
     void ButShotFeedback()
     {
-        if (butScaleCoroutine!=null) StopCoroutine(butScaleCoroutine);
-        if (butTranslateCoroutine!=null) StopCoroutine(butTranslateCoroutine);
+        if (butScaleCoroutine != null) StopCoroutine(butScaleCoroutine);
+        if (butTranslateCoroutine != null) StopCoroutine(butTranslateCoroutine);
         movement.Lock(.3f);
         butTransform.localPosition = butPos;
         butTransform.localScale = butScale;
@@ -133,7 +141,7 @@ public class WebPistol : MonoBehaviour
         {
             var targetScale = new Vector3(butTransform.localScale.x * .6f, butTransform.localScale.y, butTransform.localScale.z);
             yield return null;
-            for (var i = 0f; i <= 1; i+=.045f)
+            for (var i = 0f; i <= 1; i += .045f)
             {
                 butTransform.localScale = Vector3.Lerp(butScale, targetScale, butScaleCurve.Evaluate(i));
                 yield return null;
@@ -144,7 +152,7 @@ public class WebPistol : MonoBehaviour
         IEnumerator routineTranslate()
         {
             var targetPos = butTransform.localPosition - (.008f * butTransform.forward);
-            for (var i = 0f; i <= 1; i+=.1f)
+            for (var i = 0f; i <= 1; i += .1f)
             {
                 butTransform.localPosition = Vector3.Lerp(butPos, targetPos, butScaleCurve.Evaluate(i));
                 yield return null;

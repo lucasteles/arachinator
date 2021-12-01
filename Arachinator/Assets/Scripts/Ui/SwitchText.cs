@@ -9,7 +9,7 @@ public class SwitchText : MonoBehaviour
     {
         var text = GetComponentInChildren<Text>();
 
-        if (Enviroment.IsMobile)
+        if (Environment.IsMobile)
             text.text = "ACTIVATE to open the gate";
         else
             text.text = "Press [E] to open the gate";
@@ -18,14 +18,14 @@ public class SwitchText : MonoBehaviour
     public void Show()
     {
         GetComponent<Canvas>().enabled = true;
-        if (Enviroment.IsMobile)
+        if (Environment.IsMobile)
             ActivateButtom.Instance.Show();
     }
     
     public void Hide()
     {
         GetComponent<Canvas>().enabled = false;
-        if (Enviroment.IsMobile)
+        if (Environment.IsMobile)
             ActivateButtom.Instance.Hide();
     }
 }

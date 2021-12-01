@@ -70,14 +70,14 @@ public class CameraFollow : MonoBehaviour
 
         bool Pressed()
         {
-            if (Enviroment.IsMobile && firestick != null)
+            if (Environment.IsMobile && firestick != null)
                 return Utils.PressedJoyStick(firestick);
             return isShooting;
         }
 
         var desiredPosition = targetPosition + (targetPosition - screenCenterOffset) + offset + cameraDistance;
 
-        if (Enviroment.IsMobile && mobileZoonSeed != 0)
+        if (Environment.IsMobile && mobileZoonSeed != 0)
         {
             currentCameraDistance += mobileZoonSeed * Time.deltaTime * 2.5f;
         }
