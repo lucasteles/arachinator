@@ -44,6 +44,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "TouchPoint",
+                    "type": "PassThrough",
+                    "id": "e37017cf-1cd3-4196-81be-a45ff761730c",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -308,6 +316,17 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "TriggerMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a96e7085-9e12-443e-a4ad-b8db82280e3e",
+                    "path": "<Touchscreen>/primaryTouch/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TouchPoint",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

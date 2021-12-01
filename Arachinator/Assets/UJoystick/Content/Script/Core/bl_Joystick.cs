@@ -2,6 +2,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
@@ -17,6 +18,8 @@ public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     [Header("Reference")]
     [SerializeField]private RectTransform StickRect;//The middle joystick UI
     [SerializeField] private RectTransform CenterReference;
+
+    Vector3 mousePosition;
 
     //Privates
     private Vector3 DeathArea;
@@ -113,6 +116,11 @@ public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
     }
 
+    public void SetMousePosition(InputAction.CallbackContext context)
+    {
+        mousePosition = context.ReadValue<Vector2>();
+    }
+
     /// <summary>
     /// 
     /// </summary>
@@ -124,7 +132,7 @@ public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             isFree = false;
             //Get Position of current touch
-            Vector3 position = bl_JoystickUtils.TouchPosition(m_Canvas,GetTouchID);
+            Vector3 position = bl_JoystickUtils.TouchPosition(m_Canvas, mousePosition, GetTouchID);
 
             //Rotate into the area circumferential of joystick
             if (Vector2.Distance(DeathArea, position) < radio)
