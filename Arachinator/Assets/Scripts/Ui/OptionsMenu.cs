@@ -27,12 +27,16 @@ public class OptionsMenu : MonoBehaviour
         mixer.GetFloat("MasterVolume", out var volume);
         return volume;
     }
+    
+    public void StopShoot()
+    {
+        gun.StopShot();
+    }
     private void Awake()
     {
         gun = FindObjectOfType<Gun>();
         gun.canShoot = false;
     }
-
     void Start()
     {
         qualitySlider.value = QualitySettings.GetQualityLevel();
