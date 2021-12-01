@@ -60,22 +60,6 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
-                },
-                {
-                    "name": "TouchMove",
-                    "type": "PassThrough",
-                    "id": "96be9cf7-d8eb-4e4f-8c5b-d693b0e3c59e",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "TouchShot",
-                    "type": "PassThrough",
-                    "id": "d2f6a368-a2f9-4fd8-b236-80bf8cdc3f7a",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -384,28 +368,6 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b7b50100-7b3e-4284-a930-fc488f2c0dfb",
-                    "path": "<Touchscreen>/position",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Touch",
-                    "action": "TouchMove",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "053f3891-16b4-46ff-86cf-b073fa1030d1",
-                    "path": "<Touchscreen>/position",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Touch",
-                    "action": "TouchShot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -8,7 +8,7 @@ public class Environment : MonoBehaviour
          Application.platform == RuntimePlatform.Android ||
          Application.platform == RuntimePlatform.IPhonePlayer;
 
-    void Awake()
+    void Start()
     {
         if (IsMobile)
         {

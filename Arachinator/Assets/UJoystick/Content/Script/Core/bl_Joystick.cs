@@ -3,6 +3,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.InputSystem;
+using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
+using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 
 public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
@@ -104,7 +106,10 @@ public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             //then get the current id of the current touch.
             //this for avoid that other touch can take effect in the drag position event.
             //we only need get the position of this touch
+
             lastId = data.pointerId;
+            //var x = Touch.activeTouches[0].finger;
+            mousePosition = data.position;
             StopAllCoroutines();
             StartCoroutine(ScaleJoysctick(true));
             OnDrag(data);
@@ -116,10 +121,6 @@ public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
     }
 
-    public void SetMousePosition(InputAction.CallbackContext context)
-    {
-        mousePosition = context.ReadValue<Vector2>();
-    }
 
     /// <summary>
     /// 
@@ -132,7 +133,7 @@ public class bl_Joystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             isFree = false;
             //Get Position of current touch
-            Vector3 position = bl_JoystickUtils.TouchPosition(m_Canvas, mousePosition, GetTouchID);
+            Vector3 position = bl_JoystickUtils.TouchPosition(m_Canvas, data.position, GetTouchID);
 
             //Rotate into the area circumferential of joystick
             if (Vector2.Distance(DeathArea, position) < radio)
