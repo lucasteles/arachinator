@@ -125,10 +125,16 @@ public class BossTrigger : MonoBehaviour
         }
     }
 
+    public void BackToMainMenu()
+    {
+        if (!isDefeated) return;
+        SceneManager.LoadScene("MainMenu");
+    }
+
     void Update()
     {
         if (!isDefeated) return;
-        if (Input.GetKeyDown(KeyCode.Space) || (Environment.IsMobile && ActivateButtom.Instance.Pressed))
+        if (Environment.IsMobile && ActivateButtom.Instance.Pressed)
         {
             SceneManager.LoadScene("MainMenu");
         }
