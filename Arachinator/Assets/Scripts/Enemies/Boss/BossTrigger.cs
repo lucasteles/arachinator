@@ -127,9 +127,11 @@ public class BossTrigger : MonoBehaviour
 
     void Update()
     {
-        if (!isDefeated) return;    
+        if (!isDefeated) return;
         if (Input.GetKeyDown(KeyCode.Space) || (Environment.IsMobile && ActivateButtom.Instance.Pressed))
+        {
             SceneManager.LoadScene("MainMenu");
+        }
     }
 
     void OnDestroy() => playerLife.onDeath -= PlayerDeath;

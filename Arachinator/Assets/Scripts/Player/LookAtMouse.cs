@@ -19,8 +19,7 @@ public class LookAtMouse : MonoBehaviour
     public void OnLook(InputAction.CallbackContext context)
     {
         var lookVector = context.ReadValue<Vector2>();
-        if(lookVector.sqrMagnitude < Mathf.Pow(sensitivity,2)) return;
-
+        if(lookVector.magnitude < sensitivity) return;
         usingMouse = context.control.device == Mouse.current;
         if(usingMouse)
             mousePosition = Mouse.current.position.ReadValue();
@@ -61,10 +60,7 @@ public class LookAtMouse : MonoBehaviour
         Debug.DrawLine(ray.origin, point, Color.red);
 
         if(usingMouse)
-        {
             aim.transform.position = point;
-        }
-        else
-            aim.SetActive(false);
+        aim.SetActive(usingMouse);
     }
 }

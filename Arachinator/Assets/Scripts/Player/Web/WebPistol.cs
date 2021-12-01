@@ -21,6 +21,7 @@ public class WebPistol : MonoBehaviour
     [SerializeField] Transform butTransform;
     [SerializeField] AnimationCurve butScaleCurve;
     [SerializeField] LayerMask layerMask;
+    [SerializeField] bool active;
     Cooldown cooldown;
     Vector3? hitPosition = null;
     public Vector3 ShotPoint => shotPoint.position;
@@ -31,6 +32,8 @@ public class WebPistol : MonoBehaviour
     Movement movement;
     Player player;
     bool shootingWeb;
+
+    public bool Activate() => active = true;
 
     void Awake()
     {
@@ -45,16 +48,7 @@ public class WebPistol : MonoBehaviour
         butPos = butTransform.localPosition;
     }
 
-    public void ShootWeb(InputAction.CallbackContext context)
-    {
-        //shootingWeb = context.started || context.performed;
-        //shootingWeb = context.canceled;
-        if (cooldown)
-        {
-            ThrowWeb();
-            cooldown.Reset();
-        }
-    }
+    public void ShootWeb(InputAction.CallbackContext context) => ShotWeb();
 
     bool PressedButton()
     {
@@ -65,7 +59,7 @@ public class WebPistol : MonoBehaviour
 
     void Update()
     {
-        if (Environment.IsMobile && PressedButton() && cooldown)
+        if (active && PressedButton() && cooldown)
         {
             ThrowWeb();
             cooldown.Reset();

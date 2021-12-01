@@ -21,7 +21,7 @@ public class EnableWebPistol : MonoBehaviour
 
         if (Environment.IsMobile && mobileButton!=null)
             mobileButton.SetActive(true);
-        other.GetComponentInChildren<WebPistol>().enabled = true;
+        other.GetComponentInChildren<WebPistol>().Activate();
         CameraAudioSource.Instance.AudioSource.PlayOneShot(audio);
         Destroy(gameObject);
     }
