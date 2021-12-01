@@ -19,14 +19,19 @@ public class CameraFollow : MonoBehaviour
     Vector3 velocity = Vector3.zero;
 
     bool isShooting;
+    LookAtMouse player;
+    public bool IsLocket { get; set; }
 
     public void Shoot(InputAction.CallbackContext context)
     {
         isShooting = context.started;
     }
 
-    LookAtMouse player;
-    public bool IsLocket { get; set; }
+    public void Zoom(InputAction.CallbackContext context)
+    {
+        currentCameraDistance =
+            currentCameraDistance += context.ReadValue<Vector2>().y * zoomSpeed/-2;
+    }
 
     void Awake()
     {
