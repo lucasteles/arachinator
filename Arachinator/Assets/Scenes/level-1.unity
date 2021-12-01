@@ -34786,7 +34786,7 @@ MonoBehaviour:
     m_ActionId: d2f6a368-a2f9-4fd8-b236-80bf8cdc3f7a
     m_ActionName: Player/TouchShot[/Touchscreen/position]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Touch
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -64326,7 +64326,7 @@ MonoBehaviour:
     m_ActionId: ca3cf0ec-9498-4e64-baf7-2e3d10cf7392
     m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Touch
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -70483,14 +70483,6 @@ PrefabInstance:
     - target: {fileID: 685804374, guid: 9c098decf1e544029a7d0bc807e51670, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -368
-      objectReference: {fileID: 0}
-    - target: {fileID: 689673174, guid: 9c098decf1e544029a7d0bc807e51670, type: 3}
-      propertyPath: Duration
-      value: 0.54
-      objectReference: {fileID: 0}
-    - target: {fileID: 689673174, guid: 9c098decf1e544029a7d0bc807e51670, type: 3}
-      propertyPath: SmoothTime
-      value: 0.907
       objectReference: {fileID: 0}
     - target: {fileID: 754220278, guid: 9c098decf1e544029a7d0bc807e51670, type: 3}
       propertyPath: m_IsActive
