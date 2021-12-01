@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class EscMenu : MonoBehaviour
 {
     Canvas canvas;
-    [SerializeField] private Button NoButton;
+    [SerializeField] Button NoButton;
     public void OnTriggerMenu(InputAction.CallbackContext context) => OnTriggerMenu();
 
     public void OnTriggerMenu()
@@ -21,5 +21,9 @@ public class EscMenu : MonoBehaviour
         if (!canvas.enabled && Time.timeScale < 1)
             Time.timeScale = 1f;
     }
-    public void BackToMenu() => SceneManager.LoadSceneAsync("MainMenu");
+    public void BackToMenu()
+    {
+        if (canvas.enabled)
+            SceneManager.LoadSceneAsync("MainMenu");
+    }
 }
