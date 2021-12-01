@@ -20,12 +20,16 @@ public class SwitchText : MonoBehaviour
         GetComponent<Canvas>().enabled = true;
         if (Environment.IsMobile)
             ActivateButtom.Instance.Show();
+
     }
     
     public void Hide()
     {
         GetComponent<Canvas>().enabled = false;
         if (Environment.IsMobile)
+        {
+
             ActivateButtom.Instance.Hide();
+        }
     }
 }

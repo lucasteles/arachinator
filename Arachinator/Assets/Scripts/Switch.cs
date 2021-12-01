@@ -34,12 +34,16 @@ public class Switch : MonoBehaviour
         if (!canBeUsed) return;
         
         pushed = true;
+        transform.parent.GetComponentInChildren<TriggerEvent>().Disable();
         transform.parent.GetComponentInChildren<SwitchText>().gameObject.SetActive(false);
         door.GetComponent<Door>().OpenDoor();
         currentMaterial.SetFloat("_FresnelLevel", 0);
         currentMaterial.SetFloat("_Auto", 0);
         CameraAudioSource.Instance.AudioSource.PlayOneShot(pushSound);
         if (TryGetComponent<ShinyMaterial>(out var s)) s.Shiny();
+
+        if (Environment.IsMobile)
+            ActivateButtom.Instance.Hide();
     }
 }
 

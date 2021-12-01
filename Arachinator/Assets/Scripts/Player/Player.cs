@@ -40,10 +40,15 @@ public class Player : MonoBehaviour, IDamageble
     bool dashButtonClicked = false;
     Vector3 movementDelta;
 
-    public void OnDash(InputAction.CallbackContext context) => dashButtonClicked = context.started || context.performed;
+    public void OnDash(InputAction.CallbackContext context)
+    {
+        if (life.IsDead) return;
+        dashButtonClicked = context.started || context.performed;
+    }
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (life.IsDead) return;
         var movement = context.ReadValue<Vector2>();
         movementDelta = new Vector3(movement.x, 0, movement.y);
     }

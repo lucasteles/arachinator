@@ -18,6 +18,7 @@ public class LookAtMouse : MonoBehaviour
 
     public void OnLook(InputAction.CallbackContext context)
     {
+        if (life && life.IsDead) return;
         var lookVector = context.ReadValue<Vector2>();
         if(lookVector.magnitude < sensitivity) return;
         usingMouse = context.control.device == Mouse.current;
@@ -31,13 +32,14 @@ public class LookAtMouse : MonoBehaviour
     {
         mainCamera = Camera.main;
         movement = GetComponent<Movement>();
+        life = GetComponent<Life>();
         if (Environment.IsMobile)
             aim.SetActive(false);
     }
 
     void Update()
     {
-        if (life is { IsDead: true }) return;
+        if (life && life.IsDead) return;
 
         if (Environment.IsMobile && firestick!=null)
         {

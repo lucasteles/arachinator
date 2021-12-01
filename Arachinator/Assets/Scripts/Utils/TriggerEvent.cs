@@ -29,11 +29,16 @@ public class TriggerEvent : MonoBehaviour
         if (selfDestruct) Destroy(gameObject);
     }
 
-    private void OnTriggerExit(Collider other)
+    void OnTriggerExit(Collider other)
     {
         triggerEventExit?.Invoke();
     }
 
+    public void Disable()
+    {
+        done = true;
+        runOnce = true;
+    }
 }
 #if UNITY_EDITOR
  [CustomEditor(typeof(TriggerEvent))]
