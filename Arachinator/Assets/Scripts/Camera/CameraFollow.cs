@@ -18,13 +18,21 @@ public class CameraFollow : MonoBehaviour
     Camera myCamera;
     Vector3 velocity = Vector3.zero;
 
+    float buttomPressure;
     bool isShooting;
+    bool usingMouse;
     LookAtMouse player;
     public bool IsLocket { get; set; }
 
     public void Shoot(InputAction.CallbackContext context)
     {
-        isShooting = context.started;
+        usingMouse = context.control.device == Mouse.current;
+        isShooting = context.started || context.performed;
+
+        if (isShooting && !usingMouse)
+            buttomPressure = context.ReadValue<float>();
+        else
+            buttomPressure = 0;
     }
 
     public void Zoom(InputAction.CallbackContext context)
@@ -66,7 +74,11 @@ public class CameraFollow : MonoBehaviour
 
         if (Pressed() && !IsLocket)
         {
-            var mouseAimOffset = (player.CurrentMousePosition - target.position) / 2f;
+            var pos =
+                usingMouse
+                ? player.CurrentMousePosition
+                : player.CurrentMousePosition + player.CurrentDirection * Mathf.Pow(buttomPressure * 5, 3);
+            var mouseAimOffset = (pos - target.position) / 2f;
             if (Vector3.SqrMagnitude(mouseAimOffset) >= Math.Pow(maxLook, 2))
                 mouseAimOffset = mouseAimOffset.normalized * maxLook;
             targetPosition +=  mouseAimOffset;
@@ -84,10 +96,6 @@ public class CameraFollow : MonoBehaviour
         if (Environment.IsMobile && mobileZoonSeed != 0)
         {
             currentCameraDistance += mobileZoonSeed * Time.deltaTime * 2.5f;
-        }
-        else
-        {
-          //  currentCameraDistance -= Input.mouseScrollDelta.y * zoomSpeed;
         }
 
         currentCameraDistance = Mathf.Clamp(currentCameraDistance, 0, maxCameraDistance);

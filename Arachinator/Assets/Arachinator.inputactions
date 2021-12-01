@@ -293,6 +293,17 @@
                 },
                 {
                     "name": "",
+                    "id": "f5d09f22-6544-40ec-b4b6-5caae938ef5b",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "Clamp(max=0.1)",
+                    "groups": "Gamepad",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "695d0831-78f4-4521-89ce-371350689867",
                     "path": "<Keyboard>/space",
                     "interactions": "",

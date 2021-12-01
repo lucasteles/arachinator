@@ -11,10 +11,11 @@ public class LookAtMouse : MonoBehaviour
     [SerializeField] bl_Joystick firestick;
     Movement movement;
     Life life;
-    Vector3 mousePosition;
+    Vector3 targetPosition;
     bool usingMouse;
 
     public Vector3 CurrentMousePosition { get; private set; }
+    public Vector3 CurrentDirection { get; private set; }
 
     public void OnLook(InputAction.CallbackContext context)
     {
@@ -23,9 +24,9 @@ public class LookAtMouse : MonoBehaviour
         if(lookVector.magnitude < sensitivity) return;
         usingMouse = context.control.device == Mouse.current;
         if(usingMouse)
-            mousePosition = Mouse.current.position.ReadValue();
+            targetPosition = Mouse.current.position.ReadValue();
         else
-            mousePosition = lookVector * new Vector2(Screen.width, Screen.height);
+            targetPosition =  lookVector.normalized ;
     }
 
     void Awake()
@@ -52,18 +53,26 @@ public class LookAtMouse : MonoBehaviour
             return;
         }
 
-        var ray = mainCamera.ScreenPointToRay(mousePosition);
-
-        var plan = new Plane(Vector3.up, Vector3.up * gunPoint.position.y);
-
-        if (!plan.Raycast(ray, out var dist)) return;
-        var point = ray.GetPoint(dist);
-        CurrentMousePosition = point;
-        movement.LookAt(point);
-        Debug.DrawLine(ray.origin, point, Color.red);
-
-        if(usingMouse)
+        if (usingMouse)
+        {
+            var ray = mainCamera.ScreenPointToRay(targetPosition);
+            var plan = new Plane(Vector3.up, Vector3.up * gunPoint.position.y);
+            if (!plan.Raycast(ray, out var dist)) return;
+            var point = ray.GetPoint(dist);
+            CurrentMousePosition = point;
+            movement.LookAt(point);
+            Debug.DrawLine(ray.origin, point, Color.red);
             aim.transform.position = point;
+        }
+        else
+        {
+            var dir = new Vector3(targetPosition.x, 0, targetPosition.y).normalized;
+            CurrentDirection = dir;
+            var lookPoint = transform.position + dir;
+            CurrentMousePosition = lookPoint;
+            movement.LookAt(lookPoint);
+
+        }
         aim.SetActive(usingMouse);
     }
 }
