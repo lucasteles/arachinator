@@ -70583,7 +70583,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 689673174, guid: 9c098decf1e544029a7d0bc807e51670, type: 3}
       propertyPath: SmoothTime
-      value: 0.911
+      value: 0.96
       objectReference: {fileID: 0}
     - target: {fileID: 699714310, guid: 9c098decf1e544029a7d0bc807e51670, type: 3}
       propertyPath: m_Layer
