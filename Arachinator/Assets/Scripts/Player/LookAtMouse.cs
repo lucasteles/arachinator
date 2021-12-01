@@ -45,6 +45,7 @@ public class LookAtMouse : MonoBehaviour
             var v = (firestick.Vertical);
             var dir = new Vector3(h, 0, v).normalized;
             var lookPoint = transform.position + dir * 2;
+            CurrentMousePosition = transform.position + dir * 10;;
             movement.LookAt(lookPoint);
             return;
         }
