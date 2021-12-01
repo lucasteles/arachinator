@@ -76,7 +76,7 @@ public class CameraFollow : MonoBehaviour
         }
 
         var desiredPosition = targetPosition + (targetPosition - screenCenterOffset) + offset + cameraDistance;
-
+        print(currentCameraDistance);
         if (Environment.IsMobile && mobileZoonSeed != 0)
         {
             currentCameraDistance += mobileZoonSeed * Time.deltaTime * 2.5f;

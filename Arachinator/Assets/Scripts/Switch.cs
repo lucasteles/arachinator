@@ -24,7 +24,7 @@ public class Switch : MonoBehaviour
 
     void Update ()
     {
-        if (Input.GetKeyDown(KeyCode.E) || ActivateButtom.Instance.Pressed)
+        if (ActivateButtom.Instance.Pressed)
             PushSwitch();
     }
     
