@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class LookAtMouse : MonoBehaviour
 {
+    public float sensitivity = .5f;
+
     Camera mainCamera;
     [SerializeField]Transform gunPoint;
     [SerializeField] GameObject aim;
@@ -16,11 +18,14 @@ public class LookAtMouse : MonoBehaviour
 
     public void OnLook(InputAction.CallbackContext context)
     {
+        var lookVector = context.ReadValue<Vector2>();
+        if(lookVector.magnitude < sensitivity) return;
+
         usingMouse = context.control.device == Mouse.current;
         if(usingMouse)
             mousePosition = Mouse.current.position.ReadValue();
         else
-            mousePosition = context.ReadValue<Vector2>() * new Vector2(Screen.width, Screen.height);
+            mousePosition = lookVector * new Vector2(Screen.width, Screen.height);
     }
 
     void Awake()
