@@ -4590,6 +4590,22 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 10
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 239930676}
+          m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
+          m_MethodName: StopShoot
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1113661688
 GameObject:
   m_ObjectHideFlags: 0
@@ -8334,5 +8350,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: EventSystem
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1198490363063252438, guid: df473ab15176f6cd48fb3789be2876dc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: df473ab15176f6cd48fb3789be2876dc, type: 3}
